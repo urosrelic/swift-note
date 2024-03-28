@@ -4,7 +4,7 @@ import './Navbar.css';
 const Navbar = ({ gridView, setGridView }: GridProps) => {
   const layoutViewIconPath = gridView ? '/list_view.svg' : '/grid_view.svg';
 
-  const handleButtonClick = () => {
+  const handleLayoutChange = () => {
     setGridView?.(!gridView);
   };
 
@@ -18,7 +18,7 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
           <div className='navbar-search'>
             <input type='text' placeholder='Search your notes' />
           </div>
-          <div className='layout-view-button' onClick={handleButtonClick}>
+          <div className='layout-view-button' onClick={handleLayoutChange}>
             <img src={layoutViewIconPath} className='account-icon' />
           </div>
           <div className='navbar-icon'>
@@ -29,7 +29,7 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
     );
   };
 
-  return mobileLayout();
+  return <>{mobileLayout()}</>;
 };
 
 export default Navbar;
