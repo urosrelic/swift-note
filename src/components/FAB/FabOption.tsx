@@ -1,6 +1,5 @@
 interface FabOptionProps {
   option: {
-    label: string;
     iconPath: string;
     onClick: () => void;
   };
