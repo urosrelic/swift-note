@@ -1,0 +1,22 @@
+.fab-option {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: var(--tertiary-color);
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.fab-option img {
+  width: 50%;
+}
+
+.fab-option:hover {
+  background-color: #0056b3;
+}

@@ -1,0 +1,36 @@
+.drawer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  z-index: 1;
+  background-color: var(--drawer-color);
+  transition: width 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+.drawer.open {
+  width: 250px;
+}
+
+.drawer-contents {
+  padding: 1rem;
+}
+
+.logo {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--secondary-color);
+}
+
+.logo span {
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.logo img {
+  cursor: pointer;
+}
