@@ -4,6 +4,7 @@
   --primary-color: #27374d;
   --secondary-color: #dde6ed;
   --tertiary-color: #526d82;
+  --drawer-color: #1c293b;
 }
 
 * {
@@ -14,5 +15,7 @@
 }
 
 body {
+  position: relative;
   background-color: var(--primary-color);
+  height: 100vh;
 }
