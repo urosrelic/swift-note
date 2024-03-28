@@ -18,7 +18,15 @@
   cursor: pointer;
 }
 
-.add-icon {
+.fab-icon {
+  transition: transform 0.2s ease-in-out;
+}
+
+.fab-icon.open {
+  transform: rotate(45deg);
+}
+
+.fab-icon {
   width: 50%;
 }
 

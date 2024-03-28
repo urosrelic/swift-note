@@ -19,12 +19,16 @@ const Fab = () => {
     setIsOpen(!isOpen);
   };
 
-  const fabIcon = isOpen ? '/close.svg' : '/add.svg';
+  const fabIconClassName = isOpen ? 'open' : '';
 
   return (
     <div className='fab-container'>
       <div className='fab-btn' onClick={toggleOptions}>
-        <img className='add-icon' src={fabIcon} />
+        <img
+          className={`fab-icon ${fabIconClassName}`}
+          src='/add.svg'
+          alt='FAB Icon'
+        />
       </div>
       {isOpen && (
         <div className='fab-options'>
