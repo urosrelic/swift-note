@@ -13,14 +13,7 @@
   cursor: pointer;
 }
 
-.fab-option-icon {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.fab-option-icon img {
+.fab-option img {
   width: 50%;
 }
 
