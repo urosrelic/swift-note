@@ -32,17 +32,13 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
           <div className='navbar-icon'>
             <img src='/account.svg' className='account-icon' />
           </div>
+          <Drawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
         </div>
       </div>
     );
   };
 
-  return (
-    <>
-      {mobileLayout()}
-      <Drawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
-    </>
-  );
+  return <>{mobileLayout()}</>;
 };
 
 export default Navbar;

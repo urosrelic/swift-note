@@ -1,13 +1,14 @@
 .drawer {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 0;
   height: 100%;
-  z-index: 1;
   background-color: var(--drawer-color);
-  transition: width 0.3s ease-in-out;
-  overflow: hidden;
+  color: var(--secondary-color);
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  transition: 0.35s ease-in-out;
 }
 
 .drawer.open {
@@ -15,10 +16,15 @@
 }
 
 .drawer-contents {
-  padding: 1rem;
+  width: 100%;
+  margin: 1rem 0;
+  padding: 0.75rem 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .logo {
+  padding: 0 1rem;
   width: 100%;
   display: flex;
   justify-content: space-between;
