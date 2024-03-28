@@ -19,6 +19,7 @@ const Fab = () => {
   };
 
   const fabIconClassName = isOpen ? 'open' : '';
+  const fabOptionsClassName = isOpen ? 'open' : '';
 
   return (
     <div className='fab-container'>
@@ -29,13 +30,11 @@ const Fab = () => {
           alt='FAB Icon'
         />
       </div>
-      {isOpen && (
-        <div className='fab-options'>
-          {options.map((option, index) => (
-            <FabOption key={index} option={option} />
-          ))}
-        </div>
-      )}
+      <div className={`fab-options ${fabOptionsClassName}`}>
+        {options.map((option, index) => (
+          <FabOption key={index} option={option} />
+        ))}
+      </div>
     </div>
   );
 };
