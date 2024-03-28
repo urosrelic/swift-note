@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <div className='app'>
-        <Navbar gridView={gridView} />
+        <Navbar gridView={gridView} setGridView={setGridView} />
         <NoteGrid gridView={gridView} />
         <Fab />
       </div>
