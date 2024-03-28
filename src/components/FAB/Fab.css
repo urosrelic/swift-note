@@ -37,10 +37,10 @@
   transform: translateX(50%);
   display: flex;
   flex-direction: column;
-  opacity: 0; /* Initially hide */
-  transition: opacity 0.2s ease-in-out; /* Add transition */
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
 }
 
 .fab-options.open {
-  opacity: 1; /* Show when open */
+  opacity: 1;
 }
