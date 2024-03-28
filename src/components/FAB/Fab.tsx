@@ -5,7 +5,6 @@ import './Fab.css';
 import FabOption from './FabOption';
 
 interface Option {
-  label: string;
   iconPath: string;
   onClick: () => void;
 }
