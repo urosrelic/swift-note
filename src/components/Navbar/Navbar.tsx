@@ -1,10 +1,12 @@
 import { GridProps } from '../../utils/GridProps';
 import './Navbar.css';
 
-const Navbar = ({ gridView }: GridProps) => {
+const Navbar = ({ gridView, setGridView }: GridProps) => {
   const layoutViewIconPath = gridView ? '/list_view.svg' : '/grid_view.svg';
 
-  const handleButtonClick = () => {};
+  const handleButtonClick = () => {
+    setGridView?.(!gridView);
+  };
 
   const mobileLayout = () => {
     return (
@@ -16,7 +18,7 @@ const Navbar = ({ gridView }: GridProps) => {
           <div className='navbar-search'>
             <input type='text' placeholder='Search your notes' />
           </div>
-          <div className='layout-view-button'>
+          <div className='layout-view-button' onClick={handleButtonClick}>
             <img src={layoutViewIconPath} className='account-icon' />
           </div>
           <div className='navbar-icon'>
