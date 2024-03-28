@@ -1,18 +1,26 @@
+import { useState } from 'react';
 import { GridProps } from '../../utils/GridProps';
+import Drawer from '../Drawer/Drawer';
 import './Navbar.css';
 
 const Navbar = ({ gridView, setGridView }: GridProps) => {
+  const [openDrawer, setOpenDrawer] = useState<boolean>(false);
+
   const layoutViewIconPath = gridView ? '/list_view.svg' : '/grid_view.svg';
 
   const handleLayoutChange = () => {
     setGridView?.(!gridView);
   };
 
+  const handleOpenDrawer = () => {
+    setOpenDrawer(!openDrawer);
+  };
+
   const mobileLayout = () => {
     return (
       <div className='navbar'>
         <div className='navbar-items'>
-          <div className='navbar-icon'>
+          <div className='navbar-icon' onClick={handleOpenDrawer}>
             <img src='/menu.svg' className='menu-icon' />
           </div>
           <div className='navbar-search'>
@@ -29,7 +37,12 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
     );
   };
 
-  return <>{mobileLayout()}</>;
+  return (
+    <>
+      {mobileLayout()}
+      <Drawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
+    </>
+  );
 };
 
 export default Navbar;
