@@ -8,6 +8,11 @@
   --drawer-color: #1c293b;
 }
 
+/* Disable scrollbar but allow scroll */
+::-webkit-scrollbar {
+  display: none;
+}
+
 * {
   font-family: 'Kanit', sans-serif;
   padding: 0;
