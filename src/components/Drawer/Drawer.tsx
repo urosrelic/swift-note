@@ -19,7 +19,6 @@ const Drawer = ({ openDrawer, setOpenDrawer }: DrawerProps) => {
           <span>SwiftNote</span>
           <img src='/close.svg' onClick={handleClose} />
         </div>
-        <hr className='separator'></hr>
         <div className='drawer-options'>
           <div className='drawer-option'>
             <img src='/note.svg' />
