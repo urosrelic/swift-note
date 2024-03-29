@@ -1,0 +1,15 @@
+.notes {
+  padding: 1rem;
+  display: grid;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.notes.grid-view {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.notes.list-view {
+  grid-template-columns: repeat(1, minmax(200px, 1000px));
+}
