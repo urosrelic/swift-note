@@ -8,6 +8,10 @@
   align-items: flex-start;
 }
 
+.note-title {
+  font-size: 1.3rem;
+}
+
 .note-date {
   margin-top: auto;
   width: 100%;
