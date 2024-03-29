@@ -11,6 +11,7 @@
   border: none;
   outline: none;
   cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .fab-option img {
@@ -18,5 +19,5 @@
 }
 
 .fab-option:hover {
-  background-color: #0056b3;
+  background-color: var(--quaternary-color);
 }
