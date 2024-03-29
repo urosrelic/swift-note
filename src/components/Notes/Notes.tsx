@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@uidotdev/usehooks';
 import { GridProps } from '../../utils/GridProps';
 import Note from './Note';
 import './Notes.css';
@@ -42,23 +43,51 @@ const Notes = ({ gridView }: GridProps) => {
 
   const notesClassName = gridView ? 'grid-view' : 'list-view';
 
-  return (
-    <div className={`notes ${notesClassName}`}>
-      {exampleNotes.map(
-        (
-          item,
-          index // Corrected map function
-        ) => (
-          <Note
-            key={index} // Added key prop
-            title={item.title}
-            date={item.date}
-            details={item.details}
-          />
-        )
-      )}
-    </div>
-  );
+  const largerScreen = useMediaQuery('only screen and (min-width: 452px)');
+
+  const smallScreenLayout = () => {
+    return (
+      <div className='notes grid-view'>
+        {exampleNotes.map(
+          (
+            item,
+            index // Corrected map function
+          ) => (
+            <Note
+              key={index} // Added key prop
+              gridView={gridView}
+              title={item.title}
+              date={item.date}
+              details={item.details}
+            />
+          )
+        )}
+      </div>
+    );
+  };
+
+  const largerScreenLayout = () => {
+    return (
+      <div className={`notes ${notesClassName}`}>
+        {exampleNotes.map(
+          (
+            item,
+            index // Corrected map function
+          ) => (
+            <Note
+              key={index} // Added key prop
+              gridView={gridView}
+              title={item.title}
+              date={item.date}
+              details={item.details}
+            />
+          )
+        )}
+      </div>
+    );
+  };
+
+  return largerScreen ? largerScreenLayout() : smallScreenLayout();
 };
 
 export default Notes;
