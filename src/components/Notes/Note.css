@@ -1,4 +1,5 @@
 .note {
+  position: relative;
   min-height: 150px;
   padding: 1rem;
   background-color: var(--secondary-color);
@@ -19,4 +20,78 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
+}
+
+.pin-note {
+  margin: 0.5rem;
+  padding: 0.3rem;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  border-radius: 50%;
+  transition: opacity 0.3s ease-in-out, background-color 0.2s ease;
+}
+
+.paint-note {
+  margin: 0.5rem;
+  padding: 0.3rem;
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  border-radius: 50%;
+  transition: opacity 0.3s ease-in-out, background-color 0.2s ease;
+}
+
+.archive-note {
+  margin: 0.5rem;
+  padding: 0.3rem;
+  position: absolute;
+  bottom: 0px;
+  left: 3rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  border-radius: 50%;
+  transition: opacity 0.3s ease-in-out, background-color 0.2s ease;
+}
+
+.delete-note {
+  margin: 0.5rem;
+  padding: 0.3rem;
+  position: absolute;
+  bottom: 0px;
+  left: 6rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  border-radius: 50%;
+  transition: opacity 0.3s ease-in-out, background-color 0.2s ease;
+}
+
+.pin-note.hover,
+.paint-note.hover,
+.archive-note.hover,
+.delete-note.hover {
+  opacity: 1;
+}
+
+.pin-note:hover,
+.paint-note:hover,
+.archive-note:hover,
+.delete-note:hover {
+  background-color: var(--tertiary-color);
 }
