@@ -26,6 +26,18 @@ const Notes = ({ gridView }: GridProps) => {
       date: '3-31-2024',
       details: '',
     },
+    {
+      title: '',
+      date: '3-31-2024',
+      details:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consectetur',
+    },
+    {
+      title: '',
+      date: '3-31-2024',
+      details:
+        'Lorem ipsusicing elit. onsectetur Loremit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consectetur',
+    },
   ];
 
   const notesClassName = gridView ? 'grid-view' : 'list-view';
