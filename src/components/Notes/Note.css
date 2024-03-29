@@ -23,6 +23,7 @@
 }
 
 .pin-note {
+  position: relative;
   margin: 0.5rem;
   padding: 0.3rem;
   position: absolute;
@@ -94,4 +95,22 @@
 .archive-note:hover,
 .delete-note:hover {
   background-color: var(--tertiary-color);
+}
+
+.tooltip-text {
+  display: none;
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  text-align: center;
+  background-color: #526d82;
+  color: #fff;
+  padding: 0.2rem;
+  border-radius: 5px;
+}
+
+.tooltip-text.hover {
+  display: block;
 }
