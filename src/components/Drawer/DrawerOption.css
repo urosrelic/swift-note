@@ -1,12 +1,19 @@
 .drawer-option {
   margin: 1rem 0;
+  padding: 0.6rem;
   width: 100%;
   display: flex;
   align-items: center;
+  border-radius: 5px;
   justify-content: flex-start;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
-.drawer-option label {
+.drawer-option:hover {
+  background-color: var(--primary-color);
+}
+
+.drawer-option span {
   margin-left: 1rem;
 }
