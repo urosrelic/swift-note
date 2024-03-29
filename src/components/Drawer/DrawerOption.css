@@ -1,0 +1,12 @@
+.drawer-option {
+  margin: 1rem 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+}
+
+.drawer-option label {
+  margin-left: 1rem;
+}
