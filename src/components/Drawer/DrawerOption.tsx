@@ -7,7 +7,7 @@ const DrawerOption = ({ iconPath, label }: DrawerOptionProps) => {
   return (
     <div className='drawer-option'>
       <img className='drawer-option-icon' src={iconPath} />
-      <label>{label}</label>
+      <span>{label}</span>
     </div>
   );
 };
