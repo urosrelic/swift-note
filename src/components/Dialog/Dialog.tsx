@@ -31,8 +31,10 @@ const Dialog = ({ openDialog }: DialogProps) => {
     return;
   }
 
+  const dialogClassName = openDialog ? 'dialog show' : 'dialog';
+
   return (
-    <div className='dialog'>
+    <div className={dialogClassName}>
       {auth.currentUser ? (
         <div className='dialog-auth'>
           Hello {auth.currentUser?.displayName}
