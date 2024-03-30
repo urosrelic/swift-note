@@ -1,4 +1,5 @@
 .navbar {
+  position: relative;
   width: 100%;
   display: flex;
 }
@@ -24,6 +25,10 @@
 
 .navbar-icon img {
   width: 25px;
+}
+
+.account-icon {
+  border-radius: 50%;
 }
 
 .layout-view-button {

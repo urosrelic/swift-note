@@ -4,13 +4,33 @@ import { GridProps } from '../../utils/GridProps';
 import Drawer from '../Drawer/Drawer';
 import './Navbar.css';
 
+import { User } from 'firebase/auth'; // Import the User type from Firebase
 import { useEffect } from 'react';
+import { auth } from '../../config/firebase';
+import Dialog from '../Dialog/Dialog';
 
 const Navbar = ({ gridView, setGridView }: GridProps) => {
+  const [user, setUser] = useState<User | null>(null);
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
+
   const layoutButtonVisible = useMediaQuery(
     'only screen and (min-width: 452px)'
   );
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) =>
+      user ? setUser(user) : setUser(null)
+    );
+
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    openDrawer
+      ? (document.body.style.overflow = 'hidden')
+      : (document.body.style.overflow = 'unset');
+  }, [openDrawer]);
 
   const layoutViewIconPath = gridView ? '/list_view.svg' : '/grid_view.svg';
 
@@ -21,12 +41,6 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
   const handleOpenDrawer = () => {
     setOpenDrawer(!openDrawer);
   };
-
-  useEffect(() => {
-    openDrawer
-      ? (document.body.style.overflow = 'hidden')
-      : (document.body.style.overflow = 'unset');
-  }, [openDrawer]);
 
   return (
     <div className='navbar'>
@@ -42,10 +56,26 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
             <img src={layoutViewIconPath} />
           </div>
         )}
-        <div className='navbar-icon'>
-          <img src='/account.svg' className='account-icon' />
-        </div>
+        {user ? (
+          <div
+            className='navbar-icon'
+            onClick={() => setOpenDialog(!openDialog)}
+          >
+            <img
+              src={user.photoURL ? user.photoURL : '/account.svg'}
+              className='account-icon'
+            />
+          </div>
+        ) : (
+          <div className='navbar-icon'>
+            <img
+              src='/account.svg'
+              onClick={() => setOpenDialog(!openDialog)}
+            />
+          </div>
+        )}
         <Drawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
+        <Dialog openDialog={openDialog} />
       </div>
     </div>
   );
