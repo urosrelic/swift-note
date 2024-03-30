@@ -1,5 +1,5 @@
 import { useMediaQuery } from '@uidotdev/usehooks';
-import { GridProps } from '../../utils/GridProps';
+import { GridProps } from '../../utils/types/GridProps';
 import Note from './Note';
 import './Notes.css';
 

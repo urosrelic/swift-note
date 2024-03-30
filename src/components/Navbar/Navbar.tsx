@@ -1,6 +1,6 @@
 import { useMediaQuery } from '@uidotdev/usehooks';
 import { useState } from 'react';
-import { GridProps } from '../../utils/GridProps';
+import { GridProps } from '../../utils/types/GridProps';
 import Drawer from '../Drawer/Drawer';
 import './Navbar.css';
 
