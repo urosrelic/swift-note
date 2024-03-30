@@ -4,27 +4,19 @@ import { GridProps } from '../../utils/types/GridProps';
 import Drawer from '../Drawer/Drawer';
 import './Navbar.css';
 
-import { User } from 'firebase/auth'; // Import the User type from Firebase
 import { useEffect } from 'react';
-import { auth } from '../../config/firebase';
+import { useCurrentUser } from '../../hooks/useCurrentUser';
 import Dialog from '../Dialog/Dialog';
 
 const Navbar = ({ gridView, setGridView }: GridProps) => {
-  const [user, setUser] = useState<User | null>(null);
+  const currentUser = useCurrentUser();
+
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
 
   const layoutButtonVisible = useMediaQuery(
     'only screen and (min-width: 452px)'
   );
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) =>
-      user ? setUser(user) : setUser(null)
-    );
-
-    return () => unsubscribe();
-  }, []);
 
   useEffect(() => {
     openDrawer
@@ -56,13 +48,13 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
             <img src={layoutViewIconPath} />
           </div>
         )}
-        {user ? (
+        {currentUser ? (
           <div
             className='navbar-icon'
             onClick={() => setOpenDialog(!openDialog)}
           >
             <img
-              src={user.photoURL ? user.photoURL : '/account.svg'}
+              src={currentUser.photoURL ? currentUser.photoURL : '/account.svg'}
               className='account-icon'
             />
           </div>
