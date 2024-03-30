@@ -1,0 +1,42 @@
+.dialog {
+  width: calc(100% - 2rem); /* Adjusted width to account for margins */
+  height: 200px;
+  position: absolute;
+  top: calc(100% - 20px);
+  right: 0;
+  padding: 1rem;
+  margin: 1rem;
+  background-color: #526d82;
+  border-radius: 5px;
+  z-index: 1;
+  opacity: 1;
+  color: var(--secondary-color);
+}
+
+.google-sign-in-btn {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  cursor: pointer;
+  background-color: var(--secondary-color);
+  border-radius: 5px;
+  color: var(--primary-color);
+}
+
+.google-sign-in-btn img {
+  width: 30px;
+  margin-right: 10px;
+}
+
+.google-sign-in-btn span {
+  font-size: 1rem;
+}
+
+@media only screen and (min-width: 500px) {
+  .dialog {
+    width: 400px;
+  }
+}
