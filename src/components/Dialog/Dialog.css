@@ -1,7 +1,7 @@
 .dialog {
   position: relative;
   width: calc(100% - 2rem); /* Adjusted width to account for margins */
-  height: 235px;
+  height: auto;
   position: absolute;
   top: calc(100% - 25px);
   right: 0;
