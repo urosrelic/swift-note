@@ -54,7 +54,7 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
             onClick={() => setOpenDialog(!openDialog)}
           >
             <img
-              src={currentUser.photoURL ? currentUser.photoURL : '/account.svg'}
+              src={currentUser.photoURL || 'account.svg'}
               className='account-icon'
             />
           </div>
