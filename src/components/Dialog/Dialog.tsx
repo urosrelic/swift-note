@@ -7,10 +7,13 @@ interface DialogProps {
 }
 
 import { auth } from '../../config/firebase';
+import { useClickOutside } from '../../hooks/useClickOutside';
 import { useCurrentUser } from '../../hooks/useCurrentUser';
 
 const Dialog = ({ openDialog, setOpenDialog }: DialogProps) => {
   const googleAuthProvider = new GoogleAuthProvider();
+
+  const domNode = useClickOutside<HTMLDivElement>(setOpenDialog);
 
   const currentUser = useCurrentUser();
 
@@ -34,7 +37,7 @@ const Dialog = ({ openDialog, setOpenDialog }: DialogProps) => {
   const dialogClassName = openDialog ? 'dialog show' : 'dialog';
 
   return (
-    <div className={dialogClassName}>
+    <div className={dialogClassName} ref={domNode}>
       {currentUser ? (
         <div className='dialog-container auth'>
           <span className='account-name'>{currentUser?.email}</span>
