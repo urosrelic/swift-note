@@ -8,6 +8,7 @@
   top: 0;
   left: -300px;
   transition: 0.4s ease-in-out;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .drawer.open {
