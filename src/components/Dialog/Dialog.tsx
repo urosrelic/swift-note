@@ -42,16 +42,21 @@ const Dialog = ({ openDialog, setOpenDialog }: DialogProps) => {
       {currentUser ? (
         <div className='dialog-container auth'>
           <span className='account-name'>{currentUser?.email}</span>
-
           <div className='account-image'>
             <img
               src={currentUser.photoURL ? currentUser.photoURL : '/account.svg'}
             />
           </div>
-          <span className='account-name'>Hi, {currentUser?.displayName}</span>
-
+          <div className='account-name'>
+            <span>Hi, {currentUser?.displayName}</span>
+          </div>
+          <div className='dialog-btn profile'>
+            <img src='/person.svg' />
+            <span>Profile</span>
+          </div>
           <div className='dialog-btn logout' onClick={logout}>
-            Logout
+            <img src='/logout.svg' />
+            <span>Logout</span>
           </div>
         </div>
       ) : (
