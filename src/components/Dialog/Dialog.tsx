@@ -7,10 +7,13 @@ interface DialogProps {
 
 import { useAuth } from '../../hooks/useAuth';
 import { useClickOutside } from '../../hooks/useClickOutside';
+import { useModal } from '../../hooks/useModal';
 
 const Dialog = ({ openDialog, setOpenDialog }: DialogProps) => {
   const domNode = useClickOutside<HTMLDivElement>(setOpenDialog);
   const { currentUser, handleGoogleSignIn, logout } = useAuth();
+
+  const { openModal } = useModal();
 
   const dialogClassName = openDialog ? 'dialog show' : 'dialog';
 
@@ -43,7 +46,7 @@ const Dialog = ({ openDialog, setOpenDialog }: DialogProps) => {
             <img src='/google.svg' />
             <span>Sign in with Google</span>
           </div>
-          <div className='dialog-btn'>
+          <div className='dialog-btn' onClick={openModal}>
             <img src='/email.svg' />
             <span>Sign in with Email</span>
           </div>
