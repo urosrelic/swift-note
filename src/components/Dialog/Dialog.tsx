@@ -31,10 +31,6 @@ const Dialog = ({ openDialog, setOpenDialog }: DialogProps) => {
     }
   };
 
-  if (!openDialog) {
-    return;
-  }
-
   const dialogClassName = openDialog ? 'dialog show' : 'dialog';
 
   return (
