@@ -56,7 +56,7 @@ const Dialog = ({ openDialog, setOpenDialog }: DialogProps) => {
         className='close-dialog-btn'
         onClick={() => setOpenDialog(!openDialog)}
       >
-        X
+        <img src='/close.svg' />
       </div>
     </div>
   );
