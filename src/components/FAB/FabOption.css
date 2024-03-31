@@ -11,6 +11,8 @@
   border: none;
   outline: none;
   cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .fab-option img {
@@ -18,5 +20,5 @@
 }
 
 .fab-option:hover {
-  background-color: #0056b3;
+  background-color: var(--quaternary-color);
 }

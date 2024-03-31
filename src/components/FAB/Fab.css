@@ -16,6 +16,7 @@
   border: none;
   outline: none;
   cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .fab-icon {
@@ -33,14 +34,18 @@
 .fab-options {
   position: absolute;
   bottom: calc(100% + 10px);
-  right: 50%;
-  transform: translateX(50%);
+  right: 15%;
+  transform: translateY(20px);
   display: flex;
   flex-direction: column;
   opacity: 0;
-  transition: opacity 0.2s ease-in-out;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0s linear 0.3s, transform 0.3s ease;
 }
 
 .fab-options.open {
   opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, visibility 0s linear, transform 0.3s ease;
 }

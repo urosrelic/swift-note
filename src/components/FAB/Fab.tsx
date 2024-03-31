@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { fabOptions } from '../../utils/FabOptions';
 
+import { useClickOutside } from '../../hooks/useClickOutside';
 import './Fab.css';
 import FabOption from './FabOption';
 
@@ -21,8 +22,9 @@ const Fab = () => {
   const fabIconClassName = isOpen ? 'open' : '';
   const fabOptionsClassName = isOpen ? 'open' : '';
 
+  const domNode = useClickOutside<HTMLDivElement>(setIsOpen);
   return (
-    <div className='fab-container'>
+    <div className='fab-container' ref={domNode}>
       <div className='fab-btn' onClick={toggleOptions}>
         <img
           className={`fab-icon ${fabIconClassName}`}

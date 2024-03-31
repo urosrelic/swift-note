@@ -1,3 +1,4 @@
+import { useClickOutside } from '../../hooks/useClickOutside';
 import './Drawer.css';
 import DrawerOption from './DrawerOption';
 
@@ -13,8 +14,10 @@ const Drawer = ({ openDrawer, setOpenDrawer }: DrawerProps) => {
     setOpenDrawer(!openDrawer);
   };
 
+  const domNode = useClickOutside<HTMLDivElement>(setOpenDrawer);
+
   return (
-    <div className={`drawer ${drawerClass}`}>
+    <div className={`drawer ${drawerClass}`} ref={domNode}>
       <div className='drawer-contents'>
         <div className='logo'>
           <span>SwiftNote</span>
