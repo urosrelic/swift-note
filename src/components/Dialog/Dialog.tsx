@@ -1,4 +1,3 @@
-import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import './Dialog.css';
 
 interface DialogProps {
@@ -6,33 +5,12 @@ interface DialogProps {
   setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-import { auth } from '../../config/firebase';
+import { useAuth } from '../../hooks/useAuth';
 import { useClickOutside } from '../../hooks/useClickOutside';
-import { useCurrentUser } from '../../hooks/useCurrentUser';
 
 const Dialog = ({ openDialog, setOpenDialog }: DialogProps) => {
-  const googleAuthProvider = new GoogleAuthProvider();
-
   const domNode = useClickOutside<HTMLDivElement>(setOpenDialog);
-
-  const currentUser = useCurrentUser();
-
-  const handleSignIn = async () => {
-    try {
-      const result = await signInWithPopup(auth, googleAuthProvider);
-      console.log(result);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const logout = async () => {
-    try {
-      await signOut(auth);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const { currentUser, handleGoogleSignIn, logout } = useAuth();
 
   const dialogClassName = openDialog ? 'dialog show' : 'dialog';
 
@@ -61,7 +39,7 @@ const Dialog = ({ openDialog, setOpenDialog }: DialogProps) => {
       ) : (
         <div className='dialog-container'>
           <span className='dialog-text'>Login</span>
-          <div className='dialog-btn' onClick={handleSignIn}>
+          <div className='dialog-btn' onClick={handleGoogleSignIn}>
             <img src='/google.svg' />
             <span>Sign in with Google</span>
           </div>

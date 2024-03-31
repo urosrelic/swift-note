@@ -5,11 +5,11 @@ import Drawer from '../Drawer/Drawer';
 import './Navbar.css';
 
 import { useEffect } from 'react';
-import { useCurrentUser } from '../../hooks/useCurrentUser';
+import { useAuth } from '../../hooks/useAuth';
 import Dialog from '../Dialog/Dialog';
 
 const Navbar = ({ gridView, setGridView }: GridProps) => {
-  const currentUser = useCurrentUser();
+  const { currentUser } = useAuth();
 
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
@@ -59,11 +59,11 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
             />
           </div>
         ) : (
-          <div className='navbar-icon'>
-            <img
-              src='/account.svg'
-              onClick={() => setOpenDialog(!openDialog)}
-            />
+          <div
+            className='navbar-icon'
+            onClick={() => setOpenDialog(!openDialog)}
+          >
+            <img src='/account.svg' />
           </div>
         )}
         <Drawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
