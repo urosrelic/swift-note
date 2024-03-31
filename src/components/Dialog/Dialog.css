@@ -1,8 +1,9 @@
 .dialog {
+  position: relative;
   width: calc(100% - 2rem); /* Adjusted width to account for margins */
-  height: 200px;
+  height: 300px;
   position: absolute;
-  top: calc(100% - 20px);
+  top: calc(100% - 25px);
   right: 0;
   padding: 1rem;
   margin: 1rem;
@@ -17,8 +18,27 @@
   visibility: visible;
 }
 
-.google-sign-in-btn {
-  width: 100%;
+.dialog-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dialog-container.auth {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.account-image img {
+  border-radius: 50%;
+}
+
+.dialog-btn {
+  width: 90%;
   padding: 0.5rem;
   display: flex;
   flex-direction: row;
@@ -26,18 +46,23 @@
   justify-content: center;
   margin-top: 1rem;
   cursor: pointer;
-  background-color: var(--secondary-color);
+  background-color: var(--primary-color);
   border-radius: 5px;
-  color: var(--primary-color);
+  color: var(--secondary-color);
 }
 
-.google-sign-in-btn img {
-  width: 30px;
+.dialog-btn img {
+  width: 25px;
   margin-right: 10px;
 }
 
-.google-sign-in-btn span {
-  font-size: 1rem;
+.close-dialog-btn {
+  position: absolute;
+  padding: 1rem;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  border-radius: 50%;
 }
 
 @media only screen and (min-width: 500px) {

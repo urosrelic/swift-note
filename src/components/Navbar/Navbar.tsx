@@ -67,7 +67,7 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
           </div>
         )}
         <Drawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
-        <Dialog openDialog={openDialog} />
+        <Dialog openDialog={openDialog} setOpenDialog={setOpenDialog} />
       </div>
     </div>
   );

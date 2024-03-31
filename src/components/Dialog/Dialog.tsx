@@ -3,12 +3,16 @@ import './Dialog.css';
 
 interface DialogProps {
   openDialog: boolean;
+  setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 import { auth } from '../../config/firebase';
+import { useCurrentUser } from '../../hooks/useCurrentUser';
 
-const Dialog = ({ openDialog }: DialogProps) => {
+const Dialog = ({ openDialog, setOpenDialog }: DialogProps) => {
   const googleAuthProvider = new GoogleAuthProvider();
+
+  const currentUser = useCurrentUser();
 
   const handleSignIn = async () => {
     try {
@@ -35,21 +39,40 @@ const Dialog = ({ openDialog }: DialogProps) => {
 
   return (
     <div className={dialogClassName}>
-      {auth.currentUser ? (
-        <div className='dialog-auth'>
-          Hello {auth.currentUser?.displayName}
-          <button onClick={logout}>Logout</button>
+      {currentUser ? (
+        <div className='dialog-container auth'>
+          <span className='account-name'>{currentUser?.email}</span>
+
+          <div className='account-image'>
+            <img
+              src={currentUser.photoURL ? currentUser.photoURL : '/account.svg'}
+            />
+          </div>
+          <span className='account-name'>Hi, {currentUser?.displayName}</span>
+
+          <div className='dialog-btn logout' onClick={logout}>
+            Logout
+          </div>
         </div>
       ) : (
-        <div className='dialog-not-auth'>
-          <span>Login</span>
-
-          <div className='google-sign-in-btn' onClick={handleSignIn}>
+        <div className='dialog-container'>
+          <span className='dialog-text'>Login</span>
+          <div className='dialog-btn' onClick={handleSignIn}>
             <img src='/google.svg' />
             <span>Sign in with Google</span>
           </div>
+          <div className='dialog-btn'>
+            <img src='/email.svg' />
+            <span>Sign in with Email</span>
+          </div>
         </div>
       )}
+      <div
+        className='close-dialog-btn'
+        onClick={() => setOpenDialog(!openDialog)}
+      >
+        X
+      </div>
     </div>
   );
 };
