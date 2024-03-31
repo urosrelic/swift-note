@@ -13,8 +13,10 @@ const Home = () => {
         <Navbar gridView={gridView} setGridView={setGridView} />
         <Notes gridView={gridView} />
         <Modal>
+          <span className='modal-title'>Login</span>
           <input type='email' placeholder='Email' />
           <input type='password' placeholder='Password' />
+          <button className='login-btn'>Login</button>
         </Modal>
         <Fab />
       </div>

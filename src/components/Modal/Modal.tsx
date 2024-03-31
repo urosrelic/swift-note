@@ -11,9 +11,9 @@ const Modal = ({ children }: React.PropsWithChildren) => {
         <div className='modal-overlay'>
           <div className='modal'>
             <div className='modal-content'>{children}</div>
-            <button className='close-button' onClick={closeModal}>
-              Close
-            </button>
+            <div className='close-button' onClick={closeModal}>
+              <img src='/close.svg' />
+            </div>
           </div>
         </div>
       )}
