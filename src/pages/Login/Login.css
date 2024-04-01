@@ -1,0 +1,141 @@
+.login-page {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.form-container {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--quaternary-color);
+  border-radius: 5px;
+  color: var(--secondary-color);
+  animation: slide 1s ease forwards;
+}
+
+#login-form {
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#login-form input {
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  background-color: var(--primary-color);
+  border: none;
+  outline: none;
+  color: var(--secondary-color);
+}
+
+#login-form input::placeholder {
+  color: var(--secondary-color);
+}
+
+.login-btn {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+  width: 100%;
+  padding: 0.5rem;
+  background-color: var(--primary-color);
+  border: none;
+  outline: none;
+  color: var(--secondary-color);
+  cursor: pointer;
+}
+
+.login-btn:hover {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+.sign-in-options {
+  font-size: 1.1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  justify-content: center;
+}
+
+.auth-providers {
+  margin: 1rem 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-btn {
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.auth-btn img {
+  padding: 0.5rem;
+  width: 100%;
+  transition: transform 0.8s ease;
+}
+
+.auth-btn img:hover {
+  transform: rotate(-360deg);
+}
+
+.login-title {
+  font-size: 2rem;
+  font-weight: 500;
+  color: var(--secondary-color);
+  animation: slide 1s ease forwards;
+}
+
+.login-go-back-btn {
+  margin: 1rem 0;
+  padding: 0.5rem;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--secondary-color);
+  transition: background-color 0.3s ease;
+  animation: slide 1s ease forwards;
+}
+
+.login-go-back-btn svg {
+  margin-right: 5px;
+}
+
+.login-go-back-btn:hover {
+  background-color: var(--quaternary-color);
+}
+
+@keyframes slide {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
