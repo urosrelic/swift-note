@@ -58,6 +58,7 @@
   background-color: var(--quaternary-color);
   color: var(--secondary-color);
   border-radius: 5px;
+  font-size: 1.3rem;
 }
 
 .modal-content input::placeholder {
@@ -66,8 +67,8 @@
 
 .modal-title {
   margin-bottom: 0.5rem;
-  font-size: 1.3rem;
   color: var(--secondary-color);
+  font-size: 1.3rem;
 }
 
 .login-btn {
@@ -80,9 +81,30 @@
   color: var(--secondary-color);
   transition: background-color 0.3s ease;
   cursor: pointer;
+  font-size: 1.3rem;
 }
 
 .login-btn:hover {
   background-color: var(--tertiary-color);
   color: var(--secondary-color);
+}
+
+.modal-redirect {
+  margin: 0.5rem 0;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--secondary-color);
+}
+
+.modal-redirect span {
+  padding: 0 5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-redirect span:hover {
+  background-color: var(--quaternary-color);
 }

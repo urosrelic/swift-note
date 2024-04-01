@@ -17,6 +17,12 @@ const Home = () => {
           <input type='email' placeholder='Email' />
           <input type='password' placeholder='Password' />
           <button className='login-btn'>Login</button>
+          <div className='modal-redirect'>
+            <p>Don't have an account?</p>
+            <p>
+              Click <span>here</span> to register
+            </p>
+          </div>
         </Modal>
         <Fab />
       </div>
