@@ -98,6 +98,13 @@
   background-color: var(--tertiary-color);
 }
 
+.pin-note:hover,
+.paint-note:hover,
+.archive-note:hover,
+.delete-note:hover {
+  fill: var(--secondary-color);
+}
+
 .tooltip-text {
   display: none;
   position: absolute;
@@ -107,7 +114,7 @@
   transform: translateX(-50%);
   width: 80px;
   text-align: center;
-  background-color: #526d82;
+  background-color: var(--tertiary-color);
   color: #fff;
   padding: 0.2rem;
   border-radius: 5px;
