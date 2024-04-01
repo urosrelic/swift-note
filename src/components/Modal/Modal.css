@@ -71,7 +71,7 @@
   font-size: 1.3rem;
 }
 
-.login-btn {
+.modal-btn {
   margin-top: 1rem;
   padding: 0.5rem;
   border: none;
@@ -84,7 +84,7 @@
   font-size: 1.3rem;
 }
 
-.login-btn:hover {
+.modal-btn:hover {
   background-color: var(--tertiary-color);
   color: var(--secondary-color);
 }
