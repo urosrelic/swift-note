@@ -1,7 +1,20 @@
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 import './Login.css';
 
 const Login = () => {
+  const { currentUser, handleGoogleSignIn } = useAuth();
+
+  const navigate = useNavigate();
+
+  // Redirect to home page if user is already logged in
+  useEffect(() => {
+    if (currentUser) {
+      navigate('/home');
+    }
+  }, [currentUser, navigate]);
+
   return (
     <div className='login-page'>
       <div className='login-title'>SwiftNote</div>
@@ -28,7 +41,7 @@ const Login = () => {
         <div className='sign-in-options'>
           <p>Or sign in with</p>
           <div className='auth-providers'>
-            <div className='auth-btn'>
+            <div className='auth-btn' onClick={handleGoogleSignIn}>
               <img src='/google.svg' />
             </div>
           </div>

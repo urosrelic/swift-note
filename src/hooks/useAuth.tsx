@@ -17,11 +17,13 @@ export const useAuth = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((firebaseCurrentUser) =>
-      firebaseCurrentUser
-        ? setCurrentUser(firebaseCurrentUser)
-        : setCurrentUser(firebaseCurrentUser)
-    );
+    const unsubscribe = auth.onAuthStateChanged((firebaseCurrentUser) => {
+      if (firebaseCurrentUser) {
+        setCurrentUser(firebaseCurrentUser);
+      } else {
+        setCurrentUser(null);
+      }
+    });
 
     return () => unsubscribe();
   }, []);

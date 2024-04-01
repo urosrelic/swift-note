@@ -1,14 +1,29 @@
+import { useEffect, useState } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
+import { auth } from '../config/firebase';
 
 const PrivateRoutes = () => {
-  const { currentUser, loading } = useAuth();
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((firebaseCurrentUser) => {
+      if (firebaseCurrentUser) {
+        setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
+      }
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   if (loading) {
     return <div> Loading....</div>;
   }
 
-  return currentUser !== null ? <Outlet /> : <Navigate to='/login' />;
+  return isAuthenticated ? <Outlet /> : <Navigate to='/login' />;
 };
 
 export default PrivateRoutes;
