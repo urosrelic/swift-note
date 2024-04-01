@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './Landing.css';
 
 const Landing = () => {
@@ -74,7 +75,9 @@ const Landing = () => {
       </div>
       <div className='landing-page-container'>
         <div className='landing-content'>
-          <button className='get-started-btn'>Get Started</button>
+          <Link to='/home' className='get-started-btn'>
+            Get Started
+          </Link>
         </div>
       </div>
     </div>

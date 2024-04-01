@@ -60,7 +60,7 @@
 
 .get-started-btn {
   background-color: var(--secondary-color);
-  color: #333333;
+  color: var(--primary-color);
   padding: 0.8rem 2rem;
   font-size: 1rem;
   border: none;
@@ -69,11 +69,21 @@
   transition: background-color 0.3s ease;
   animation: fadeInUp 1s ease;
   margin: 1rem 0;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .get-started-btn:hover {
   background-color: var(--quaternary-color);
   color: var(--secondary-color);
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  animation: fadeInUp 1s ease;
+  margin: 1rem 0;
 }
 
 .app-examples {
