@@ -2,7 +2,7 @@ import {
   User as FirebaseCurrentUser,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
-  signInWithRedirect,
+  signInWithPopup,
   signOut,
 } from 'firebase/auth';
 import { useEffect, useState } from 'react';
@@ -31,7 +31,7 @@ export const useAuth = () => {
   const handleGoogleSignIn = async () => {
     setLoading(true);
     try {
-      const result = await signInWithRedirect(auth, googleAuthProvider);
+      const result = await signInWithPopup(auth, googleAuthProvider);
       console.log(result);
       setLoading(false);
     } catch (error) {
