@@ -2,6 +2,8 @@ import { User as FirebaseCurrentUser } from 'firebase/auth';
 import {
   addDoc,
   collection,
+  deleteDoc,
+  doc,
   onSnapshot,
   query,
   where,
@@ -43,7 +45,16 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     }
   };
 
-  return { notes, setNotes, addNote };
+  const deleteNote = async (noteId: string) => {
+    try {
+      await deleteDoc(doc(notesRef, noteId));
+      console.log('Note deleted successfully');
+    } catch (error) {
+      console.error('Error deleting note: ', error);
+    }
+  };
+
+  return { notes, setNotes, addNote, deleteNote };
 };
 
 export default useFirebase;

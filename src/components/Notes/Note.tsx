@@ -1,14 +1,17 @@
 import firebase from 'firebase/compat/app';
 import { useState } from 'react';
+import { useAuth } from '../../hooks/useAuth';
+import useFirebase from '../../hooks/useFirebase';
 import './Note.css';
 
 interface NoteProps {
   title?: string;
   content?: string;
   createdAt: firebase.firestore.Timestamp;
+  noteId: string;
 }
 
-const Note = ({ title, content, createdAt }: NoteProps) => {
+const Note = ({ title, content, createdAt, noteId }: NoteProps) => {
   const [noteHover, setNoteHover] = useState<boolean>(false);
   const [pinNoteHover, setPinNoteHover] = useState<boolean>(false);
   const [paintNoteHover, setPaintNoteHover] = useState<boolean>(false);
@@ -16,6 +19,18 @@ const Note = ({ title, content, createdAt }: NoteProps) => {
   const [deleteNoteHover, setDeleteNoteHover] = useState<boolean>(false);
 
   const tooltipClassName = noteHover ? 'hover' : '';
+
+  const { currentUser } = useAuth();
+
+  const { deleteNote } = useFirebase(currentUser);
+
+  const handleDeleteNote = () => {
+    if (noteId) {
+      deleteNote(noteId);
+    } else {
+      console.error('Invalid noteId:', noteId);
+    }
+  };
 
   return (
     <div
@@ -98,6 +113,7 @@ const Note = ({ title, content, createdAt }: NoteProps) => {
         className={`delete-note ${tooltipClassName}`}
         onMouseEnter={() => setDeleteNoteHover(true)}
         onMouseLeave={() => setDeleteNoteHover(false)}
+        onClick={handleDeleteNote}
       >
         <svg
           fill=''
