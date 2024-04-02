@@ -52,6 +52,7 @@ const Notes = ({ gridView }: GridProps) => {
             <Note
               key={note.noteId}
               title={note.title}
+              noteId={note.noteId}
               createdAt={note.createdAt}
               content={note.content}
             />
