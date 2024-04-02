@@ -38,12 +38,20 @@ const Login = () => {
     e.preventDefault();
     console.log(formData);
     handleEmailAndPasswordSignIn(formData);
+    setFormData({
+      email: '',
+      password: '',
+    });
   };
 
   const handleRegisterSubmit = (e: FormEvent) => {
     e.preventDefault();
     console.log(formData);
     handleCreateUser(formData);
+    setFormData({
+      email: '',
+      password: '',
+    });
   };
 
   const [showLogin, setShowLogin] = useState(true);
@@ -70,6 +78,7 @@ const Login = () => {
             method='post'
             onSubmit={handleLoginSubmit}
           >
+            <h2>Login</h2>
             <input
               type='email'
               name='email'
@@ -98,6 +107,7 @@ const Login = () => {
             method='post'
             onSubmit={handleRegisterSubmit}
           >
+            <h2>Register</h2>
             <input
               type='email'
               name='email'
