@@ -1,7 +1,7 @@
 import { useMediaQuery } from '@uidotdev/usehooks';
 import firebase from 'firebase/compat/app';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { db } from '../../config/firebase';
 import { useAuth } from '../../hooks/useAuth';
 import { GridProps } from '../../utils/types/GridProps';
@@ -27,7 +27,7 @@ const Notes = ({ gridView }: GridProps) => {
 
   const largerScreen = useMediaQuery('only screen and (min-width: 452px)');
 
-  const notesRef = collection(db, 'notes');
+  const notesRef = useMemo(() => collection(db, 'notes'), []);
 
   const { currentUser } = useAuth();
 
