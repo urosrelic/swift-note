@@ -19,7 +19,7 @@
   animation: slide 1s ease forwards;
 }
 
-#login-form {
+.auth-form {
   width: 100%;
   padding: 1rem;
   display: flex;
@@ -28,7 +28,7 @@
   justify-content: center;
 }
 
-#login-form input {
+.auth-form input {
   width: 100%;
   margin: 0.5rem 0;
   padding: 0.5rem;
@@ -39,11 +39,30 @@
   color: var(--secondary-color);
 }
 
-#login-form input::placeholder {
+.auth-form input::placeholder {
   color: var(--secondary-color);
 }
 
-.login-btn {
+.auth-form p {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-form p > span {
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.auth-form p > span:hover {
+  padding: 0.3rem;
+  background-color: var(--primary-color);
+}
+
+.auth-btn {
   font-size: 1.2rem;
   margin: 0.5rem 0;
   width: 100%;
@@ -55,7 +74,7 @@
   cursor: pointer;
 }
 
-.login-btn:hover {
+.auth-btn:hover {
   background-color: var(--secondary-color);
   color: var(--primary-color);
 }
@@ -79,7 +98,7 @@
   justify-content: center;
 }
 
-.auth-btn {
+.auth-provider-btn {
   width: 50px;
   display: flex;
   align-items: center;
@@ -89,13 +108,13 @@
   cursor: pointer;
 }
 
-.auth-btn img {
+.auth-provider-btn img {
   padding: 0.5rem;
   width: 100%;
   transition: transform 0.8s ease;
 }
 
-.auth-btn img:hover {
+.auth-provider-btn img:hover {
   transform: rotate(-360deg);
 }
 
@@ -127,6 +146,16 @@
 
 .login-go-back-btn:hover {
   background-color: var(--quaternary-color);
+}
+
+.error-box {
+  width: 90%;
+  color: red;
+  background-color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 @keyframes slide {

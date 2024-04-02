@@ -1,6 +1,7 @@
 import {
   User as FirebaseCurrentUser,
   GoogleAuthProvider,
+  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -61,6 +62,23 @@ export const useAuth = () => {
     }
   };
 
+  const handleCreateUser = async ({ email, password }: UserAuthCredentials) => {
+    try {
+      const result = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log(result);
+      setLoading(false);
+    } catch (error) {
+      setError((error as Error).message || 'An error occurred');
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const logout = async () => {
     setLoading(true);
     try {
@@ -77,6 +95,7 @@ export const useAuth = () => {
     currentUser,
     loading,
     error,
+    handleCreateUser,
     handleGoogleSignIn,
     handleEmailAndPasswordSignIn,
     logout,
