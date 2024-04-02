@@ -1,13 +1,14 @@
+import firebase from 'firebase/compat/app';
 import { useState } from 'react';
 import './Note.css';
 
 interface NoteProps {
   title?: string;
-  details?: string;
-  date: string;
+  content?: string;
+  createdAt: firebase.firestore.Timestamp;
 }
 
-const Note = ({ title, details, date }: NoteProps) => {
+const Note = ({ title, content, createdAt }: NoteProps) => {
   const [noteHover, setNoteHover] = useState<boolean>(false);
   const [pinNoteHover, setPinNoteHover] = useState<boolean>(false);
   const [paintNoteHover, setPaintNoteHover] = useState<boolean>(false);
@@ -23,10 +24,10 @@ const Note = ({ title, details, date }: NoteProps) => {
       onMouseLeave={() => setNoteHover(false)}
     >
       <div className='note-title'>{title && <span>{title}</span>}</div>
-      <div className='note-details'>{details && <p>{details}</p>}</div>
+      <div className='note-content'>{content && <p>{content}</p>}</div>
       <div className='note-date'>
         {' '}
-        <span>{date}</span>
+        <span>{createdAt.toDate().toLocaleDateString()}</span>
       </div>
       <div
         className={`pin-note ${tooltipClassName}`}
