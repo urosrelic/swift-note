@@ -15,10 +15,16 @@ const Notes = ({ gridView }: GridProps) => {
   const { notes } = useFetch(currentUser);
 
   const smallScreenLayout = () => {
-    return (
-      <div className='notes grid-view'>
-        {notes &&
-          notes.map((note) => (
+    if (!notes || notes.length === 0) {
+      return (
+        <div className='add-note'>
+          <span>No notes</span>
+        </div>
+      );
+    } else {
+      return (
+        <div className='notes grid-view'>
+          {notes.map((note) => (
             <Note
               key={note.noteId}
               title={note.title}
@@ -26,15 +32,22 @@ const Notes = ({ gridView }: GridProps) => {
               content={note.content}
             />
           ))}
-      </div>
-    );
+        </div>
+      );
+    }
   };
 
   const largerScreenLayout = () => {
-    return (
-      <div className={`notes ${notesClassName}`}>
-        {notes &&
-          notes.map((note) => (
+    if (!notes || notes.length === 0) {
+      return (
+        <div className='add-note'>
+          <span>No notes</span>
+        </div>
+      );
+    } else {
+      return (
+        <div className={`notes ${notesClassName}`}>
+          {notes.map((note) => (
             <Note
               key={note.noteId}
               title={note.title}
@@ -42,8 +55,9 @@ const Notes = ({ gridView }: GridProps) => {
               content={note.content}
             />
           ))}
-      </div>
-    );
+        </div>
+      );
+    }
   };
 
   return largerScreen ? largerScreenLayout() : smallScreenLayout();
