@@ -1,19 +1,11 @@
 import { useState } from 'react';
-import { fabOptions } from '../../utils/FabOptions';
 
 import { useClickOutside } from '../../hooks/useClickOutside';
 import './Fab.css';
 import FabOption from './FabOption';
 
-interface Option {
-  iconPath: string;
-  onClick: () => void;
-}
-
 const Fab = () => {
   const [isOpen, setIsOpen] = useState(false);
-
-  const options: Option[] = fabOptions;
 
   const toggleOptions = () => {
     setIsOpen(!isOpen);
@@ -33,9 +25,14 @@ const Fab = () => {
         />
       </div>
       <div className={`fab-options ${fabOptionsClassName}`}>
-        {options.map((option, index) => (
-          <FabOption key={index} option={option} />
-        ))}
+        <FabOption
+          iconPath='/add.svg'
+          onClick={() => console.log('Add Clicked')}
+        />
+        <FabOption
+          iconPath='/checklist.svg'
+          onClick={() => console.log('Checklist Clicked')}
+        />
       </div>
     </div>
   );
