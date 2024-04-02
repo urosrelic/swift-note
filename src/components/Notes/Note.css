@@ -1,5 +1,4 @@
 .note {
-  max-width: 350px;
   position: relative;
   min-height: 150px;
   padding: 1rem;
@@ -9,6 +8,15 @@
   border-radius: 5px;
   align-items: flex-start;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.note-content {
+  width: 90%;
+  resize: none;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 1rem;
 }
 
 .note-title {
