@@ -9,9 +9,10 @@ interface NoteProps {
   content?: string;
   createdAt: firebase.firestore.Timestamp;
   noteId: string;
+  pinned: boolean;
 }
 
-const Note = ({ title, content, createdAt, noteId }: NoteProps) => {
+const Note = ({ title, content, createdAt, noteId, pinned }: NoteProps) => {
   const [noteHover, setNoteHover] = useState<boolean>(false);
   const [pinNoteHover, setPinNoteHover] = useState<boolean>(false);
   const [paintNoteHover, setPaintNoteHover] = useState<boolean>(false);
@@ -22,7 +23,7 @@ const Note = ({ title, content, createdAt, noteId }: NoteProps) => {
 
   const { currentUser } = useAuth();
 
-  const { deleteNote } = useFirebase(currentUser);
+  const { deleteNote, togglePinNote } = useFirebase(currentUser);
 
   const handleDeleteNote = () => {
     if (noteId) {
@@ -30,6 +31,10 @@ const Note = ({ title, content, createdAt, noteId }: NoteProps) => {
     } else {
       console.error('Invalid noteId:', noteId);
     }
+  };
+
+  const togglePinned = async () => {
+    await togglePinNote(noteId, !pinned);
   };
 
   return (
@@ -48,6 +53,7 @@ const Note = ({ title, content, createdAt, noteId }: NoteProps) => {
         className={`pin-note ${tooltipClassName}`}
         onMouseEnter={() => setPinNoteHover(true)}
         onMouseLeave={() => setPinNoteHover(false)}
+        onClick={togglePinned}
       >
         <svg
           xmlns='http://www.w3.org/2000/svg'

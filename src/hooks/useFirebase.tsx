@@ -6,6 +6,7 @@ import {
   doc,
   onSnapshot,
   query,
+  updateDoc,
   where,
 } from 'firebase/firestore';
 import { useEffect, useMemo, useState } from 'react';
@@ -71,7 +72,20 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     }
   };
 
-  return { notes, loading, error, addNote, deleteNote };
+  const togglePinNote = async (noteId: string, isPinned: boolean) => {
+    setLoading(true);
+    try {
+      await updateDoc(doc(notesRef, noteId), {
+        pinned: isPinned,
+      });
+      setLoading(false);
+    } catch (error) {
+      setError((error as Error).message || 'An error occurred');
+      setLoading(false);
+    }
+  };
+
+  return { notes, loading, error, addNote, deleteNote, togglePinNote };
 };
 
 export default useFirebase;
