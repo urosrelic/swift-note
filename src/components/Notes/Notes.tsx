@@ -1,6 +1,6 @@
 import { useMediaQuery } from '@uidotdev/usehooks';
 import { useAuth } from '../../hooks/useAuth';
-import useFetch from '../../hooks/useFetch';
+import useFetch from '../../hooks/useFirebase';
 import { GridProps } from '../../utils/types/GridProps';
 import Note from './Note';
 import './Notes.css';
