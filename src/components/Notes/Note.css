@@ -17,6 +17,8 @@
   border: none;
   outline: none;
   font-size: 1rem;
+  caret-color: transparent;
+  overflow: hidden;
 }
 
 .note-title {

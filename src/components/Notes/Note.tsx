@@ -24,7 +24,9 @@ const Note = ({ title, content, createdAt }: NoteProps) => {
       onMouseLeave={() => setNoteHover(false)}
     >
       <div className='note-title'>{title && <span>{title}</span>}</div>
-      <textarea className='note-content'>{content}</textarea>
+      <textarea className='note-content' readOnly={true}>
+        {content}
+      </textarea>
       <div className='note-date'>
         {' '}
         <span>{createdAt.toDate().toLocaleDateString()}</span>
