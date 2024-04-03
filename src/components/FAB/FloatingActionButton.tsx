@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useClickOutside } from '../../hooks/useClickOutside';
-import './Fab.css';
 import FabOption from './FabOption';
+import './FloatingActionButton.css';
 
 interface FabProps {
   openModal: (modalType: string) => void;
 }
 
-const Fab = ({ openModal }: FabProps) => {
+const FloatingActionButton = ({ openModal }: FabProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOptions = () => {
@@ -48,4 +48,4 @@ const Fab = ({ openModal }: FabProps) => {
   );
 };
 
-export default Fab;
+export default FloatingActionButton;

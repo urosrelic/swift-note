@@ -27,7 +27,7 @@ const Drawer = ({ openDrawer, setOpenDrawer }: DrawerProps) => {
           <DrawerOption
             iconPath='/note.svg'
             label='Notes'
-            url='/home'
+            url='/home/notes'
             onClick={handleClose}
           />
           <DrawerOption

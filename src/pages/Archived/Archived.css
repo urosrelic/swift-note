@@ -1,0 +1,12 @@
+.archived-notes {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.archived-notes-section-title {
+  padding: 0 1rem;
+  color: var(--secondary-color);
+  font-size: 1.8rem;
+  text-align: center;
+}

@@ -1,16 +1,18 @@
+import AddIcon from '@mui/icons-material/Add';
+import Fab from '@mui/material/Fab/Fab';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import { useState } from 'react';
-import Fab from '../../components/FAB/Fab';
-import Modal from '../../components/Modal/Modal'; // Import Modal component
+import { Outlet } from 'react-router-dom';
+import FloatingActionButton from '../../components/FAB/FloatingActionButton';
 import Navbar from '../../components/Navbar/Navbar';
-import Notes from '../../components/Notes/Notes';
+import Modal from '../../components/Styled/Modal.styled';
 import { useAuth } from '../../hooks/useAuth';
 import useFirebase from '../../hooks/useFirebase';
-import { Note } from '../../utils/types/Note';
+import { GridProps } from '../../utils/types/GridProps';
+import { NoteType } from '../../utils/types/NoteType';
 
-const Home = () => {
-  const [gridView, setGridView] = useState<boolean>(true);
+const Home = ({ gridView, setGridView }: GridProps) => {
   const [openModal, setOpenModal] = useState<string | null>(null);
   const [noteTitle, setNoteTitle] = useState<string>('');
   const [noteContent, setNoteContent] = useState<string>('');
@@ -46,15 +48,17 @@ const Home = () => {
   };
 
   const handleAddNote = () => {
-    const noteData: Omit<Note, 'noteId'> = {
-      archived: false,
-      color: 'white',
-      content: noteContent,
-      createdAt: firebase.firestore.Timestamp.now(),
-      labels: [],
-      pinned: false,
+    const noteData: Omit<NoteType, 'noteId'> = {
       title: noteTitle,
+      content: noteContent,
       userId: currentUser.uid,
+      archived: false,
+      pinned: false,
+      deleted: false,
+      createdAt: firebase.firestore.Timestamp.now(),
+      deletedAt: null,
+      color: '#d3e3fd',
+      labels: [],
     };
 
     addNote(noteData);
@@ -64,24 +68,72 @@ const Home = () => {
     closeModalHandler();
   };
 
+  const muiFabStyles = {
+    backgroundColor: '#233549',
+    '&:hover': {
+      backgroundColor: '#031525',
+    },
+  };
+
   const renderNoteModal = () => {
     return (
-      <>
+      <div
+        className='note-modal-container'
+        style={{
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
         <input
           type='text'
           name='note-title'
           placeholder='Title'
           onChange={handleTitleChange}
+          style={{
+            width: '90%',
+            fontSize: '1rem',
+            resize: 'none',
+            border: 'none',
+            outline: 'none',
+            fontWeight: 'bold',
+            backgroundColor: 'transparent',
+            color: '#d3e3fd',
+          }}
         />
         <textarea
           name='note-content'
           placeholder='Content...'
           onChange={handleContentChange}
+          style={{
+            width: '90%',
+            fontSize: '1rem',
+            resize: 'none',
+            border: 'none',
+            outline: 'none',
+            backgroundColor: 'transparent',
+            color: '#d3e3fd',
+          }}
         />
-        <button className='modal-btn' onClick={handleAddNote}>
-          Add
-        </button>
-      </>
+        <div
+          className='modal-btn'
+          style={{
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-end',
+          }}
+        >
+          <Fab
+            color='primary'
+            aria-label='add'
+            onClick={handleAddNote}
+            sx={{ ...muiFabStyles }}
+          >
+            <AddIcon />
+          </Fab>
+        </div>
+      </div>
     );
   };
 
@@ -96,11 +148,20 @@ const Home = () => {
   return (
     <div className='home'>
       <Navbar gridView={gridView} setGridView={setGridView} />
-      <Notes gridView={gridView} />
-      <Fab openModal={openModalHandler} />{' '}
-      {/* Pass down the handler function */}
+      <Outlet />
+      <FloatingActionButton openModal={openModalHandler} />
       {openModal && ( // Render modal based on the state
-        <Modal closeModalHandler={closeModalHandler}>
+        <Modal
+          closeModalHandler={closeModalHandler}
+          style={{
+            width: '90%',
+            display: 'flex',
+            flexDirection: 'column',
+            maxWidth: '500px',
+            alignItems: 'flex-start',
+            backgroundColor: '#162c46',
+          }}
+        >
           {openModal === 'add' && renderNoteModal()}
           {openModal === 'checklist' && renderChecklistModal()}
         </Modal>

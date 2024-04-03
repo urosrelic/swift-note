@@ -1,3 +1,4 @@
+import CircularProgress from '@mui/material/CircularProgress';
 import { useEffect, useState } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { auth } from '../config/firebase';
@@ -29,7 +30,7 @@ const PrivateRoutes = () => {
           height: '100vh',
         }}
       >
-        <div>Loading....</div>
+        <CircularProgress />
       </div>
     );
   }

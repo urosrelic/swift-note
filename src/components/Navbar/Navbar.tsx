@@ -6,10 +6,10 @@ import './Navbar.css';
 
 import { useEffect } from 'react';
 import { useAuth } from '../../hooks/useAuth';
-import Dialog from '../Dialog/Dialog';
+import { Dialog, DialogButton, DialogContainer } from '../Styled/Dialog.styled';
 
 const Navbar = ({ gridView, setGridView }: GridProps) => {
-  const { currentUser } = useAuth();
+  const { currentUser, logout } = useAuth();
 
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
@@ -67,7 +67,29 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
           </div>
         )}
         <Drawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
-        <Dialog openDialog={openDialog} setOpenDialog={setOpenDialog} />
+        <Dialog openDialog={openDialog} setOpenDialog={setOpenDialog}>
+          <DialogContainer>
+            <span className='account-name'>{currentUser?.email}</span>
+            <div className='account-image'>
+              <img
+                style={{ margin: '1rem', borderRadius: '50%' }}
+                src={currentUser?.photoURL || '/account.svg'}
+                alt='Account'
+              />
+            </div>
+            <div className='account-name'>
+              <span>Hi, {currentUser?.displayName}</span>
+            </div>
+            <DialogButton>
+              <img src='/person.svg' alt='Profile' />
+              <span>Profile</span>
+            </DialogButton>
+            <DialogButton onClick={logout}>
+              <img src='/logout.svg' alt='Logout' />
+              <span>Logout</span>
+            </DialogButton>
+          </DialogContainer>
+        </Dialog>
       </div>
     </div>
   );
