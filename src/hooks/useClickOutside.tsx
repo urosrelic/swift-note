@@ -1,6 +1,7 @@
 import { RefObject, useEffect, useRef } from 'react';
 
 export const useClickOutside = <T extends HTMLElement>(
+  // @ts-ignore
   handler
 ): RefObject<T> => {
   const domNode = useRef<T>(null);

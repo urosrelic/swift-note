@@ -8,7 +8,7 @@ interface NoteListProps {
   notes: NoteType[];
   gridView: boolean;
   loading: boolean;
-  handleNoteClick: (note: NoteType) => void;
+  handleNoteClick?: (note: NoteType) => void;
 }
 
 const NotesList = ({
@@ -17,6 +17,12 @@ const NotesList = ({
   loading,
   handleNoteClick,
 }: NoteListProps) => {
+  const handleClick = (note: NoteType) => {
+    if (handleNoteClick) {
+      handleNoteClick(note);
+    }
+  };
+
   return (
     <div className={`notes-list ${gridView ? 'grid-view' : 'list-view'}`}>
       {loading ? (
@@ -39,7 +45,7 @@ const NotesList = ({
                 deleted={note.deleted}
                 color={note.color}
                 labels={note.labels}
-                handleNoteClick={() => handleNoteClick(note)}
+                handleNoteClick={() => handleClick(note)}
               />
             ))
           ) : (

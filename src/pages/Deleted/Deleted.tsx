@@ -8,7 +8,10 @@ const Deleted = ({ gridView }: GridProps) => {
   const { notes, loading, removeFromTrash } = useFirebase(currentUser);
 
   const sortedNotes = notes
-    ? [...notes].sort((a, b) => b.createdAt - a.createdAt)
+    ? [...notes].sort(
+        (a, b) =>
+          b.createdAt.toDate().getTime() - a.createdAt.toDate().getTime()
+      )
     : [];
   const deletedNotes = sortedNotes?.filter((note) => note.deleted);
 

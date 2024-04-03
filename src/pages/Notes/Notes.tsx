@@ -14,7 +14,10 @@ const Notes = ({ gridView }: GridProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const sortedNotes = notes
-    ? [...notes].sort((a, b) => b.createdAt - a.createdAt)
+    ? [...notes].sort(
+        (a, b) =>
+          b.createdAt.toDate().getTime() - a.createdAt.toDate().getTime()
+      )
     : [];
 
   const pinnedNotes = sortedNotes.filter(
