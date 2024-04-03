@@ -1,9 +1,11 @@
+import AddIcon from '@mui/icons-material/Add';
+import Fab from '@mui/material/Fab/Fab';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import Fab from '../../components/FAB/Fab';
-import Modal from '../../components/Modal/Modal'; // Import Modal component
+import FloatingActionButton from '../../components/FAB/FloatingActionButton';
+import Modal from '../../components/Modal/Modal';
 import Navbar from '../../components/Navbar/Navbar';
 import { useAuth } from '../../hooks/useAuth';
 import useFirebase from '../../hooks/useFirebase';
@@ -66,6 +68,13 @@ const Home = ({ gridView, setGridView }: GridProps) => {
     closeModalHandler();
   };
 
+  const muiFabStyles = {
+    backgroundColor: '#233549',
+    '&:hover': {
+      backgroundColor: '#031525',
+    },
+  };
+
   const renderNoteModal = () => {
     return (
       <>
@@ -80,9 +89,15 @@ const Home = ({ gridView, setGridView }: GridProps) => {
           placeholder='Content...'
           onChange={handleContentChange}
         />
-        <button className='modal-btn' onClick={handleAddNote}>
-          Add
-        </button>
+        <Fab
+          className='modal-btn'
+          color='primary'
+          aria-label='add'
+          onClick={handleAddNote}
+          sx={{ ...muiFabStyles }}
+        >
+          <AddIcon />
+        </Fab>
       </>
     );
   };
@@ -99,7 +114,7 @@ const Home = ({ gridView, setGridView }: GridProps) => {
     <div className='home'>
       <Navbar gridView={gridView} setGridView={setGridView} />
       <Outlet />
-      <Fab openModal={openModalHandler} />
+      <FloatingActionButton openModal={openModalHandler} />
       {openModal && ( // Render modal based on the state
         <Modal closeModalHandler={closeModalHandler}>
           {openModal === 'add' && renderNoteModal()}

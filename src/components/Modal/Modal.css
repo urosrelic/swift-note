@@ -43,7 +43,7 @@
   margin-top: 10px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
 }
 
@@ -62,7 +62,6 @@
   width: 100%;
   margin: 1rem 0;
   border: none;
-  border-bottom: 1px solid #ccc;
   outline: none;
   font-size: 1rem;
 }
@@ -72,7 +71,6 @@
   color: var(--secondary-color);
   width: 100%;
   border: none;
-  border-bottom: 1px solid #ccc;
   outline: none;
   font-size: 1rem;
   resize: none;
@@ -86,7 +84,7 @@ textarea::placeholder {
 
 /* Modal btn */
 .modal-btn {
-  margin-top: 1rem;
+  margin-top: 1.3rem;
   padding: 10px 20px;
   background-color: var(--quaternary-color);
   color: #fff;
