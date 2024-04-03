@@ -9,7 +9,10 @@ const Archived = ({ gridView }: GridProps) => {
   const { notes, loading } = useFirebase(currentUser);
 
   const sortedNotes = notes
-    ? [...notes].sort((a, b) => b.createdAt - a.createdAt)
+    ? [...notes].sort(
+        (a, b) =>
+          b.createdAt.toDate().getTime() - a.createdAt.toDate().getTime()
+      )
     : [];
   const archivedNotes = sortedNotes?.filter(
     (note) => note.archived && !note.deleted
