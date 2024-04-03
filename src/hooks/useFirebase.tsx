@@ -11,7 +11,7 @@ import {
 } from 'firebase/firestore';
 import { useEffect, useMemo, useState } from 'react';
 import { db } from '../config/firebase';
-import { Note } from '../utils/types/Note';
+import { NoteType } from '../utils/types/NoteType';
 
 const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
   const notesRef = useMemo(() => collection(db, 'notes'), []);
@@ -19,7 +19,7 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
 
-  const [notes, setNotes] = useState<Note[] | null>(null);
+  const [notes, setNotes] = useState<NoteType[] | null>(null);
 
   useEffect(() => {
     if (currentUser) {
@@ -28,9 +28,9 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
       const unsub = onSnapshot(
         q,
         (querySnapshot) => {
-          const items: Note[] = [];
+          const items: NoteType[] = [];
           querySnapshot.forEach((doc) => {
-            const data = doc.data() as Note;
+            const data = doc.data() as NoteType;
             items.push({ noteId: doc.id, ...data });
           });
           setNotes(items);
@@ -49,7 +49,7 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     }
   }, [currentUser]);
 
-  const addNote = async (newNote: Omit<Note, 'noteId'>) => {
+  const addNote = async (newNote: Omit<NoteType, 'noteId'>) => {
     setLoading(true);
     try {
       await addDoc(notesRef, newNote);
@@ -85,7 +85,29 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     }
   };
 
-  return { notes, loading, error, addNote, deleteNote, togglePinNote };
+  const toggleArchiveNote = async (noteId: string, isArchived: boolean) => {
+    setLoading(true);
+    try {
+      await updateDoc(doc(notesRef, noteId), {
+        archived: isArchived,
+      });
+    } catch (error) {
+      setError((error as Error).message || 'An error occurred');
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    notes,
+    loading,
+    error,
+    addNote,
+    deleteNote,
+    togglePinNote,
+    toggleArchiveNote,
+  };
 };
 
 export default useFirebase;

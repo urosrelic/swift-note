@@ -12,14 +12,23 @@ interface NoteProps {
   createdAt: firebase.firestore.Timestamp;
   noteId: string;
   pinned: boolean;
+  archived: boolean;
 }
 
-const Note = ({ title, content, createdAt, noteId, pinned }: NoteProps) => {
+const Note = ({
+  title,
+  content,
+  createdAt,
+  noteId,
+  pinned,
+  archived,
+}: NoteProps) => {
   const [noteHover, setNoteHover] = useState<boolean>(false);
 
   const { currentUser } = useAuth();
 
-  const { deleteNote, togglePinNote } = useFirebase(currentUser);
+  const { deleteNote, togglePinNote, toggleArchiveNote } =
+    useFirebase(currentUser);
 
   const handleDeleteNote = () => {
     if (noteId) {
@@ -31,6 +40,10 @@ const Note = ({ title, content, createdAt, noteId, pinned }: NoteProps) => {
 
   const togglePinned = async () => {
     await togglePinNote(noteId, !pinned);
+  };
+
+  const toggleArchived = async () => {
+    await toggleArchiveNote(noteId, !archived);
   };
 
   return (
@@ -102,7 +115,8 @@ const Note = ({ title, content, createdAt, noteId, pinned }: NoteProps) => {
         </Tooltip>
         <Tooltip
           className={`note-action ${noteHover ? 'hover' : ''}`}
-          title={'Archive note'}
+          title={archived ? 'Unarchive note' : 'Archive note'}
+          onClick={toggleArchived}
           slotProps={{
             tooltip: {
               sx: {
