@@ -8,6 +8,8 @@
   justify-content: flex-start;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  text-decoration: none;
+  color: var(--secondary-color);
 }
 
 .drawer-option:hover {

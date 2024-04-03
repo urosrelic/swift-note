@@ -1,19 +1,14 @@
 import { useState } from 'react';
-import { fabOptions } from '../../utils/FabOptions';
-
 import { useClickOutside } from '../../hooks/useClickOutside';
 import './Fab.css';
 import FabOption from './FabOption';
 
-interface Option {
-  iconPath: string;
-  onClick: () => void;
+interface FabProps {
+  openModal: (modalType: string) => void;
 }
 
-const Fab = () => {
+const Fab = ({ openModal }: FabProps) => {
   const [isOpen, setIsOpen] = useState(false);
-
-  const options: Option[] = fabOptions;
 
   const toggleOptions = () => {
     setIsOpen(!isOpen);
@@ -22,7 +17,8 @@ const Fab = () => {
   const fabIconClassName = isOpen ? 'open' : '';
   const fabOptionsClassName = isOpen ? 'open' : '';
 
-  const domNode = useClickOutside<HTMLDivElement>(setIsOpen);
+  const domNode = useClickOutside<HTMLDivElement>(() => setIsOpen(false)); // Close fab options when clicking outside
+
   return (
     <div className='fab-container' ref={domNode}>
       <div className='fab-btn' onClick={toggleOptions}>
@@ -33,9 +29,20 @@ const Fab = () => {
         />
       </div>
       <div className={`fab-options ${fabOptionsClassName}`}>
-        {options.map((option, index) => (
-          <FabOption key={index} option={option} />
-        ))}
+        <FabOption
+          iconPath='/add.svg'
+          onClick={() => {
+            openModal('add'); // Open the Add modal
+            setIsOpen(false); // Close fab options when an option is clicked
+          }}
+        />
+        <FabOption
+          iconPath='/checklist.svg'
+          onClick={() => {
+            openModal('checklist'); // Open the Checklist modal
+            setIsOpen(false); // Close fab options when an option is clicked
+          }}
+        />
       </div>
     </div>
   );

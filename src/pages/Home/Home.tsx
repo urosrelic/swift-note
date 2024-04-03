@@ -1,26 +1,111 @@
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
 import { useState } from 'react';
 import Fab from '../../components/FAB/Fab';
-import Modal from '../../components/Modal/Modal';
+import Modal from '../../components/Modal/Modal'; // Import Modal component
 import Navbar from '../../components/Navbar/Navbar';
 import Notes from '../../components/Notes/Notes';
-import { ModalProvider } from '../../context/ModalContext';
+import { useAuth } from '../../hooks/useAuth';
+import useFirebase from '../../hooks/useFirebase';
+import { Note } from '../../utils/types/Note';
+
 const Home = () => {
   const [gridView, setGridView] = useState<boolean>(true);
+  const [openModal, setOpenModal] = useState<string | null>(null);
+  const [noteTitle, setNoteTitle] = useState<string>('');
+  const [noteContent, setNoteContent] = useState<string>('');
+
+  const { currentUser } = useAuth();
+  const { addNote } = useFirebase(currentUser);
+
+  const openModalHandler = (modalType: string) => {
+    setOpenModal(modalType);
+  };
+
+  const closeModalHandler = () => {
+    setOpenModal(null);
+  };
+
+  const autoResizeTextarea = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const textarea = event.target;
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
+  };
+
+  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNoteTitle(event.target.value);
+  };
+
+  const handleContentChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setNoteContent(event.target.value);
+    autoResizeTextarea(event);
+  };
+
+  const handleAddNote = () => {
+    const noteData: Omit<Note, 'noteId'> = {
+      archived: false,
+      color: 'white',
+      content: noteContent,
+      createdAt: firebase.firestore.Timestamp.now(),
+      labels: [],
+      pinned: false,
+      title: noteTitle,
+      userId: currentUser.uid,
+    };
+
+    addNote(noteData);
+
+    setNoteTitle('');
+    setNoteContent('');
+    closeModalHandler();
+  };
+
+  const renderNoteModal = () => {
+    return (
+      <>
+        <input
+          type='text'
+          name='note-title'
+          placeholder='Title'
+          onChange={handleTitleChange}
+        />
+        <textarea
+          name='note-content'
+          placeholder='Content...'
+          onChange={handleContentChange}
+        />
+        <button className='modal-btn' onClick={handleAddNote}>
+          Add
+        </button>
+      </>
+    );
+  };
+
+  const renderChecklistModal = () => {
+    return (
+      <div className='checklist-modal'>
+        <></>
+      </div>
+    );
+  };
 
   return (
-    <ModalProvider>
-      <div className='home'>
-        <Navbar gridView={gridView} setGridView={setGridView} />
-        <Notes gridView={gridView} />
-        <Modal>
-          <span className='modal-title'>Login</span>
-          <input type='email' placeholder='Email' />
-          <input type='password' placeholder='Password' />
-          <button className='login-btn'>Login</button>
+    <div className='home'>
+      <Navbar gridView={gridView} setGridView={setGridView} />
+      <Notes gridView={gridView} />
+      <Fab openModal={openModalHandler} />{' '}
+      {/* Pass down the handler function */}
+      {openModal && ( // Render modal based on the state
+        <Modal closeModalHandler={closeModalHandler}>
+          {openModal === 'add' && renderNoteModal()}
+          {openModal === 'checklist' && renderChecklistModal()}
         </Modal>
-        <Fab />
-      </div>
-    </ModalProvider>
+      )}
+    </div>
   );
 };
 

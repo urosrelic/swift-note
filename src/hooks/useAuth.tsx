@@ -1,8 +1,9 @@
 import {
   User as FirebaseCurrentUser,
   GoogleAuthProvider,
+  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signInWithRedirect,
+  signInWithPopup,
   signOut,
 } from 'firebase/auth';
 import { useEffect, useState } from 'react';
@@ -17,11 +18,13 @@ export const useAuth = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((firebaseCurrentUser) =>
-      firebaseCurrentUser
-        ? setCurrentUser(firebaseCurrentUser)
-        : setCurrentUser(firebaseCurrentUser)
-    );
+    const unsubscribe = auth.onAuthStateChanged((firebaseCurrentUser) => {
+      if (firebaseCurrentUser) {
+        setCurrentUser(firebaseCurrentUser);
+      } else {
+        setCurrentUser(null);
+      }
+    });
 
     return () => unsubscribe();
   }, []);
@@ -31,7 +34,7 @@ export const useAuth = () => {
   const handleGoogleSignIn = async () => {
     setLoading(true);
     try {
-      const result = await signInWithRedirect(auth, googleAuthProvider);
+      const result = await signInWithPopup(auth, googleAuthProvider);
       console.log(result);
       setLoading(false);
     } catch (error) {
@@ -59,6 +62,23 @@ export const useAuth = () => {
     }
   };
 
+  const handleCreateUser = async ({ email, password }: UserAuthCredentials) => {
+    try {
+      const result = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log(result);
+      setLoading(false);
+    } catch (error) {
+      setError((error as Error).message || 'An error occurred');
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const logout = async () => {
     setLoading(true);
     try {
@@ -75,6 +95,7 @@ export const useAuth = () => {
     currentUser,
     loading,
     error,
+    handleCreateUser,
     handleGoogleSignIn,
     handleEmailAndPasswordSignIn,
     logout,

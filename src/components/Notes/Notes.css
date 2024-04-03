@@ -14,3 +14,29 @@
   grid-template-columns: repeat(1, minmax(300px, 1000px));
   justify-content: center;
 }
+
+.pinned-notes,
+.other-notes {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.notes-section-title {
+  padding: 0 1rem;
+  color: var(--secondary-color);
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.add-note {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.add-note span {
+  font-size: 1.2rem;
+  color: var(--secondary-color);
+}

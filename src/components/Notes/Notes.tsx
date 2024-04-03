@@ -1,93 +1,141 @@
 import { useMediaQuery } from '@uidotdev/usehooks';
+import { useAuth } from '../../hooks/useAuth';
+import useFirebase from '../../hooks/useFirebase';
 import { GridProps } from '../../utils/types/GridProps';
 import Note from './Note';
 import './Notes.css';
 
 const Notes = ({ gridView }: GridProps) => {
-  const exampleNotes = [
-    {
-      title: 'Note #1',
-      date: '3-29-2024',
-      details:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consectetur quisquam fuga suscipit, incidunt obcaecati a quam quos cum, dolores, sapiente architecto iure similique expedita quasi assumenda repellendus nemo?',
-    },
-    {
-      title: 'Note #2',
-      date: '3-30-2024',
-      details:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consectetur quisquam fuga suscipit, incidunt obcaecati a quam quos cum, dolores',
-    },
-    {
-      title: 'Note #3',
-      date: '3-31-2024',
-      details: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-    },
-    {
-      title: '',
-      date: '3-31-2024',
-      details: '',
-    },
-    {
-      title: '',
-      date: '3-31-2024',
-      details:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consectetur',
-    },
-    {
-      title: '',
-      date: '3-31-2024',
-      details:
-        'Lorem ipsusicing elit. onsectetur Loremit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consecteturLorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quis consectetur',
-    },
-  ];
-
   const notesClassName = gridView ? 'grid-view' : 'list-view';
 
   const largerScreen = useMediaQuery('only screen and (min-width: 452px)');
 
+  const { currentUser } = useAuth();
+
+  const { notes } = useFirebase(currentUser);
+
+  const sortedNotes = notes
+    ? [...notes].sort((a, b) => b.createdAt - a.createdAt)
+    : [];
+
+  const pinnedNotes = sortedNotes.filter((note) => note.pinned);
+  const otherNotes = sortedNotes.filter((note) => !note.pinned);
+
   const smallScreenLayout = () => {
-    return (
-      <div className='notes grid-view'>
-        {exampleNotes.map(
-          (
-            item,
-            index // Corrected map function
-          ) => (
-            <Note
-              key={index} // Added key prop
-              gridView={gridView}
-              title={item.title}
-              date={item.date}
-              details={item.details}
-            />
-          )
-        )}
-      </div>
-    );
+    if (!notes || notes.length === 0) {
+      return (
+        <div className='add-note'>
+          <span>No notes</span>
+        </div>
+      );
+    } else {
+      return (
+        <>
+          <div className='pinned-notes'>
+            <span className='notes-section-title'>Pinned Notes</span>
+            <div className={`notes grid-view`}>
+              {pinnedNotes.length > 0 ? (
+                pinnedNotes.map((note) => (
+                  <Note
+                    key={note.noteId}
+                    noteId={note.noteId}
+                    title={note.title}
+                    createdAt={note.createdAt}
+                    content={note.content}
+                    pinned={note.pinned}
+                  />
+                ))
+              ) : (
+                <div className='add-note'>
+                  <span>No pinned notes</span>
+                </div>
+              )}
+            </div>
+            <div className='other-notes'>
+              <span className='notes-section-title'>Other notes</span>
+              <div className={`notes ${notesClassName}`}>
+                {otherNotes.length > 0 ? (
+                  otherNotes.map((note) => (
+                    <Note
+                      key={note.noteId}
+                      noteId={note.noteId}
+                      title={note.title}
+                      createdAt={note.createdAt}
+                      content={note.content}
+                      pinned={note.pinned}
+                    />
+                  ))
+                ) : (
+                  <div className='add-note'>
+                    <span>No other notes</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </>
+      );
+    }
   };
 
   const largerScreenLayout = () => {
-    return (
-      <div className={`notes ${notesClassName}`}>
-        {exampleNotes.map(
-          (
-            item,
-            index // Corrected map function
-          ) => (
-            <Note
-              key={index} // Added key prop
-              gridView={gridView}
-              title={item.title}
-              date={item.date}
-              details={item.details}
-            />
-          )
-        )}
-      </div>
-    );
+    if (!notes || notes.length === 0) {
+      return (
+        <div className='add-note'>
+          <span>No notes</span>
+        </div>
+      );
+    } else {
+      return (
+        <>
+          <div className='pinned-notes'>
+            <span className='notes-section-title'>Pinned Notes</span>
+            <div className={`notes ${notesClassName}`}>
+              {pinnedNotes.length > 0 ? (
+                pinnedNotes.map((note) => (
+                  <Note
+                    key={note.noteId}
+                    noteId={note.noteId}
+                    title={note.title}
+                    createdAt={note.createdAt}
+                    content={note.content}
+                    pinned={note.pinned}
+                  />
+                ))
+              ) : (
+                <div className='add-note'>
+                  <span>No pinned notes</span>
+                </div>
+              )}
+            </div>
+            <div className='other-notes'>
+              <span className='notes-section-title'>Other notes</span>
+              <div className={`notes ${notesClassName}`}>
+                {otherNotes.length > 0 ? (
+                  otherNotes.map((note) => (
+                    <Note
+                      key={note.noteId}
+                      noteId={note.noteId}
+                      title={note.title}
+                      createdAt={note.createdAt}
+                      content={note.content}
+                      pinned={note.pinned}
+                    />
+                  ))
+                ) : (
+                  <div className='add-note'>
+                    <span>No other notes</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </>
+      );
+    }
   };
 
-  return largerScreen ? largerScreenLayout() : smallScreenLayout();
+  return <>{largerScreen ? largerScreenLayout() : smallScreenLayout()}</>;
 };
 
 export default Notes;

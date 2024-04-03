@@ -24,21 +24,49 @@ const Drawer = ({ openDrawer, setOpenDrawer }: DrawerProps) => {
           <img src='/close.svg' onClick={handleClose} />
         </div>
         <div className='drawer-options'>
-          <DrawerOption iconPath='/note.svg' label='Notes' />
-          <DrawerOption iconPath='/archive.svg' label='Archived' />
-          <DrawerOption iconPath='/trash.svg' label='Deleted' />
+          <DrawerOption
+            iconPath='/note.svg'
+            label='Notes'
+            url='/home'
+            onClick={handleClose}
+          />
+          <DrawerOption
+            iconPath='/archive.svg'
+            label='Archived'
+            url='/home/archived'
+            onClick={handleClose}
+          />
+          <DrawerOption
+            iconPath='/trash.svg'
+            label='Deleted'
+            url='/home/deleted'
+            onClick={handleClose}
+          />
         </div>
         <hr className='separator'></hr>
 
         <div className='drawer-options'>
           <span className='drawer-options-heading'>Labels</span>
           {/* HERE ADD EXISTING LABELS, ex: load from database */}
-          <DrawerOption iconPath='/label.svg' label='Label #1' />
-          <DrawerOption iconPath='/edit.svg' label='Create a label' />
+          <DrawerOption
+            iconPath='/label.svg'
+            label='Label #1'
+            onClick={handleClose}
+          />
+          <DrawerOption
+            iconPath='/edit.svg'
+            label='Create a label'
+            onClick={handleClose}
+          />
         </div>
         <hr className='separator'></hr>
         <div className='drawer-options'>
-          <DrawerOption iconPath='/settings.svg' label='Settings' />
+          <DrawerOption
+            iconPath='/settings.svg'
+            label='Settings'
+            url='/home/settings'
+            onClick={handleClose}
+          />
         </div>
       </div>
     </div>

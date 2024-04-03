@@ -1,3 +1,4 @@
+/* Modal Overlay */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -11,78 +12,91 @@
   align-items: center;
 }
 
+/* Modal Container */
 .modal {
   position: relative;
   background-color: var(--primary-color);
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  max-width: 80%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 500px;
 }
 
+/* Close Button */
 .close-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.1rem;
-  margin: 0.5rem;
   position: absolute;
-  top: 0;
-  right: 0;
-  background: none;
-  border: none;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
   cursor: pointer;
-  border-radius: 50%;
-  transition: background-color 0.1s ease-in-out;
 }
 
-.close-button:hover {
-  background-color: var(--quaternary-color);
-}
-
+/* Close Button Icon */
 .close-button img {
   width: 100%;
 }
 
+/* Modal Content */
 .modal-content {
-  padding: 1rem;
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.modal-content input {
-  margin: 0.5rem 0;
-  padding: 0.5rem;
-  border: none;
-  outline: none;
-  background-color: var(--quaternary-color);
-  color: var(--secondary-color);
-  border-radius: 5px;
-}
-
-.modal-content input::placeholder {
-  color: var(--secondary-color);
-}
-
+/* Title */
 .modal-title {
-  margin-bottom: 0.5rem;
-  font-size: 1.3rem;
-  color: var(--secondary-color);
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
 }
 
-.login-btn {
-  margin-top: 1rem;
-  padding: 0.5rem;
+/* Inputs */
+.modal-content input {
+  background-color: transparent;
+  color: var(--secondary-color);
+  width: 100%;
+  margin: 1rem 0;
   border: none;
+  border-bottom: 1px solid #ccc;
   outline: none;
-  border-radius: 5px;
-  background-color: var(--quaternary-color);
-  color: var(--secondary-color);
-  transition: background-color 0.3s ease;
-  cursor: pointer;
+  font-size: 1rem;
 }
 
-.login-btn:hover {
-  background-color: var(--tertiary-color);
+.modal-content textarea {
+  background-color: transparent;
   color: var(--secondary-color);
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  outline: none;
+  font-size: 1rem;
+  resize: none;
+  max-height: 350px;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--secondary-color);
+}
+
+/* Modal btn */
+.modal-btn {
+  margin-top: 1rem;
+  padding: 10px 20px;
+  background-color: var(--quaternary-color);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.modal-btn:hover {
+  background-color: #45a049;
 }
