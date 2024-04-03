@@ -14,10 +14,10 @@ const Notes = ({ gridView }: GridProps) => {
     : [];
 
   const pinnedNotes = sortedNotes.filter(
-    (note) => note.pinned && !note.archived
+    (note) => note.pinned && !note.archived && !note.deleted
   );
   const otherNotes = sortedNotes.filter(
-    (note) => !note.pinned && !note.archived
+    (note) => !note.pinned && !note.archived && !note.deleted
   );
 
   return (

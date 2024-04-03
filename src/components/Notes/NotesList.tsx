@@ -26,9 +26,11 @@ const NotesList = ({ notes, gridView, loading }: NoteListProps) => {
                 noteId={note.noteId}
                 title={note.title}
                 createdAt={note.createdAt}
+                deletedAt={note.deletedAt}
                 content={note.content}
                 pinned={note.pinned}
                 archived={note.archived}
+                deleted={note.deleted}
               />
             ))
           ) : (

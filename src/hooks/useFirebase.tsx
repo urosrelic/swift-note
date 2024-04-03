@@ -1,5 +1,6 @@
 import { User as FirebaseCurrentUser } from 'firebase/auth';
 import {
+  Timestamp,
   addDoc,
   collection,
   deleteDoc,
@@ -72,6 +73,20 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     }
   };
 
+  const toggleDeletedNote = async (noteId: string, isDeleted: boolean) => {
+    setLoading(true);
+    try {
+      await updateDoc(doc(notesRef, noteId), {
+        deleted: isDeleted,
+        deletedAt: Timestamp.now(),
+      });
+      setLoading(false);
+    } catch (error) {
+      setError((error as Error).message || 'An error occurred');
+      setLoading(false);
+    }
+  };
+
   const togglePinNote = async (noteId: string, isPinned: boolean) => {
     setLoading(true);
     try {
@@ -107,6 +122,7 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     deleteNote,
     togglePinNote,
     toggleArchiveNote,
+    toggleDeletedNote,
   };
 };
 

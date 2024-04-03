@@ -6,6 +6,7 @@ import {
   Routes,
 } from 'react-router-dom';
 import Archived from './pages/Archived/Archived';
+import Deleted from './pages/Deleted/Deleted';
 import Home from './pages/Home/Home';
 import Landing from './pages/Landing/Landing';
 import Login from './pages/Login/Login';
@@ -35,7 +36,14 @@ function App() {
                 element={<Notes gridView={gridView} />}
               />
 
-              <Route path='/home/archived' element={<Archived />} />
+              <Route
+                path='/home/archived'
+                element={<Archived gridView={gridView} />}
+              />
+              <Route
+                path='/home/deleted'
+                element={<Deleted gridView={gridView} />}
+              />
             </Route>
           </Route>
           <Route path='/' element={<Landing />} />
