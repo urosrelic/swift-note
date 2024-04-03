@@ -77,28 +77,63 @@ const Home = ({ gridView, setGridView }: GridProps) => {
 
   const renderNoteModal = () => {
     return (
-      <>
+      <div
+        className='note-modal-container'
+        style={{
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
         <input
           type='text'
           name='note-title'
           placeholder='Title'
           onChange={handleTitleChange}
+          style={{
+            width: '90%',
+            fontSize: '1rem',
+            resize: 'none',
+            border: 'none',
+            outline: 'none',
+            fontWeight: 'bold',
+            backgroundColor: 'transparent',
+            color: '#d3e3fd',
+          }}
         />
         <textarea
           name='note-content'
           placeholder='Content...'
           onChange={handleContentChange}
+          style={{
+            width: '90%',
+            fontSize: '1rem',
+            resize: 'none',
+            border: 'none',
+            outline: 'none',
+            backgroundColor: 'transparent',
+            color: '#d3e3fd',
+          }}
         />
-        <Fab
+        <div
           className='modal-btn'
-          color='primary'
-          aria-label='add'
-          onClick={handleAddNote}
-          sx={{ ...muiFabStyles }}
+          style={{
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-end',
+          }}
         >
-          <AddIcon />
-        </Fab>
-      </>
+          <Fab
+            color='primary'
+            aria-label='add'
+            onClick={handleAddNote}
+            sx={{ ...muiFabStyles }}
+          >
+            <AddIcon />
+          </Fab>
+        </div>
+      </div>
     );
   };
 
@@ -116,7 +151,17 @@ const Home = ({ gridView, setGridView }: GridProps) => {
       <Outlet />
       <FloatingActionButton openModal={openModalHandler} />
       {openModal && ( // Render modal based on the state
-        <Modal closeModalHandler={closeModalHandler}>
+        <Modal
+          closeModalHandler={closeModalHandler}
+          style={{
+            width: '90%',
+            display: 'flex',
+            flexDirection: 'column',
+            maxWidth: '500px',
+            alignItems: 'flex-start',
+            backgroundColor: '#162c46',
+          }}
+        >
           {openModal === 'add' && renderNoteModal()}
           {openModal === 'checklist' && renderChecklistModal()}
         </Modal>
