@@ -14,6 +14,13 @@ const Notes = ({ gridView }: GridProps) => {
 
   const { notes } = useFirebase(currentUser);
 
+  const sortedNotes = notes
+    ? [...notes].sort((a, b) => b.createdAt - a.createdAt)
+    : [];
+
+  const pinnedNotes = sortedNotes.filter((note) => note.pinned);
+  const otherNotes = sortedNotes.filter((note) => !note.pinned);
+
   const smallScreenLayout = () => {
     if (!notes || notes.length === 0) {
       return (
@@ -23,17 +30,50 @@ const Notes = ({ gridView }: GridProps) => {
       );
     } else {
       return (
-        <div className='notes grid-view'>
-          {notes.map((note) => (
-            <Note
-              key={note.noteId}
-              noteId={note.noteId}
-              title={note.title}
-              createdAt={note.createdAt}
-              content={note.content}
-            />
-          ))}
-        </div>
+        <>
+          <div className='pinned-notes'>
+            <span className='notes-section-title'>Pinned Notes</span>
+            <div className={`notes grid-view`}>
+              {pinnedNotes.length > 0 ? (
+                pinnedNotes.map((note) => (
+                  <Note
+                    key={note.noteId}
+                    noteId={note.noteId}
+                    title={note.title}
+                    createdAt={note.createdAt}
+                    content={note.content}
+                    pinned={note.pinned}
+                  />
+                ))
+              ) : (
+                <div className='add-note'>
+                  <span>No pinned notes</span>
+                </div>
+              )}
+            </div>
+            <div className='other-notes'>
+              <span className='notes-section-title'>Other notes</span>
+              <div className={`notes ${notesClassName}`}>
+                {otherNotes.length > 0 ? (
+                  otherNotes.map((note) => (
+                    <Note
+                      key={note.noteId}
+                      noteId={note.noteId}
+                      title={note.title}
+                      createdAt={note.createdAt}
+                      content={note.content}
+                      pinned={note.pinned}
+                    />
+                  ))
+                ) : (
+                  <div className='add-note'>
+                    <span>No other notes</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </>
       );
     }
   };
@@ -47,22 +87,55 @@ const Notes = ({ gridView }: GridProps) => {
       );
     } else {
       return (
-        <div className={`notes ${notesClassName}`}>
-          {notes.map((note) => (
-            <Note
-              key={note.noteId}
-              title={note.title}
-              noteId={note.noteId}
-              createdAt={note.createdAt}
-              content={note.content}
-            />
-          ))}
-        </div>
+        <>
+          <div className='pinned-notes'>
+            <span className='notes-section-title'>Pinned Notes</span>
+            <div className={`notes ${notesClassName}`}>
+              {pinnedNotes.length > 0 ? (
+                pinnedNotes.map((note) => (
+                  <Note
+                    key={note.noteId}
+                    noteId={note.noteId}
+                    title={note.title}
+                    createdAt={note.createdAt}
+                    content={note.content}
+                    pinned={note.pinned}
+                  />
+                ))
+              ) : (
+                <div className='add-note'>
+                  <span>No pinned notes</span>
+                </div>
+              )}
+            </div>
+            <div className='other-notes'>
+              <span className='notes-section-title'>Other notes</span>
+              <div className={`notes ${notesClassName}`}>
+                {otherNotes.length > 0 ? (
+                  otherNotes.map((note) => (
+                    <Note
+                      key={note.noteId}
+                      noteId={note.noteId}
+                      title={note.title}
+                      createdAt={note.createdAt}
+                      content={note.content}
+                      pinned={note.pinned}
+                    />
+                  ))
+                ) : (
+                  <div className='add-note'>
+                    <span>No other notes</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </>
       );
     }
   };
 
-  return largerScreen ? largerScreenLayout() : smallScreenLayout();
+  return <>{largerScreen ? largerScreenLayout() : smallScreenLayout()}</>;
 };
 
 export default Notes;
