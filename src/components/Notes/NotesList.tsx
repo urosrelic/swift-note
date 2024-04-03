@@ -31,6 +31,8 @@ const NotesList = ({ notes, gridView, loading }: NoteListProps) => {
                 pinned={note.pinned}
                 archived={note.archived}
                 deleted={note.deleted}
+                color={note.color}
+                labels={note.labels}
               />
             ))
           ) : (

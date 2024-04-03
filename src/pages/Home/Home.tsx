@@ -8,7 +8,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import { useAuth } from '../../hooks/useAuth';
 import useFirebase from '../../hooks/useFirebase';
 import { GridProps } from '../../utils/types/GridProps';
-import { Note } from '../../utils/types/NoteType';
+import { NoteType } from '../../utils/types/NoteType';
 
 const Home = ({ gridView, setGridView }: GridProps) => {
   const [openModal, setOpenModal] = useState<string | null>(null);
@@ -46,15 +46,17 @@ const Home = ({ gridView, setGridView }: GridProps) => {
   };
 
   const handleAddNote = () => {
-    const noteData: Omit<Note, 'noteId'> = {
-      archived: false,
-      color: 'white',
-      content: noteContent,
-      createdAt: firebase.firestore.Timestamp.now(),
-      labels: [],
-      pinned: false,
+    const noteData: Omit<NoteType, 'noteId'> = {
       title: noteTitle,
+      content: noteContent,
       userId: currentUser.uid,
+      archived: false,
+      pinned: false,
+      deleted: false,
+      createdAt: firebase.firestore.Timestamp.now(),
+      deletedAt: null,
+      color: '',
+      labels: [],
     };
 
     addNote(noteData);

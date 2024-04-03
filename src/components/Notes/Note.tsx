@@ -7,25 +7,29 @@ import useFirebase from '../../hooks/useFirebase';
 import './Note.css';
 
 interface NoteProps {
-  title?: string;
-  content?: string;
+  noteId: string;
+  title: string;
+  content: string;
+  archived: boolean;
+  pinned: boolean;
+  deleted: boolean;
   createdAt: firebase.firestore.Timestamp;
   deletedAt: firebase.firestore.Timestamp | null;
-  noteId: string;
-  pinned: boolean;
-  archived: boolean;
-  deleted: boolean;
+  color: string;
+  labels: string[];
 }
 
 const Note = ({
+  noteId,
   title,
   content,
-  createdAt,
-  noteId,
-  pinned,
   archived,
+  pinned,
   deleted,
+  createdAt,
   deletedAt,
+  color,
+  labels,
 }: NoteProps) => {
   const [noteHover, setNoteHover] = useState<boolean>(false);
 
