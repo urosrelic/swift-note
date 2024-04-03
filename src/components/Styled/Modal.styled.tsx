@@ -21,9 +21,21 @@ const ModalOverlay = styled.div`
 `;
 
 const ModalContent = styled.div`
+  position: relative;
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
+
+  textarea {
+    resize: none;
+    outline: none;
+  }
+
+  textarea::placeholder,
+  input::placeholder {
+    color: #d3e3fd;
+    opacity: 0.6;
+  }
 `;
 
 const CloseButton = styled.div`
