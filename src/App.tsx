@@ -5,11 +5,11 @@ import {
   BrowserRouter as Router,
   Routes,
 } from 'react-router-dom';
-import Notes from './components/Notes/Notes';
 import Archived from './pages/Archived/Archived';
 import Home from './pages/Home/Home';
 import Landing from './pages/Landing/Landing';
 import Login from './pages/Login/Login';
+import Notes from './pages/Notes/Notes';
 import PrivateRoutes from './utils/PrivateRoutes';
 
 function App() {

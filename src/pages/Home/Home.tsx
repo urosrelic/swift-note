@@ -8,7 +8,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import { useAuth } from '../../hooks/useAuth';
 import useFirebase from '../../hooks/useFirebase';
 import { GridProps } from '../../utils/types/GridProps';
-import { Note } from '../../utils/types/Note';
+import { Note } from '../../utils/types/NoteType';
 
 const Home = ({ gridView, setGridView }: GridProps) => {
   const [openModal, setOpenModal] = useState<string | null>(null);
