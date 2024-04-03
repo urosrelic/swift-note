@@ -1,6 +1,6 @@
 import firebase from 'firebase/compat/app';
 
-export interface Note {
+export interface NoteType {
   noteId: string;
   archived: boolean;
   color: string;
