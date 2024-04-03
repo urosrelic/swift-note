@@ -19,6 +19,27 @@ const DialogContainer = styled.div<{
   align-items: center;
 `;
 
+const DialogButton = styled.div<{
+  style?: React.CSSProperties;
+}>`
+  width: 90%;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  cursor: pointer;
+  background-color: var(--tertiary-color);
+  border-radius: 5px;
+  color: var(--secondary-color);
+
+  img {
+    width: 25px;
+    margin-right: 10px;
+  }
+`;
+
 const StyledDialog = styled.div<{
   style?: React.CSSProperties;
   openDialog: boolean;
@@ -40,30 +61,6 @@ const StyledDialog = styled.div<{
   transform: translateY(-20px);
   transition: all 0.3s ease;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-
-  .dialog-btn {
-    width: 90%;
-    padding: 0.5rem;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1rem;
-    cursor: pointer;
-    background-color: var(--tertiary-color);
-    border-radius: 5px;
-    color: var(--secondary-color);
-  }
-
-  .dialog-btn img {
-    width: 25px;
-    margin-right: 10px;
-  }
-
-  .dialog-text {
-    font-size: 1.2rem;
-    font-weight: 400;
-  }
 
   .close-dialog-btn {
     position: absolute;
@@ -111,4 +108,4 @@ const Dialog: React.FC<DialogProps> = ({
   );
 };
 
-export { Dialog, DialogContainer };
+export { Dialog, DialogButton, DialogContainer };

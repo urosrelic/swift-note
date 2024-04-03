@@ -6,7 +6,7 @@ import './Navbar.css';
 
 import { useEffect } from 'react';
 import { useAuth } from '../../hooks/useAuth';
-import { Dialog, DialogContainer } from '../Styled/Dialog.styled';
+import { Dialog, DialogButton, DialogContainer } from '../Styled/Dialog.styled';
 
 const Navbar = ({ gridView, setGridView }: GridProps) => {
   const { currentUser, logout } = useAuth();
@@ -80,14 +80,14 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
             <div className='account-name'>
               <span>Hi, {currentUser?.displayName}</span>
             </div>
-            <div className='dialog-btn profile'>
+            <DialogButton>
               <img src='/person.svg' alt='Profile' />
               <span>Profile</span>
-            </div>
-            <div className='dialog-btn logout' onClick={logout}>
+            </DialogButton>
+            <DialogButton onClick={logout}>
               <img src='/logout.svg' alt='Logout' />
               <span>Logout</span>
-            </div>
+            </DialogButton>
           </DialogContainer>
         </Dialog>
       </div>
