@@ -80,6 +80,7 @@
 input::placeholder,
 textarea::placeholder {
   color: var(--secondary-color);
+  opacity: 0.5;
 }
 
 /* Modal btn */
