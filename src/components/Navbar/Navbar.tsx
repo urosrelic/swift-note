@@ -6,7 +6,7 @@ import './Navbar.css';
 
 import { useEffect } from 'react';
 import { useAuth } from '../../hooks/useAuth';
-import Dialog from '../Dialog/Dialog';
+import Dialog from '../Styled/Dialog.styled';
 
 const Navbar = ({ gridView, setGridView }: GridProps) => {
   const { currentUser } = useAuth();
