@@ -48,24 +48,26 @@ const Home = ({ gridView, setGridView }: GridProps) => {
   };
 
   const handleAddNote = () => {
-    const noteData: Omit<NoteType, 'noteId'> = {
-      title: noteTitle,
-      content: noteContent,
-      userId: currentUser.uid,
-      archived: false,
-      pinned: false,
-      deleted: false,
-      createdAt: firebase.firestore.Timestamp.now(),
-      deletedAt: null,
-      color: '#d3e3fd',
-      labels: [],
-    };
+    if (currentUser) {
+      const noteData: Omit<NoteType, 'noteId'> = {
+        title: noteTitle,
+        content: noteContent,
+        userId: currentUser.uid,
+        archived: false,
+        pinned: false,
+        deleted: false,
+        createdAt: firebase.firestore.Timestamp.now(),
+        deletedAt: null,
+        color: '#d3e3fd',
+        labels: [],
+      };
 
-    addNote(noteData);
+      addNote(noteData);
 
-    setNoteTitle('');
-    setNoteContent('');
-    closeModalHandler();
+      setNoteTitle('');
+      setNoteContent('');
+      closeModalHandler();
+    }
   };
 
   const muiFabStyles = {

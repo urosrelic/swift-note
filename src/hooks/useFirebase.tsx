@@ -32,6 +32,7 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
           const items: NoteType[] = [];
           querySnapshot.forEach((doc) => {
             const data = doc.data() as NoteType;
+            //  @ts-ignore
             items.push({ noteId: doc.id, ...data });
           });
           setNotes(items);
