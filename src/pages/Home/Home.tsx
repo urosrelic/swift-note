@@ -55,7 +55,7 @@ const Home = ({ gridView, setGridView }: GridProps) => {
       deleted: false,
       createdAt: firebase.firestore.Timestamp.now(),
       deletedAt: null,
-      color: '',
+      color: '#d3e3fd',
       labels: [],
     };
 
