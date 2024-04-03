@@ -55,8 +55,34 @@ const Notes = ({ gridView }: GridProps) => {
         />
       </div>
       {isModalOpen && (
-        <Modal closeModalHandler={handleCloseModal} style={{ width: '320px' }}>
-          <h2>{selectedNote.title}</h2>
+        <Modal
+          closeModalHandler={handleCloseModal}
+          style={{
+            width: '320px',
+            backgroundColor: selectedNote?.color,
+          }}
+        >
+          {selectedNote?.title ? (
+            <h1>{selectedNote?.title}</h1>
+          ) : (
+            <h1>No Title</h1>
+          )}
+          {selectedNote?.content ? (
+            <textarea
+              readOnly={true}
+              style={{
+                width: '100%',
+                height: '300px',
+                border: 'none',
+                fontSize: '1.1rem',
+                backgroundColor: 'transparent',
+              }}
+            >
+              {selectedNote?.content}
+            </textarea>
+          ) : (
+            <h2>No content</h2>
+          )}
         </Modal>
       )}
     </>
