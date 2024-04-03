@@ -63,6 +63,7 @@ const Note = ({
       className='note'
       onMouseEnter={() => setNoteHover(true)}
       onMouseLeave={() => setNoteHover(false)}
+      style={{ backgroundColor: color }}
     >
       <div className='note-details'>
         {title && <span className='note-title'>{title}</span>}
