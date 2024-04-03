@@ -73,6 +73,24 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     }
   };
 
+  const removeFromTrash = async (notes: NoteType[]) => {
+    setLoading(true);
+    try {
+      notes.map((note) => {
+        if (note.deleted) {
+          deleteNote(note.noteId);
+        } else {
+          // Skip this iteration if the note is not deleted
+          return;
+        }
+      });
+      setLoading(false);
+    } catch (error) {
+      setError((error as Error).message || 'An error occurred');
+      setLoading(false);
+    }
+  };
+
   const toggleDeletedNote = async (noteId: string, isDeleted: boolean) => {
     setLoading(true);
     try {
@@ -123,6 +141,7 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     togglePinNote,
     toggleArchiveNote,
     toggleDeletedNote,
+    removeFromTrash,
   };
 };
 
