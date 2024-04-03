@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import { useAuth } from '../../hooks/useAuth';
 import useFirebase from '../../hooks/useFirebase';
+import { NoteType } from '../../utils/types/NoteType';
 import './Note.css';
 
 interface NoteProps {
@@ -17,6 +18,7 @@ interface NoteProps {
   deletedAt: firebase.firestore.Timestamp | null;
   color: string;
   labels: string[];
+  handleNoteClick: (note: NoteType) => void;
 }
 
 const Note = ({
@@ -30,8 +32,10 @@ const Note = ({
   deletedAt,
   color,
   labels,
+  handleNoteClick,
 }: NoteProps) => {
   const [noteHover, setNoteHover] = useState<boolean>(false);
+  const [tooltipClicked, setTooltipClicked] = useState<boolean>(false);
 
   const { currentUser } = useAuth();
 
@@ -58,12 +62,35 @@ const Note = ({
     await toggleArchiveNote(noteId, !archived);
   };
 
+  const handleTooltipClick = () => {
+    setTooltipClicked(true);
+  };
+
+  const handleNoteClickWrapper = () => {
+    if (!tooltipClicked) {
+      handleNoteClick({
+        noteId,
+        title,
+        content,
+        archived,
+        pinned,
+        deleted,
+        createdAt,
+        deletedAt,
+        color,
+        labels,
+      } as NoteType);
+    }
+    setTooltipClicked(false);
+  };
+
   return (
     <div
       className='note'
       onMouseEnter={() => setNoteHover(true)}
       onMouseLeave={() => setNoteHover(false)}
       style={{ backgroundColor: color }}
+      onClick={handleNoteClickWrapper}
     >
       <div className='note-details'>
         {title && <span className='note-title'>{title}</span>}
@@ -82,6 +109,7 @@ const Note = ({
             className={`note-action ${noteHover ? 'hover' : ''}`}
             title='Restore'
             onClick={toggleDeleted}
+            onClickCapture={handleTooltipClick}
             slotProps={{
               tooltip: {
                 sx: {
@@ -105,6 +133,7 @@ const Note = ({
             className={`note-action ${noteHover ? 'hover' : ''}`}
             title='Delete forever'
             onClick={handleDeleteNote}
+            onClickCapture={handleTooltipClick}
             slotProps={{
               tooltip: {
                 sx: {
@@ -132,6 +161,7 @@ const Note = ({
             className={`note-action pin-note ${noteHover ? 'hover' : ''}`}
             title={pinned ? 'Unpin note' : 'Pin note'}
             onClick={togglePinned}
+            onClickCapture={handleTooltipClick}
             slotProps={{
               tooltip: {
                 sx: {
@@ -162,6 +192,7 @@ const Note = ({
           <div className='note-actions'>
             <Tooltip
               className={`note-action ${noteHover ? 'hover' : ''}`}
+              onClickCapture={handleTooltipClick}
               title='Paint note'
               slotProps={{
                 tooltip: {
@@ -186,6 +217,7 @@ const Note = ({
               className={`note-action ${noteHover ? 'hover' : ''}`}
               title={archived ? 'Unarchive note' : 'Archive note'}
               onClick={toggleArchived}
+              onClickCapture={handleTooltipClick}
               slotProps={{
                 tooltip: {
                   sx: {
@@ -211,6 +243,7 @@ const Note = ({
               className={`note-action ${noteHover ? 'hover' : ''}`}
               title='Delete note'
               onClick={toggleDeleted}
+              onClickCapture={handleTooltipClick}
               slotProps={{
                 tooltip: {
                   sx: {
