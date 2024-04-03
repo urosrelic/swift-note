@@ -1,16 +1,16 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import { useState } from 'react';
+import { Outlet } from 'react-router-dom';
 import Fab from '../../components/FAB/Fab';
 import Modal from '../../components/Modal/Modal'; // Import Modal component
 import Navbar from '../../components/Navbar/Navbar';
-import Notes from '../../components/Notes/Notes';
 import { useAuth } from '../../hooks/useAuth';
 import useFirebase from '../../hooks/useFirebase';
+import { GridProps } from '../../utils/types/GridProps';
 import { Note } from '../../utils/types/Note';
 
-const Home = () => {
-  const [gridView, setGridView] = useState<boolean>(true);
+const Home = ({ gridView, setGridView }: GridProps) => {
   const [openModal, setOpenModal] = useState<string | null>(null);
   const [noteTitle, setNoteTitle] = useState<string>('');
   const [noteContent, setNoteContent] = useState<string>('');
@@ -96,9 +96,8 @@ const Home = () => {
   return (
     <div className='home'>
       <Navbar gridView={gridView} setGridView={setGridView} />
-      <Notes gridView={gridView} />
-      <Fab openModal={openModalHandler} />{' '}
-      {/* Pass down the handler function */}
+      <Outlet />
+      <Fab openModal={openModalHandler} />
       {openModal && ( // Render modal based on the state
         <Modal closeModalHandler={closeModalHandler}>
           {openModal === 'add' && renderNoteModal()}
