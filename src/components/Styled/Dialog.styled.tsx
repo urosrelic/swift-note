@@ -1,21 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useAuth } from '../../hooks/useAuth';
 import { useClickOutside } from '../../hooks/useClickOutside';
 
 interface DialogProps {
   openDialog: boolean;
   setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
   style?: React.CSSProperties;
+  children: React.ReactNode;
 }
+
+const DialogContainer = styled.div<{
+  style?: React.CSSProperties;
+}>`
+  /* Default styles */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const StyledDialog = styled.div<{
   style?: React.CSSProperties;
   openDialog: boolean;
 }>`
-  /* Dynamic styles */
-  ${({ style }) => style && style}
-
   /* Default styles */
   width: calc(100% - 2rem);
   height: auto;
@@ -33,12 +40,6 @@ const StyledDialog = styled.div<{
   transform: translateY(-20px);
   transition: all 0.3s ease;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-
-  .dialog-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
 
   .dialog-btn {
     width: 90%;
@@ -73,22 +74,6 @@ const StyledDialog = styled.div<{
     border-radius: 50%;
   }
 
-  /* AUTH container */
-  .dialog-container.auth {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .account-image {
-    margin: 1rem 0;
-  }
-
-  .account-image img {
-    border-radius: 50%;
-  }
-
   &.show {
     opacity: 1;
     visibility: visible;
@@ -105,36 +90,20 @@ const Dialog: React.FC<DialogProps> = ({
   openDialog,
   setOpenDialog,
   style,
+  children,
 }) => {
   const domNode = useClickOutside<HTMLDivElement>(() => setOpenDialog(false));
-  const { currentUser, logout } = useAuth();
 
   const dialogClassName = openDialog ? 'show' : '';
 
   return (
     <StyledDialog
-      className={`dialog ${dialogClassName}`}
+      className={`dialog ${dialogClassName} `}
       ref={domNode}
       style={style}
       openDialog={openDialog}
     >
-      <div className='dialog-container auth'>
-        <span className='account-name'>{currentUser?.email}</span>
-        <div className='account-image'>
-          <img src={currentUser?.photoURL || '/account.svg'} alt='Account' />
-        </div>
-        <div className='account-name'>
-          <span>Hi, {currentUser?.displayName}</span>
-        </div>
-        <div className='dialog-btn profile'>
-          <img src='/person.svg' alt='Profile' />
-          <span>Profile</span>
-        </div>
-        <div className='dialog-btn logout' onClick={logout}>
-          <img src='/logout.svg' alt='Logout' />
-          <span>Logout</span>
-        </div>
-      </div>
+      <DialogContainer style={style}>{children}</DialogContainer>
       <div className='close-dialog-btn' onClick={() => setOpenDialog(false)}>
         <img src='/close.svg' alt='Close' />
       </div>
@@ -142,4 +111,4 @@ const Dialog: React.FC<DialogProps> = ({
   );
 };
 
-export default Dialog;
+export { Dialog, DialogContainer };
