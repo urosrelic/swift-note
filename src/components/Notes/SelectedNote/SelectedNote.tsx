@@ -38,16 +38,7 @@ const SelectedNote: React.FC<SelectedNoteProps> = ({
               </div>
               <div className='selected-note-content'>
                 {selectedNote.content ? (
-                  <textarea
-                    readOnly={true}
-                    style={{
-                      width: '100%',
-                      height: '300px',
-                      border: 'none',
-                      fontSize: '1.1rem',
-                      backgroundColor: 'transparent',
-                    }}
-                  >
+                  <textarea readOnly={true} style={{}}>
                     {selectedNote.content}
                   </textarea>
                 ) : (
