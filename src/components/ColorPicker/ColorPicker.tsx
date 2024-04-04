@@ -43,7 +43,9 @@ const ColorPicker = ({ isModalOpen, closeModalHandler }: ColorPickerProps) => {
                 key={index}
                 className='color-option'
                 style={{ backgroundColor: color }}
-                onClick={() => colorNote(selectedNote.noteId, color)}
+                onClick={() =>
+                  selectedNote?.noteId && colorNote(selectedNote?.noteId, color)
+                }
               ></div>
             ))}
           </div>
