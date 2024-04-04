@@ -2,7 +2,7 @@ import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab/Fab';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import FloatingActionButton from '../../components/FAB/FloatingActionButton';
 import Navbar from '../../components/Navbar/Navbar';
@@ -11,14 +11,21 @@ import { useAuth } from '../../hooks/useAuth';
 import useFirebase from '../../hooks/useFirebase';
 import { GridProps } from '../../utils/types/GridProps';
 import { NoteType } from '../../utils/types/NoteType';
+import './Home.css';
 
 const Home = ({ gridView, setGridView }: GridProps) => {
+  // States
+
   const [openModal, setOpenModal] = useState<string | null>(null);
   const [noteTitle, setNoteTitle] = useState<string>('');
   const [noteContent, setNoteContent] = useState<string>('');
 
+  // Hooks
+
   const { currentUser } = useAuth();
   const { addNote } = useFirebase(currentUser);
+
+  // Handlers
 
   const openModalHandler = (modalType: string) => {
     setOpenModal(modalType);
@@ -70,6 +77,8 @@ const Home = ({ gridView, setGridView }: GridProps) => {
     }
   };
 
+  // Style props
+
   const muiFabStyles = {
     backgroundColor: '#233549',
     '&:hover': {
@@ -77,55 +86,44 @@ const Home = ({ gridView, setGridView }: GridProps) => {
     },
   };
 
+  const modalContainerStyles = {
+    width: '90%',
+    padding: '1rem',
+    display: 'flex',
+    flexDirection: 'column',
+    maxWidth: '500px',
+    alignItems: 'flex-start',
+    backgroundColor: '#162c46',
+  };
+
+  // Render modal content
+
+  const renderChecklistModal = () => {
+    return (
+      <div className='checklist-modal'>
+        <h1 style={{ color: 'white' }}>Work in progress...</h1>
+      </div>
+    );
+  };
+
   const renderNoteModal = () => {
     return (
-      <div
-        className='note-modal-container'
-        style={{
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
+      <div className='note-modal-container'>
         <input
           type='text'
           name='note-title'
           placeholder='Title'
           onChange={handleTitleChange}
-          style={{
-            width: '90%',
-            fontSize: '1rem',
-            resize: 'none',
-            border: 'none',
-            outline: 'none',
-            fontWeight: 'bold',
-            backgroundColor: 'transparent',
-            color: '#d3e3fd',
-          }}
         />
         <textarea
           name='note-content'
           placeholder='Content...'
           onChange={handleContentChange}
-          style={{
-            width: '90%',
-            fontSize: '1rem',
-            resize: 'none',
-            border: 'none',
-            outline: 'none',
-            backgroundColor: 'transparent',
-            color: '#d3e3fd',
-          }}
         />
-        <div
-          className='modal-btn'
-          style={{
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-end',
-          }}
-        >
+        <div className='note-modal-container-date'>
+          Today's date: {new Date().toLocaleDateString()}
+        </div>
+        <div className='modal-btn'>
           <Fab
             color='primary'
             aria-label='add'
@@ -139,29 +137,18 @@ const Home = ({ gridView, setGridView }: GridProps) => {
     );
   };
 
-  const renderChecklistModal = () => {
-    return (
-      <div className='checklist-modal'>
-        <></>
-      </div>
-    );
-  };
-
   return (
     <div className='home'>
       <Navbar gridView={gridView} setGridView={setGridView} />
       <Outlet />
       <FloatingActionButton openModal={openModalHandler} />
-      {openModal && ( // Render modal based on the state
+      {openModal && (
         <Modal
           closeModalHandler={closeModalHandler}
           style={{
-            width: '90%',
-            display: 'flex',
-            flexDirection: 'column',
-            maxWidth: '500px',
-            alignItems: 'flex-start',
-            backgroundColor: '#162c46',
+            modalContainer: {
+              ...(modalContainerStyles as React.CSSProperties),
+            },
           }}
         >
           {openModal === 'add' && renderNoteModal()}
