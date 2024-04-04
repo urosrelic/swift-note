@@ -1,8 +1,8 @@
 import CircularProgress from '@mui/material/CircularProgress/CircularProgress';
-import { NoteType } from '../../utils/types/NoteType';
-import Note from './Note';
+import { NoteType } from '../../../types/NoteType';
+import Note from '../Note/Note';
 
-import './NotesList.css';
+import './NoteList.css';
 
 interface NoteListProps {
   notes: NoteType[];
@@ -11,7 +11,7 @@ interface NoteListProps {
   handleNoteClick?: (note: NoteType) => void;
 }
 
-const NotesList = ({
+const NoteList = ({
   notes,
   gridView,
   loading,
@@ -54,4 +54,4 @@ const NotesList = ({
   );
 };
 
-export default NotesList;
+export default NoteList;

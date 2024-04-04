@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { UserAuthCredentials } from '../../utils/types/UserAuthCredentials';
+import { UserAuthCredentials } from '../../types/UserAuthCredentials';
 import './Login.css';
 
 const Login = () => {

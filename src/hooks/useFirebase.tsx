@@ -12,7 +12,7 @@ import {
 } from 'firebase/firestore';
 import { useEffect, useMemo, useState } from 'react';
 import { db } from '../config/firebase';
-import { NoteType } from '../utils/types/NoteType';
+import { NoteType } from '../types/NoteType';
 
 const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
   const notesRef = useMemo(() => collection(db, 'notes'), []);
@@ -133,6 +133,20 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     }
   };
 
+  const colorNote = async (noteId: string, color: string) => {
+    setLoading(true);
+    try {
+      await updateDoc(doc(notesRef, noteId), {
+        color: color,
+      });
+    } catch (error) {
+      setError((error as Error).message || 'An error occurred');
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     notes,
     loading,
@@ -143,6 +157,7 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     toggleArchiveNote,
     toggleDeletedNote,
     removeFromTrash,
+    colorNote,
   };
 };
 

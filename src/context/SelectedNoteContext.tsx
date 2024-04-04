@@ -1,6 +1,6 @@
 // SelectedNoteContext.tsx
 import React, { createContext, useState } from 'react';
-import { NoteType } from '../utils/types/NoteType';
+import { NoteType } from '../types/NoteType';
 
 interface SelectedNoteContextType {
   selectedNote: NoteType | null;

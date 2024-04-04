@@ -4,13 +4,13 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import FloatingActionButton from '../../components/FAB/FloatingActionButton';
+import FloatingActionButton from '../../components/FAB/FloatingActionButton/FloatingActionButton';
 import Navbar from '../../components/Navbar/Navbar';
 import Modal from '../../components/Styled/Modal.styled';
 import { useAuth } from '../../hooks/useAuth';
 import useFirebase from '../../hooks/useFirebase';
-import { GridProps } from '../../utils/types/GridProps';
-import { NoteType } from '../../utils/types/NoteType';
+import { GridProps } from '../../types/GridProps';
+import { NoteType } from '../../types/NoteType';
 import './Home.css';
 
 const Home = ({ gridView, setGridView }: GridProps) => {

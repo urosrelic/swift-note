@@ -1,6 +1,6 @@
-import { useClickOutside } from '../../hooks/useClickOutside';
+import { useClickOutside } from '../../../hooks/useClickOutside';
+import DrawerOption from '../DrawerOption/DrawerOption';
 import './Drawer.css';
-import DrawerOption from './DrawerOption';
 
 interface DrawerProps {
   openDrawer: boolean;

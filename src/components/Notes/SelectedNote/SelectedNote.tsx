@@ -1,6 +1,6 @@
 import React from 'react';
-import Modal from '../../components/Styled/Modal.styled';
-import { NoteType } from '../../utils/types/NoteType';
+import { NoteType } from '../../../types/NoteType';
+import Modal from '../../Styled/Modal.styled';
 import './SelectedNote.css';
 
 interface SelectedNoteProps {
@@ -38,16 +38,7 @@ const SelectedNote: React.FC<SelectedNoteProps> = ({
               </div>
               <div className='selected-note-content'>
                 {selectedNote.content ? (
-                  <textarea
-                    readOnly={true}
-                    style={{
-                      width: '100%',
-                      height: '300px',
-                      border: 'none',
-                      fontSize: '1.1rem',
-                      backgroundColor: 'transparent',
-                    }}
-                  >
+                  <textarea readOnly={true} style={{}}>
                     {selectedNote.content}
                   </textarea>
                 ) : (
@@ -55,7 +46,17 @@ const SelectedNote: React.FC<SelectedNoteProps> = ({
                 )}
               </div>
               <div className='selected-note-date'>
-                {selectedNote.createdAt.toDate().toLocaleString()}
+                {selectedNote.deleted ? (
+                  <span>
+                    Deleted at:{' '}
+                    {selectedNote.deletedAt?.toDate().toLocaleString()}
+                  </span>
+                ) : (
+                  <span>
+                    Created at{' '}
+                    {selectedNote.createdAt?.toDate().toLocaleString()}
+                  </span>
+                )}
               </div>
             </div>
           )}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useClickOutside } from '../../hooks/useClickOutside';
-import FabOption from './FabOption';
+import { useClickOutside } from '../../../hooks/useClickOutside';
+import FabOption from '../FabOption/FabOption';
 import './FloatingActionButton.css';
 
 interface FabProps {

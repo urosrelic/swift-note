@@ -1,21 +1,26 @@
-import React, { useState } from 'react';
-import NotesList from '../../components/Notes/NotesList';
-import SelectedNote from '../../components/Notes/SelectedNote';
+import { PushPin } from '@mui/icons-material';
+import DescriptionIcon from '@mui/icons-material/Description';
+import { useState } from 'react';
+import ColorPicker from '../../components/ColorPicker/ColorPicker';
+import NotesList from '../../components/Notes/NoteList/NoteList';
+import SelectedNote from '../../components/Notes/SelectedNote/SelectedNote';
 import { useAuth } from '../../hooks/useAuth';
+import { useColorPicker } from '../../hooks/useColorPicker';
 import useFirebase from '../../hooks/useFirebase';
 import useSelectedNote from '../../hooks/useSelectedNote';
-import { GridProps } from '../../utils/types/GridProps';
-import { NoteType } from '../../utils/types/NoteType';
+import { GridProps } from '../../types/GridProps';
+import { NoteType } from '../../types/NoteType';
 import './Notes.css';
 
-const Notes: React.FC<GridProps> = ({ gridView }) => {
+const Notes = ({ gridView }: GridProps) => {
   // States
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   // Hooks
   const { currentUser } = useAuth();
   const { notes, loading } = useFirebase(currentUser);
   const { selectedNote, setSelectedNote } = useSelectedNote();
+  const { isColorPickerOpen, closeColorPicker } = useColorPicker();
 
   // Filter notes array
 
@@ -48,7 +53,12 @@ const Notes: React.FC<GridProps> = ({ gridView }) => {
   return (
     <>
       <div className='pinned-notes'>
-        <span className='notes-section-title'>Pinned Notes</span>
+        <span className='notes-section'>
+          <div className='notes-section-title'>
+            <PushPin sx={{ fontSize: '1.8rem', marginRight: '0.5rem' }} />
+            Pinned Notes
+          </div>
+        </span>
         {pinnedNotes.length > 0 ? (
           <NotesList
             notes={pinnedNotes}
@@ -61,7 +71,14 @@ const Notes: React.FC<GridProps> = ({ gridView }) => {
         )}
       </div>
       <div className='other-notes'>
-        <span className='notes-section-title'>Other notes</span>
+        <span className='notes-section'>
+          <div className='notes-section-title'>
+            <DescriptionIcon
+              sx={{ fontSize: '1.8rem', marginRight: '0.5rem' }}
+            />
+            Other notes
+          </div>
+        </span>
         {otherNotes.length > 0 ? (
           <NotesList
             notes={otherNotes}
@@ -77,6 +94,10 @@ const Notes: React.FC<GridProps> = ({ gridView }) => {
         selectedNote={selectedNote}
         isModalOpen={isModalOpen}
         closeModalHandler={handleCloseModal}
+      />
+      <ColorPicker
+        isModalOpen={isColorPickerOpen}
+        closeModalHandler={closeColorPicker}
       />
     </>
   );
