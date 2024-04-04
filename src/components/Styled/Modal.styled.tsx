@@ -28,6 +28,11 @@ const ModalContainer = styled.div`
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
+
+  textarea {
+    border: none;
+    outline: none;
+  }
 `;
 
 const CloseButton = styled.div`
