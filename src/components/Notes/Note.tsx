@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { useAuth } from '../../hooks/useAuth';
 import useFirebase from '../../hooks/useFirebase';
-import { NoteType } from '../../utils/types/NoteType';
+import { NoteType } from '../../types/NoteType';
 import './Note.css';
 
 interface NoteProps {

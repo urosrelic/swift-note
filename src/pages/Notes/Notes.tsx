@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import NotesList from '../../components/Notes/NotesList';
 import SelectedNote from '../../components/Notes/SelectedNote';
 import { useAuth } from '../../hooks/useAuth';
 import useFirebase from '../../hooks/useFirebase';
 import useSelectedNote from '../../hooks/useSelectedNote';
-import { GridProps } from '../../utils/types/GridProps';
-import { NoteType } from '../../utils/types/NoteType';
+import { GridProps } from '../../types/GridProps';
+import { NoteType } from '../../types/NoteType';
 import './Notes.css';
 
-const Notes: React.FC<GridProps> = ({ gridView }) => {
+const Notes = ({ gridView }: GridProps) => {
   // States
   const [isModalOpen, setIsModalOpen] = useState(false);
 

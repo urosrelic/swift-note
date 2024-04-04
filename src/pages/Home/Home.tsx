@@ -9,8 +9,8 @@ import Navbar from '../../components/Navbar/Navbar';
 import Modal from '../../components/Styled/Modal.styled';
 import { useAuth } from '../../hooks/useAuth';
 import useFirebase from '../../hooks/useFirebase';
-import { GridProps } from '../../utils/types/GridProps';
-import { NoteType } from '../../utils/types/NoteType';
+import { GridProps } from '../../types/GridProps';
+import { NoteType } from '../../types/NoteType';
 import './Home.css';
 
 const Home = ({ gridView, setGridView }: GridProps) => {

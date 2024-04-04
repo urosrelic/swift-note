@@ -12,7 +12,7 @@ import {
 } from 'firebase/firestore';
 import { useEffect, useMemo, useState } from 'react';
 import { db } from '../config/firebase';
-import { NoteType } from '../utils/types/NoteType';
+import { NoteType } from '../types/NoteType';
 
 const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
   const notesRef = useMemo(() => collection(db, 'notes'), []);

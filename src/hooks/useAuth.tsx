@@ -8,7 +8,7 @@ import {
 } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { auth } from '../config/firebase';
-import { UserAuthCredentials } from '../utils/types/UserAuthCredentials';
+import { UserAuthCredentials } from '../types/UserAuthCredentials';
 
 export const useAuth = () => {
   const [currentUser, setCurrentUser] = useState<FirebaseCurrentUser | null>(
