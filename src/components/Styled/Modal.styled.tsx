@@ -5,7 +5,10 @@ import { useClickOutside } from '../../hooks/useClickOutside';
 interface ModalProps {
   closeModalHandler: () => void;
   children: React.ReactNode;
-  style?: React.CSSProperties;
+  style?: {
+    modalContainer?: React.CSSProperties;
+    closeButton?: React.CSSProperties;
+  };
 }
 
 const ModalOverlay = styled.div`
@@ -25,23 +28,11 @@ const ModalContent = styled.div`
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
-
-  textarea {
-    resize: none;
-    outline: none;
-  }
-
-  textarea::placeholder,
-  input::placeholder {
-    color: #d3e3fd;
-    opacity: 0.6;
-  }
 `;
 
 const CloseButton = styled.div`
   position: absolute;
-  top: 10px;
-  right: 10px;
+  right: 1rem;
   cursor: pointer;
   color: #000;
 `;
@@ -50,9 +41,9 @@ const Modal = ({ closeModalHandler, children, style }: ModalProps) => {
   const domNode = useClickOutside<HTMLDivElement>(closeModalHandler);
   return (
     <ModalOverlay>
-      <ModalContent ref={domNode} style={style}>
+      <ModalContent ref={domNode} style={style?.modalContainer}>
         {children}
-        <CloseButton onClick={closeModalHandler}>
+        <CloseButton style={style?.closeButton} onClick={closeModalHandler}>
           <img src='/close.svg' alt='Close' />
         </CloseButton>
       </ModalContent>
