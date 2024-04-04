@@ -1,11 +1,24 @@
+import { useState } from 'react';
 import NotesList from '../../components/Notes/NotesList';
+import SelectedNote from '../../components/Notes/SelectedNote';
 import { useAuth } from '../../hooks/useAuth';
 import useFirebase from '../../hooks/useFirebase';
-import { GridProps } from '../../utils/types/GridProps';
+import useSelectedNote from '../../hooks/useSelectedNote';
+import { GridProps } from '../../types/GridProps';
+import { NoteType } from '../../types/NoteType';
 import './Deleted.css';
 const Deleted = ({ gridView }: GridProps) => {
+  // States
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Hooks
+
   const { currentUser } = useAuth();
   const { notes, loading, removeFromTrash } = useFirebase(currentUser);
+  const { selectedNote, setSelectedNote } = useSelectedNote();
+
+  // Filter notes
 
   const sortedNotes = notes
     ? [...notes].sort(
@@ -15,21 +28,50 @@ const Deleted = ({ gridView }: GridProps) => {
     : [];
   const deletedNotes = sortedNotes?.filter((note) => note.deleted);
 
+  // Handlers
+
   const handleEmptyTrash = async () => {
     await removeFromTrash(deletedNotes);
   };
 
-  return (
-    <div className='deleted-notes'>
-      <span className='deleted-notes-section-title'>Deleted notes</span>
-      {deletedNotes.length > 0 && (
-        <button className='deleted-notes-empty-btn' onClick={handleEmptyTrash}>
-          Empty
-        </button>
-      )}
+  const handleNoteClick = (note: NoteType) => {
+    setSelectedNote(note);
+    setIsModalOpen(true);
+  };
 
-      <NotesList notes={deletedNotes} gridView={gridView} loading={loading} />
-    </div>
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedNote(null);
+  };
+
+  return (
+    <>
+      <div className='deleted-notes'>
+        <span className='deleted-notes-section-title'>Deleted notes</span>
+        {deletedNotes.length > 0 ? (
+          <NotesList
+            notes={deletedNotes}
+            gridView={gridView}
+            loading={loading}
+            handleNoteClick={handleNoteClick}
+          />
+        ) : (
+          <span className='empty-notes'>No notes</span>
+        )}
+
+        <NotesList
+          notes={deletedNotes}
+          gridView={gridView}
+          loading={loading}
+          handleNoteClick={handleNoteClick}
+        />
+      </div>
+      <SelectedNote
+        selectedNote={selectedNote}
+        isModalOpen={isModalOpen}
+        closeModalHandler={handleCloseModal}
+      />
+    </>
   );
 };
 
