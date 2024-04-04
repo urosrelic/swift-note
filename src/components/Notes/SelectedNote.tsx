@@ -1,4 +1,3 @@
-// SelectedNote.tsx
 import React from 'react';
 import Modal from '../../components/Styled/Modal.styled';
 import { NoteType } from '../../utils/types/NoteType';
