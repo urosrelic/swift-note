@@ -3,15 +3,21 @@ import NotesList from '../../components/Notes/NotesList';
 import Modal from '../../components/Styled/Modal.styled';
 import { useAuth } from '../../hooks/useAuth';
 import useFirebase from '../../hooks/useFirebase';
+import useSelectedNote from '../../hooks/useSelectedNote';
 import { GridProps } from '../../utils/types/GridProps';
 import { NoteType } from '../../utils/types/NoteType';
 import './Notes.css';
 
 const Notes = ({ gridView }: GridProps) => {
+  // States
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Hooks
   const { currentUser } = useAuth();
   const { notes, loading } = useFirebase(currentUser);
-  const [selectedNote, setSelectedNote] = useState<NoteType | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { selectedNote, setSelectedNote } = useSelectedNote();
+
+  // Filter notes array
 
   const sortedNotes = notes
     ? [...notes].sort(
@@ -26,6 +32,8 @@ const Notes = ({ gridView }: GridProps) => {
   const otherNotes = sortedNotes.filter(
     (note) => !note.pinned && !note.archived && !note.deleted
   );
+
+  // Handlers
 
   const handleNoteClick = (note: NoteType) => {
     setSelectedNote(note);
@@ -61,8 +69,11 @@ const Notes = ({ gridView }: GridProps) => {
         <Modal
           closeModalHandler={handleCloseModal}
           style={{
-            width: '320px',
-            backgroundColor: selectedNote?.color,
+            modalContainer: {
+              width: '90%',
+              maxWidth: '500px',
+              backgroundColor: selectedNote?.color,
+            },
           }}
         >
           {selectedNote?.title ? (
