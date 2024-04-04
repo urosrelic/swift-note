@@ -11,7 +11,9 @@ import {
   Unarchive,
 } from '@mui/icons-material';
 import { useAuth } from '../../../hooks/useAuth';
+import { useColorPicker } from '../../../hooks/useColorPicker';
 import useFirebase from '../../../hooks/useFirebase';
+import useSelectedNote from '../../../hooks/useSelectedNote';
 import { NoteType } from '../../../types/NoteType';
 import NoteAction from '../NoteAction/NoteAction';
 import './Note.css';
@@ -49,7 +51,8 @@ const Note = ({
 
   // Hooks
   const { currentUser } = useAuth();
-
+  const { openColorPicker } = useColorPicker();
+  const { setSelectedNote } = useSelectedNote();
   const { deleteNote, togglePinNote, toggleArchiveNote, toggleDeletedNote } =
     useFirebase(currentUser);
 
@@ -94,6 +97,11 @@ const Note = ({
       } as NoteType);
     }
     setTooltipClicked(false);
+  };
+
+  const handleColorAction = () => {
+    openColorPicker();
+    setSelectedNote({ noteId } as NoteType);
   };
 
   return (
@@ -158,7 +166,7 @@ const Note = ({
             <NoteAction
               hover={noteHover}
               title='Paint note'
-              onClick={togglePinned}
+              onClick={handleColorAction}
               onClickCapture={handleTooltipClick}
             >
               <Palette />
