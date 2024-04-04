@@ -31,7 +31,7 @@ const NotesList = ({
         </div>
       ) : (
         <>
-          {notes.length > 0 ? (
+          {notes.length > 0 &&
             notes.map((note) => (
               <Note
                 key={note.noteId}
@@ -47,12 +47,7 @@ const NotesList = ({
                 labels={note.labels}
                 handleNoteClick={() => handleClick(note)}
               />
-            ))
-          ) : (
-            <div className='add-note'>
-              <span>No notes</span>
-            </div>
-          )}
+            ))}
         </>
       )}
     </div>

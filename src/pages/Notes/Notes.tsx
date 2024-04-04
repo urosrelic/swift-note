@@ -49,21 +49,29 @@ const Notes: React.FC<GridProps> = ({ gridView }) => {
     <>
       <div className='pinned-notes'>
         <span className='notes-section-title'>Pinned Notes</span>
-        <NotesList
-          notes={pinnedNotes}
-          gridView={gridView}
-          loading={loading}
-          handleNoteClick={handleNoteClick}
-        />
+        {pinnedNotes.length > 0 ? (
+          <NotesList
+            notes={pinnedNotes}
+            gridView={gridView}
+            loading={loading}
+            handleNoteClick={handleNoteClick}
+          />
+        ) : (
+          <span className='empty-notes'>No notes</span>
+        )}
       </div>
       <div className='other-notes'>
         <span className='notes-section-title'>Other notes</span>
-        <NotesList
-          notes={otherNotes}
-          gridView={gridView}
-          loading={loading}
-          handleNoteClick={handleNoteClick}
-        />
+        {otherNotes.length > 0 ? (
+          <NotesList
+            notes={otherNotes}
+            gridView={gridView}
+            loading={loading}
+            handleNoteClick={handleNoteClick}
+          />
+        ) : (
+          <span className='empty-notes'>No notes</span>
+        )}
       </div>
       <SelectedNote
         selectedNote={selectedNote}
