@@ -1,17 +1,23 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import NotesList from '../../components/Notes/NotesList';
-import Modal from '../../components/Styled/Modal.styled';
+import SelectedNote from '../../components/Notes/SelectedNote';
 import { useAuth } from '../../hooks/useAuth';
 import useFirebase from '../../hooks/useFirebase';
+import useSelectedNote from '../../hooks/useSelectedNote';
 import { GridProps } from '../../utils/types/GridProps';
 import { NoteType } from '../../utils/types/NoteType';
 import './Notes.css';
 
-const Notes = ({ gridView }: GridProps) => {
+const Notes: React.FC<GridProps> = ({ gridView }) => {
+  // States
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Hooks
   const { currentUser } = useAuth();
   const { notes, loading } = useFirebase(currentUser);
-  const [selectedNote, setSelectedNote] = useState<NoteType | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { selectedNote, setSelectedNote } = useSelectedNote();
+
+  // Filter notes array
 
   const sortedNotes = notes
     ? [...notes].sort(
@@ -26,6 +32,8 @@ const Notes = ({ gridView }: GridProps) => {
   const otherNotes = sortedNotes.filter(
     (note) => !note.pinned && !note.archived && !note.deleted
   );
+
+  // Handlers
 
   const handleNoteClick = (note: NoteType) => {
     setSelectedNote(note);
@@ -57,37 +65,11 @@ const Notes = ({ gridView }: GridProps) => {
           handleNoteClick={handleNoteClick}
         />
       </div>
-      {isModalOpen && (
-        <Modal
-          closeModalHandler={handleCloseModal}
-          style={{
-            width: '320px',
-            backgroundColor: selectedNote?.color,
-          }}
-        >
-          {selectedNote?.title ? (
-            <h1>{selectedNote?.title}</h1>
-          ) : (
-            <h1>No Title</h1>
-          )}
-          {selectedNote?.content ? (
-            <textarea
-              readOnly={true}
-              style={{
-                width: '100%',
-                height: '300px',
-                border: 'none',
-                fontSize: '1.1rem',
-                backgroundColor: 'transparent',
-              }}
-            >
-              {selectedNote?.content}
-            </textarea>
-          ) : (
-            <h2>No content</h2>
-          )}
-        </Modal>
-      )}
+      <SelectedNote
+        selectedNote={selectedNote}
+        isModalOpen={isModalOpen}
+        closeModalHandler={handleCloseModal}
+      />
     </>
   );
 };
