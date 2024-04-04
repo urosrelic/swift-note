@@ -55,7 +55,17 @@ const SelectedNote: React.FC<SelectedNoteProps> = ({
                 )}
               </div>
               <div className='selected-note-date'>
-                {selectedNote.createdAt.toDate().toLocaleString()}
+                {selectedNote.deleted ? (
+                  <span>
+                    Deleted at:{' '}
+                    {selectedNote.deletedAt?.toDate().toLocaleString()}
+                  </span>
+                ) : (
+                  <span>
+                    Created at{' '}
+                    {selectedNote.createdAt?.toDate().toLocaleString()}
+                  </span>
+                )}
               </div>
             </div>
           )}
