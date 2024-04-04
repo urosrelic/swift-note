@@ -97,57 +97,65 @@ const Note = ({
       </div>
       <span className='note-content'>{content}</span>
       {deleted ? (
-        <div className='note-actions'>
-          <Tooltip
-            className={`note-action ${noteHover ? 'hover' : ''}`}
-            title='Restore'
-            onClick={toggleDeleted}
-            onClickCapture={handleTooltipClick}
-            slotProps={{
-              tooltip: {
-                sx: {
-                  color: '#d3e3fd',
-                  backgroundColor: '#031525',
-                  fontSize: '1rem',
+        <>
+          <div className='note-date'>
+            Deleted at:{' '}
+            <span className='note-date-value'>
+              {deletedAt?.toDate().toLocaleString()}
+            </span>
+          </div>
+          <div className='note-actions'>
+            <Tooltip
+              className={`note-action ${noteHover ? 'hover' : ''}`}
+              title='Restore'
+              onClick={toggleDeleted}
+              onClickCapture={handleTooltipClick}
+              slotProps={{
+                tooltip: {
+                  sx: {
+                    color: '#d3e3fd',
+                    backgroundColor: '#031525',
+                    fontSize: '1rem',
+                  },
                 },
-              },
-            }}
-          >
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              height='24'
-              viewBox='0 -960 960 960'
-              width='24'
+              }}
             >
-              <path d='M440-320h80v-166l64 62 56-56-160-160-160 160 56 56 64-62v166ZM280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520Zm-400 0v520-520Z' />
-            </svg>
-          </Tooltip>
-          <Tooltip
-            className={`note-action ${noteHover ? 'hover' : ''}`}
-            title='Delete forever'
-            onClick={handleDeleteNote}
-            onClickCapture={handleTooltipClick}
-            slotProps={{
-              tooltip: {
-                sx: {
-                  color: '#d3e3fd',
-                  backgroundColor: '#031525',
-                  fontSize: '1rem',
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                height='24'
+                viewBox='0 -960 960 960'
+                width='24'
+              >
+                <path d='M440-320h80v-166l64 62 56-56-160-160-160 160 56 56 64-62v166ZM280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520Zm-400 0v520-520Z' />
+              </svg>
+            </Tooltip>
+            <Tooltip
+              className={`note-action ${noteHover ? 'hover' : ''}`}
+              title='Delete forever'
+              onClick={handleDeleteNote}
+              onClickCapture={handleTooltipClick}
+              slotProps={{
+                tooltip: {
+                  sx: {
+                    color: '#d3e3fd',
+                    backgroundColor: '#031525',
+                    fontSize: '1rem',
+                  },
                 },
-              },
-            }}
-          >
-            <svg
-              fill=''
-              xmlns='http://www.w3.org/2000/svg'
-              height='24'
-              viewBox='0 -960 960 960'
-              width='24'
+              }}
             >
-              <path d='m376-300 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 180q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520Zm-400 0v520-520Z' />
-            </svg>
-          </Tooltip>
-        </div>
+              <svg
+                fill=''
+                xmlns='http://www.w3.org/2000/svg'
+                height='24'
+                viewBox='0 -960 960 960'
+                width='24'
+              >
+                <path d='m376-300 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 180q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520Zm-400 0v520-520Z' />
+              </svg>
+            </Tooltip>
+          </div>
+        </>
       ) : (
         <>
           <Tooltip
@@ -182,23 +190,12 @@ const Note = ({
             </svg>
           </Tooltip>
 
-          <span className='note-date'>
-            {deleted ? (
-              <>
-                Deleted at:{' '}
-                <span className='note-date-value'>
-                  {deletedAt?.toDate().toLocaleString()}
-                </span>
-              </>
-            ) : (
-              <>
-                Created at:{' '}
-                <span className='note-date-value'>
-                  {createdAt?.toDate().toLocaleString()}
-                </span>
-              </>
-            )}
-          </span>
+          <div className='note-date'>
+            Created at:{' '}
+            <span className='note-date-value'>
+              {createdAt?.toDate().toLocaleString()}
+            </span>
+          </div>
           <div className='note-actions'>
             <Tooltip
               className={`note-action ${noteHover ? 'hover' : ''}`}
