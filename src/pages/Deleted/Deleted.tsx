@@ -1,3 +1,5 @@
+import { DeleteForever } from '@mui/icons-material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from 'react';
 import NotesList from '../../components/Notes/NoteList/NoteList';
 import SelectedNote from '../../components/Notes/SelectedNote/SelectedNote';
@@ -47,16 +49,21 @@ const Deleted = ({ gridView }: GridProps) => {
   return (
     <>
       <div className='deleted-notes'>
-        <span className='deleted-notes-section-title'>Deleted notes</span>
-
-        {deletedNotes.length > 0 && (
-          <button
-            className='deleted-notes-empty-btn'
-            onClick={handleEmptyTrash}
-          >
-            Empty trash
-          </button>
-        )}
+        <span className='deleted-notes-section'>
+          <div className='deleted-notes-title'>
+            <DeleteIcon sx={{ fontSize: '1.8rem', marginRight: '0.5rem' }} />
+            Deleted notes
+          </div>
+          {deletedNotes.length > 0 && (
+            <button
+              className='deleted-notes-empty-btn'
+              onClick={handleEmptyTrash}
+            >
+              <DeleteForever />
+              Empty trash
+            </button>
+          )}
+        </span>
 
         {deletedNotes.length > 0 ? (
           <NotesList

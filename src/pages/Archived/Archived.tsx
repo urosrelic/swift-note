@@ -1,3 +1,4 @@
+import ArchiveIcon from '@mui/icons-material/Archive';
 import { useState } from 'react';
 import NotesList from '../../components/Notes/NoteList/NoteList';
 import SelectedNote from '../../components/Notes/SelectedNote/SelectedNote';
@@ -42,7 +43,12 @@ const Archived = ({ gridView }: GridProps) => {
   return (
     <>
       <div className='archived-notes'>
-        <span className='archived-notes-section-title'>Archived Notes</span>
+        <span className='archived-notes-section'>
+          <div className='archived-notes-title'>
+            <ArchiveIcon sx={{ fontSize: '1.8rem', marginRight: '0.5rem' }} />
+            Archived Notes
+          </div>
+        </span>
         {archivedNotes.length > 0 ? (
           <NotesList
             notes={archivedNotes}

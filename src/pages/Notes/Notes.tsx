@@ -1,3 +1,5 @@
+import { PushPin } from '@mui/icons-material';
+import DescriptionIcon from '@mui/icons-material/Description';
 import { useState } from 'react';
 import NotesList from '../../components/Notes/NoteList/NoteList';
 import SelectedNote from '../../components/Notes/SelectedNote/SelectedNote';
@@ -48,7 +50,12 @@ const Notes = ({ gridView }: GridProps) => {
   return (
     <>
       <div className='pinned-notes'>
-        <span className='notes-section-title'>Pinned Notes</span>
+        <span className='notes-section'>
+          <div className='notes-section-title'>
+            <PushPin sx={{ fontSize: '1.8rem', marginRight: '0.5rem' }} />
+            Pinned Notes
+          </div>
+        </span>
         {pinnedNotes.length > 0 ? (
           <NotesList
             notes={pinnedNotes}
@@ -61,7 +68,14 @@ const Notes = ({ gridView }: GridProps) => {
         )}
       </div>
       <div className='other-notes'>
-        <span className='notes-section-title'>Other notes</span>
+        <span className='notes-section'>
+          <div className='notes-section-title'>
+            <DescriptionIcon
+              sx={{ fontSize: '1.8rem', marginRight: '0.5rem' }}
+            />
+            Other notes
+          </div>
+        </span>
         {otherNotes.length > 0 ? (
           <NotesList
             notes={otherNotes}

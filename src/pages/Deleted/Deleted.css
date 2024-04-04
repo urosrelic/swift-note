@@ -4,15 +4,26 @@
   flex-direction: column;
 }
 
-.deleted-notes-section-title {
+.deleted-notes-section {
   padding: 0 1rem;
   color: var(--secondary-color);
+  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.deleted-notes-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 1.8rem;
-  text-align: center;
 }
 
 .deleted-notes-empty-btn {
-  margin: auto;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 0.3rem;
   border: none;
   outline: none;

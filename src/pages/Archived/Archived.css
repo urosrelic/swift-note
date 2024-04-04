@@ -4,9 +4,17 @@
   flex-direction: column;
 }
 
-.archived-notes-section-title {
+.archived-notes-section {
   padding: 0 1rem;
   color: var(--secondary-color);
   font-size: 1.8rem;
-  text-align: center;
+  display: flex;
+  text-align: left;
+}
+
+.archived-notes-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
 }
