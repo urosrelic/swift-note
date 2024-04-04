@@ -2,9 +2,9 @@ import { Tooltip } from '@mui/material';
 import firebase from 'firebase/compat/app';
 import { useState } from 'react';
 
-import { useAuth } from '../../hooks/useAuth';
-import useFirebase from '../../hooks/useFirebase';
-import { NoteType } from '../../types/NoteType';
+import { useAuth } from '../../../hooks/useAuth';
+import useFirebase from '../../../hooks/useFirebase';
+import { NoteType } from '../../../types/NoteType';
 import './Note.css';
 
 interface NoteProps {

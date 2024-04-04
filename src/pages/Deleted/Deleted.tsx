@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import NotesList from '../../components/Notes/NotesList';
-import SelectedNote from '../../components/Notes/SelectedNote';
+import NotesList from '../../components/Notes/NoteList/NoteList';
+import SelectedNote from '../../components/Notes/SelectedNote/SelectedNote';
 import { useAuth } from '../../hooks/useAuth';
 import useFirebase from '../../hooks/useFirebase';
 import useSelectedNote from '../../hooks/useSelectedNote';

@@ -1,6 +1,6 @@
 import React from 'react';
-import Modal from '../../components/Styled/Modal.styled';
-import { NoteType } from '../../types/NoteType';
+import { NoteType } from '../../../types/NoteType';
+import Modal from '../../Styled/Modal.styled';
 import './SelectedNote.css';
 
 interface SelectedNoteProps {
