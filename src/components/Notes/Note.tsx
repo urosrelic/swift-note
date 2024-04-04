@@ -94,13 +94,6 @@ const Note = ({
     >
       <div className='note-details'>
         {title && <span className='note-title'>{title}</span>}
-        <span className='note-date'>
-          {deleted ? (
-            <>Deleted at: {deletedAt?.toDate().toLocaleString()}</>
-          ) : (
-            <>Created at: {createdAt.toDate().toLocaleString()}</>
-          )}
-        </span>
       </div>
       <span className='note-content'>{content}</span>
       {deleted ? (
@@ -189,6 +182,23 @@ const Note = ({
             </svg>
           </Tooltip>
 
+          <span className='note-date'>
+            {deleted ? (
+              <>
+                Deleted at:{' '}
+                <span className='note-date-value'>
+                  {deletedAt?.toDate().toLocaleString()}
+                </span>
+              </>
+            ) : (
+              <>
+                Created at:{' '}
+                <span className='note-date-value'>
+                  {createdAt?.toDate().toLocaleString()}
+                </span>
+              </>
+            )}
+          </span>
           <div className='note-actions'>
             <Tooltip
               className={`note-action ${noteHover ? 'hover' : ''}`}
