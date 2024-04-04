@@ -1,0 +1,17 @@
+.note-action {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.note-action.hover,
+.note-action.pin-note.hover {
+  opacity: 1;
+}
+
+.note-action:not(:first-child) {
+  margin-left: 1rem;
+}
