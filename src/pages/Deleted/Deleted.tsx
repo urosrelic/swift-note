@@ -48,6 +48,16 @@ const Deleted = ({ gridView }: GridProps) => {
     <>
       <div className='deleted-notes'>
         <span className='deleted-notes-section-title'>Deleted notes</span>
+
+        {deletedNotes.length > 0 && (
+          <button
+            className='deleted-notes-empty-btn'
+            onClick={handleEmptyTrash}
+          >
+            Empty trash
+          </button>
+        )}
+
         {deletedNotes.length > 0 ? (
           <NotesList
             notes={deletedNotes}
@@ -58,13 +68,6 @@ const Deleted = ({ gridView }: GridProps) => {
         ) : (
           <span className='empty-notes'>No notes</span>
         )}
-
-        <NotesList
-          notes={deletedNotes}
-          gridView={gridView}
-          loading={loading}
-          handleNoteClick={handleNoteClick}
-        />
       </div>
       <SelectedNote
         selectedNote={selectedNote}
