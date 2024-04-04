@@ -23,7 +23,7 @@ const ModalOverlay = styled.div`
   justify-content: center;
 `;
 
-const ModalContent = styled.div`
+const ModalContainer = styled.div`
   position: relative;
   background-color: #fff;
   padding: 20px;
@@ -41,12 +41,12 @@ const Modal = ({ closeModalHandler, children, style }: ModalProps) => {
   const domNode = useClickOutside<HTMLDivElement>(closeModalHandler);
   return (
     <ModalOverlay>
-      <ModalContent ref={domNode} style={style?.modalContainer}>
+      <ModalContainer ref={domNode} style={style?.modalContainer}>
         {children}
         <CloseButton style={style?.closeButton} onClick={closeModalHandler}>
           <img src='/close.svg' alt='Close' />
         </CloseButton>
-      </ModalContent>
+      </ModalContainer>
     </ModalOverlay>
   );
 };
