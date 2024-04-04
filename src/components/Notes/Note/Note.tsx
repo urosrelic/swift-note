@@ -10,6 +10,7 @@ import {
   Restore,
   Unarchive,
 } from '@mui/icons-material';
+import { useMediaQuery } from '@uidotdev/usehooks';
 import { useAuth } from '../../../hooks/useAuth';
 import useFirebase from '../../../hooks/useFirebase';
 import { NoteType } from '../../../types/NoteType';
@@ -43,14 +44,17 @@ const Note = ({
   labels,
   handleNoteClick,
 }: NoteProps) => {
+  // States
   const [noteHover, setNoteHover] = useState<boolean>(false);
   const [tooltipClicked, setTooltipClicked] = useState<boolean>(false);
-
+  const isDesktop = useMediaQuery('only screen and (min-width:1024px)');
+  // Hooks
   const { currentUser } = useAuth();
 
   const { deleteNote, togglePinNote, toggleArchiveNote, toggleDeletedNote } =
     useFirebase(currentUser);
 
+  // Handlers
   const handleDeleteNote = () => {
     if (noteId) {
       deleteNote(noteId);
@@ -93,94 +97,135 @@ const Note = ({
     setTooltipClicked(false);
   };
 
-  return (
-    <div
-      className='note'
-      onMouseEnter={() => setNoteHover(true)}
-      onMouseLeave={() => setNoteHover(false)}
-      style={{ backgroundColor: color }}
-      onClick={handleNoteClickWrapper}
-    >
-      <div className='note-details'>
-        {title && <span className='note-title'>{title}</span>}
-      </div>
-      <span className='note-content'>{content}</span>
-      {deleted ? (
-        <>
-          <div className='note-date'>
-            Deleted at:{' '}
-            <span className='note-date-value'>
-              {deletedAt?.toDate().toLocaleString()}
-            </span>
-          </div>
-          <div className='note-actions'>
-            <NoteAction
-              hover={noteHover}
-              title='Restore'
-              onClick={toggleDeleted}
-              onClickCapture={handleTooltipClick}
-            >
-              <Restore />
-            </NoteAction>
-            <NoteAction
-              hover={noteHover}
-              title='Delete forever'
-              onClick={handleDeleteNote}
-              onClickCapture={handleTooltipClick}
-            >
-              <DeleteForever />
-            </NoteAction>
-          </div>
-        </>
-      ) : (
-        <>
-          <div className='pin-note'>
-            <NoteAction
-              hover={noteHover}
-              title={pinned ? 'Unpin note' : 'Pin note'}
-              onClick={togglePinned}
-              onClickCapture={handleTooltipClick}
-            >
-              <PushPin />
-            </NoteAction>
-          </div>
+  // Conditional renders
+  const renderDesktopLayout = () => {
+    return (
+      <div
+        className='note'
+        onMouseEnter={() => setNoteHover(true)}
+        onMouseLeave={() => setNoteHover(false)}
+        style={{ backgroundColor: color }}
+        onClick={handleNoteClickWrapper}
+      >
+        <div className='note-details'>
+          {title && <span className='note-title'>{title}</span>}
+        </div>
+        <span className='note-content'>{content}</span>
+        {deleted ? (
+          <>
+            <div className='note-date'>
+              Deleted at:{' '}
+              <span className='note-date-value'>
+                {deletedAt?.toDate().toLocaleString()}
+              </span>
+            </div>
+            <div className='note-actions'>
+              <NoteAction
+                hover={noteHover}
+                title='Restore'
+                onClick={toggleDeleted}
+                onClickCapture={handleTooltipClick}
+              >
+                <Restore />
+              </NoteAction>
+              <NoteAction
+                hover={noteHover}
+                title='Delete forever'
+                onClick={handleDeleteNote}
+                onClickCapture={handleTooltipClick}
+              >
+                <DeleteForever />
+              </NoteAction>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className='pin-note'>
+              <NoteAction
+                hover={noteHover}
+                title={pinned ? 'Unpin note' : 'Pin note'}
+                onClick={togglePinned}
+                onClickCapture={handleTooltipClick}
+              >
+                <PushPin />
+              </NoteAction>
+            </div>
 
-          <div className='note-date'>
-            Created at:{' '}
-            <span className='note-date-value'>
-              {createdAt?.toDate().toLocaleString()}
-            </span>
-          </div>
-          <div className='note-actions'>
-            <NoteAction
-              hover={noteHover}
-              title='Paint note'
-              onClick={togglePinned}
-              onClickCapture={handleTooltipClick}
-            >
-              <Palette />
-            </NoteAction>
-            <NoteAction
-              hover={noteHover}
-              title={archived ? 'Unarchive note' : 'Archive note'}
-              onClick={toggleArchived}
-              onClickCapture={handleTooltipClick}
-            >
-              {archived ? <Unarchive /> : <Archive />}
-            </NoteAction>
-            <NoteAction
-              hover={noteHover}
-              title='Delete note'
-              onClick={toggleDeleted}
-              onClickCapture={handleTooltipClick}
-            >
-              <Delete />
-            </NoteAction>
-          </div>
-        </>
-      )}
-    </div>
-  );
+            <div className='note-date'>
+              Created at:{' '}
+              <span className='note-date-value'>
+                {createdAt?.toDate().toLocaleString()}
+              </span>
+            </div>
+            <div className='note-actions'>
+              <NoteAction
+                hover={noteHover}
+                title='Paint note'
+                onClick={togglePinned}
+                onClickCapture={handleTooltipClick}
+              >
+                <Palette />
+              </NoteAction>
+              <NoteAction
+                hover={noteHover}
+                title={archived ? 'Unarchive note' : 'Archive note'}
+                onClick={toggleArchived}
+                onClickCapture={handleTooltipClick}
+              >
+                {archived ? <Unarchive /> : <Archive />}
+              </NoteAction>
+              <NoteAction
+                hover={noteHover}
+                title='Delete note'
+                onClick={toggleDeleted}
+                onClickCapture={handleTooltipClick}
+              >
+                <Delete />
+              </NoteAction>
+            </div>
+          </>
+        )}
+      </div>
+    );
+  };
+
+  const renderMobileLayout = () => {
+    return (
+      <div
+        className='note'
+        onMouseEnter={() => setNoteHover(true)}
+        onMouseLeave={() => setNoteHover(false)}
+        style={{ backgroundColor: color }}
+        onClick={handleNoteClickWrapper}
+      >
+        <div className='note-details'>
+          {title && <span className='note-title'>{title}</span>}
+        </div>
+        <span className='note-content'>{content}</span>
+        {deleted ? (
+          <>
+            <div className='note-date'>
+              Deleted at:{' '}
+              <span className='note-date-value'>
+                {deletedAt?.toDate().toLocaleString()}
+              </span>
+            </div>
+            <div className='note-actions'></div>
+          </>
+        ) : (
+          <>
+            <div className='note-date'>
+              Created at:{' '}
+              <span className='note-date-value'>
+                {createdAt?.toDate().toLocaleString()}
+              </span>
+            </div>
+          </>
+        )}
+      </div>
+    );
+  };
+  return isDesktop ? renderDesktopLayout() : renderMobileLayout();
 };
 
 export default Note;
