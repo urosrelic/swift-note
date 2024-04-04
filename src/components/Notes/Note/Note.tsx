@@ -10,11 +10,13 @@ import {
   Restore,
   Unarchive,
 } from '@mui/icons-material';
+import { useMediaQuery } from '@uidotdev/usehooks';
 import { useAuth } from '../../../hooks/useAuth';
 import { useColorPicker } from '../../../hooks/useColorPicker';
 import useFirebase from '../../../hooks/useFirebase';
 import useSelectedNote from '../../../hooks/useSelectedNote';
 import { NoteType } from '../../../types/NoteType';
+import { CustomMenu } from '../../CustomMenu/CustomMenu';
 import NoteAction from '../NoteAction/NoteAction';
 import './Note.css';
 
@@ -47,8 +49,7 @@ const Note = ({
 }: NoteProps) => {
   // States
   const [noteHover, setNoteHover] = useState<boolean>(false);
-  const [tooltipClicked, setTooltipClicked] = useState<boolean>(false);
-
+  const isDesktop = useMediaQuery('screen and (min-width: 1024px)');
   // Hooks
   const { currentUser } = useAuth();
   const { openColorPicker } = useColorPicker();
@@ -77,26 +78,19 @@ const Note = ({
     await toggleArchiveNote(noteId, !archived);
   };
 
-  const handleTooltipClick = () => {
-    setTooltipClicked(true);
-  };
-
-  const handleNoteClickWrapper = () => {
-    if (!tooltipClicked) {
-      handleNoteClick({
-        noteId,
-        title,
-        content,
-        archived,
-        pinned,
-        deleted,
-        createdAt,
-        deletedAt,
-        color,
-        labels,
-      } as NoteType);
-    }
-    setTooltipClicked(false);
+  const handleActionClick = () => {
+    handleNoteClick({
+      noteId,
+      title,
+      content,
+      archived,
+      pinned,
+      deleted,
+      createdAt,
+      deletedAt,
+      color,
+      labels,
+    } as NoteType);
   };
 
   const handleColorAction = () => {
@@ -104,94 +98,176 @@ const Note = ({
     setSelectedNote({ noteId } as NoteType);
   };
 
-  return (
-    <div
-      className='note'
-      onMouseEnter={() => setNoteHover(true)}
-      onMouseLeave={() => setNoteHover(false)}
-      style={{ backgroundColor: color }}
-      onClick={handleNoteClickWrapper}
-    >
-      <div className='note-details'>
-        {title && <span className='note-title'>{title}</span>}
-      </div>
-      <span className='note-content'>{content}</span>
-      {deleted ? (
-        <>
-          <div className='note-date'>
-            Deleted at:{' '}
-            <span className='note-date-value'>
-              {deletedAt?.toDate().toLocaleString()}
-            </span>
-          </div>
-          <div className='note-actions'>
-            <NoteAction
-              hover={noteHover}
-              title='Restore'
-              onClick={toggleDeleted}
-              onClickCapture={handleTooltipClick}
-            >
-              <Restore />
-            </NoteAction>
-            <NoteAction
-              hover={noteHover}
-              title='Delete forever'
-              onClick={handleDeleteNote}
-              onClickCapture={handleTooltipClick}
-            >
-              <DeleteForever />
-            </NoteAction>
-          </div>
-        </>
-      ) : (
-        <>
-          <div className='pin-note'>
-            <NoteAction
-              hover={noteHover}
-              title={pinned ? 'Unpin note' : 'Pin note'}
-              onClick={togglePinned}
-              onClickCapture={handleTooltipClick}
-            >
-              <PushPin />
-            </NoteAction>
-          </div>
+  const renderMobileLayout = () => {
+    return (
+      <div
+        className='note'
+        onMouseEnter={() => setNoteHover(true)}
+        onMouseLeave={() => setNoteHover(false)}
+        style={{ backgroundColor: color }}
+      >
+        <div className='note-details' onClick={handleActionClick}>
+          {title && <span className='note-title'>{title}</span>}
+        </div>
+        <span className='note-content' onClick={handleActionClick}>
+          {content}
+        </span>
+        {deleted ? (
+          <>
+            <div className='note-date' onClick={handleActionClick}>
+              Deleted at:{' '}
+              <span className='note-date-value'>
+                {deletedAt?.toDate().toLocaleString()}
+              </span>
+            </div>
+            <div className='pin-note'>
+              <CustomMenu
+                options={[
+                  {
+                    optionIcon: <Restore />,
+                    option: 'Restore',
+                    menuItemAction: () => toggleDeleted(),
+                  },
+                  {
+                    optionIcon: <DeleteForever />,
+                    option: 'Delete forever',
+                    menuItemAction: () => handleDeleteNote(),
+                  },
+                ]}
+              />
+            </div>
+          </>
+        ) : (
+          <>
+            <div className='pin-note'>
+              <CustomMenu
+                options={[
+                  {
+                    optionIcon: <PushPin />,
+                    option: pinned ? 'Unpin note' : 'Pin note',
+                    menuItemAction: () => togglePinned(),
+                  },
+                  {
+                    optionIcon: <Archive />,
 
-          <div className='note-date'>
-            Created at:{' '}
-            <span className='note-date-value'>
-              {createdAt?.toDate().toLocaleString()}
-            </span>
-          </div>
-          <div className='note-actions'>
-            <NoteAction
-              hover={noteHover}
-              title='Paint note'
-              onClick={handleColorAction}
-              onClickCapture={handleTooltipClick}
-            >
-              <Palette />
-            </NoteAction>
-            <NoteAction
-              hover={noteHover}
-              title={archived ? 'Unarchive note' : 'Archive note'}
-              onClick={toggleArchived}
-              onClickCapture={handleTooltipClick}
-            >
-              {archived ? <Unarchive /> : <Archive />}
-            </NoteAction>
-            <NoteAction
-              hover={noteHover}
-              title='Delete note'
-              onClick={toggleDeleted}
-              onClickCapture={handleTooltipClick}
-            >
-              <Delete />
-            </NoteAction>
-          </div>
-        </>
-      )}
-    </div>
-  );
+                    option: archived ? 'Unarchive note' : 'Archive note',
+                    menuItemAction: () => toggleArchived(),
+                  },
+                  {
+                    optionIcon: <Delete />,
+
+                    option: 'Delete note',
+                    menuItemAction: () => toggleDeleted(),
+                  },
+                  {
+                    optionIcon: <Palette />,
+
+                    option: 'Paint note',
+                    menuItemAction: () => handleColorAction(),
+                  },
+                ]}
+              />
+            </div>
+
+            <div className='note-date' onClick={handleActionClick}>
+              Created at:{' '}
+              <span className='note-date-value'>
+                {createdAt?.toDate().toLocaleString()}
+              </span>
+            </div>
+          </>
+        )}
+      </div>
+    );
+  };
+
+  const renderDesktopLayout = () => {
+    return (
+      <div
+        className='note'
+        onMouseEnter={() => setNoteHover(true)}
+        onMouseLeave={() => setNoteHover(false)}
+        style={{ backgroundColor: color }}
+      >
+        <div className='note-details' onClick={handleActionClick}>
+          {title && <span className='note-title'>{title}</span>}
+        </div>
+        <span className='note-content' onClick={handleActionClick}>
+          {content}
+        </span>
+        {deleted ? (
+          <>
+            <div className='note-date' onClick={handleActionClick}>
+              Deleted at:{' '}
+              <span className='note-date-value'>
+                {deletedAt?.toDate().toLocaleString()}
+              </span>
+            </div>
+            <div className='note-actions'>
+              <NoteAction
+                hover={noteHover}
+                title='Restore'
+                onClick={toggleDeleted}
+              >
+                <Restore />
+              </NoteAction>
+              <NoteAction
+                hover={noteHover}
+                title='Delete forever'
+                onClick={handleDeleteNote}
+              >
+                <DeleteForever />
+              </NoteAction>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className='pin-note'>
+              <NoteAction
+                hover={noteHover}
+                title={pinned ? 'Unpin note' : 'Pin note'}
+                onClick={togglePinned}
+              >
+                <PushPin />
+              </NoteAction>
+            </div>
+
+            <div className='note-date' onClick={handleActionClick}>
+              Created at:{' '}
+              <span className='note-date-value'>
+                {createdAt?.toDate().toLocaleString()}
+              </span>
+            </div>
+            <div className='note-actions'>
+              <NoteAction
+                hover={noteHover}
+                title='Paint note'
+                onClick={handleColorAction}
+              >
+                <Palette />
+              </NoteAction>
+              <NoteAction
+                hover={noteHover}
+                title={archived ? 'Unarchive note' : 'Archive note'}
+                onClick={toggleArchived}
+              >
+                {archived ? <Unarchive /> : <Archive />}
+              </NoteAction>
+              <NoteAction
+                hover={noteHover}
+                title='Delete note'
+                onClick={toggleDeleted}
+              >
+                <Delete />
+              </NoteAction>
+            </div>
+          </>
+        )}
+      </div>
+    );
+  };
+
+  return isDesktop ? renderDesktopLayout() : renderMobileLayout();
 };
 
 export default Note;
