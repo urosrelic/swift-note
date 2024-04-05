@@ -49,7 +49,11 @@ const Deleted = ({ gridView }: GridProps) => {
   return (
     <>
       <div className='deleted-notes'>
-        <span className='deleted-notes-section'>
+        <span
+          className={`deleted-notes-section ${
+            gridView ? 'grid-view' : 'list-view'
+          }`}
+        >
           <div className='deleted-notes-title'>
             <DeleteIcon sx={{ fontSize: '1.8rem', marginRight: '0.5rem' }} />
             Deleted notes
@@ -73,7 +77,11 @@ const Deleted = ({ gridView }: GridProps) => {
             handleNoteClick={handleNoteClick}
           />
         ) : (
-          <span className='empty-notes'>No notes</span>
+          <span
+            className={`empty-notes ${gridView ? 'grid-view' : 'list-view'}`}
+          >
+            No notes
+          </span>
         )}
       </div>
       <SelectedNote

@@ -5,12 +5,21 @@
   flex-direction: column;
 }
 
-.notes-section {
+.notes-section.grid-view {
   padding: 0 1rem;
   color: var(--secondary-color);
   font-size: 1.8rem;
   text-align: left;
   display: flex;
+}
+
+.notes-section.list-view {
+  padding: 0 1rem;
+  color: var(--secondary-color);
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .notes-section-title {
@@ -20,12 +29,20 @@
   font-size: 1.8rem;
 }
 
-.empty-notes {
+.empty-notes.grid-view {
   margin: 0 3.4rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
+}
+
+.empty-notes.list-view {
+  margin: 0 3.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .empty-notes {

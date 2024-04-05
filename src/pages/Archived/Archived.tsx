@@ -43,12 +43,16 @@ const Archived = ({ gridView }: GridProps) => {
   return (
     <>
       <div className='archived-notes'>
-        <span className='archived-notes-section'>
+        <div
+          className={`archived-notes-section ${
+            gridView ? 'grid-view' : 'list-view'
+          }`}
+        >
           <div className='archived-notes-title'>
             <ArchiveIcon sx={{ fontSize: '1.8rem', marginRight: '0.5rem' }} />
             Archived Notes
           </div>
-        </span>
+        </div>
         {archivedNotes.length > 0 ? (
           <NotesList
             notes={archivedNotes}
@@ -57,7 +61,11 @@ const Archived = ({ gridView }: GridProps) => {
             handleNoteClick={handleNoteClick}
           />
         ) : (
-          <span className='empty-notes'>No notes</span>
+          <span
+            className={`empty-notes ${gridView ? 'grid-view' : 'list-view'}`}
+          >
+            No notes
+          </span>
         )}
       </div>
       <SelectedNote
