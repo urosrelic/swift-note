@@ -30,7 +30,12 @@ const LabeledNote = ({ gridView }: GridProps) => {
 
   // Filter notes based on the selected label
   const filteredNotes = selectedLabel
-    ? sortedNotes.filter((note) => note.labels.includes(selectedLabel.labelId))
+    ? sortedNotes.filter(
+        (note) =>
+          note.labels.includes(selectedLabel.labelId) &&
+          !note.deleted &&
+          !note.archived
+      )
     : sortedNotes;
 
   // Handlers
