@@ -161,6 +161,17 @@ const Note = ({
                     menuItemAction: () => togglePinned(),
                   },
                   {
+                    optionIcon: <Palette />,
+
+                    option: 'Paint note',
+                    menuItemAction: () => handleColorAction(),
+                  },
+                  {
+                    optionIcon: <Label />,
+                    option: 'Label note',
+                    menuItemAction: () => console.log('Label action'),
+                  },
+                  {
                     optionIcon: <Archive />,
 
                     option: archived ? 'Unarchive note' : 'Archive note',
@@ -171,17 +182,6 @@ const Note = ({
 
                     option: 'Delete note',
                     menuItemAction: () => toggleDeleted(),
-                  },
-                  {
-                    optionIcon: <Palette />,
-
-                    option: 'Paint note',
-                    menuItemAction: () => handleColorAction(),
-                  },
-                  {
-                    optionIcon: <Label />,
-                    option: 'Label note',
-                    menuItemAction: () => console.log('Label action'),
                   },
                 ]}
               />
