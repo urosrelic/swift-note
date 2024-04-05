@@ -1,10 +1,11 @@
 import firebase from 'firebase/compat/app';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   Archive,
   Delete,
   DeleteForever,
+  Label,
   Palette,
   PushPin,
   Restore,
@@ -15,10 +16,12 @@ import { useAuth } from '../../../hooks/useAuth';
 import { useColorPicker } from '../../../hooks/useColorPicker';
 import useFirebase from '../../../hooks/useFirebase';
 import useSelectedNote from '../../../hooks/useSelectedNote';
+import { LabelType } from '../../../types/LabelType';
 import { NoteType } from '../../../types/NoteType';
 import { CustomMenu } from '../../CustomMenu/CustomMenu';
-import NoteAction from '../NoteAction/NoteAction';
 import './Note.css';
+import NoteAction from './components/NoteAction/NoteAction';
+import NoteLabel from './components/NoteLabel/NoteLabel';
 
 interface NoteProps {
   noteId: string;
@@ -30,7 +33,7 @@ interface NoteProps {
   createdAt: firebase.firestore.Timestamp;
   deletedAt: firebase.firestore.Timestamp | null;
   color: string;
-  labels: string[];
+  labels?: LabelType[];
   handleNoteClick: (note: NoteType) => void;
 }
 
@@ -57,6 +60,10 @@ const Note = ({
   const { deleteNote, togglePinNote, toggleArchiveNote, toggleDeletedNote } =
     useFirebase(currentUser);
 
+  useEffect(() => {
+    console.log(labels);
+  }, []);
+
   // Handlers
   const handleDeleteNote = () => {
     if (noteId) {
@@ -78,7 +85,7 @@ const Note = ({
     await toggleArchiveNote(noteId, !archived);
   };
 
-  const handleActionClick = () => {
+  const handleSelectNote = () => {
     handleNoteClick({
       noteId,
       title,
@@ -106,15 +113,21 @@ const Note = ({
         onMouseLeave={() => setNoteHover(false)}
         style={{ backgroundColor: color }}
       >
-        <div className='note-details' onClick={handleActionClick}>
+        <div className='note-details' onClick={handleSelectNote}>
           {title && <span className='note-title'>{title}</span>}
         </div>
-        <span className='note-content' onClick={handleActionClick}>
+        <span className='note-content' onClick={handleSelectNote}>
           {content}
         </span>
+
         {deleted ? (
           <>
-            <div className='note-date' onClick={handleActionClick}>
+            <div className='note-labels'>
+              {labels?.map((label) => (
+                <NoteLabel label={label} />
+              ))}
+            </div>
+            <div className='note-date' onClick={handleSelectNote}>
               Deleted at:{' '}
               <span className='note-date-value'>
                 {deletedAt?.toDate().toLocaleString()}
@@ -165,11 +178,21 @@ const Note = ({
                     option: 'Paint note',
                     menuItemAction: () => handleColorAction(),
                   },
+                  {
+                    optionIcon: <Label />,
+                    option: 'Label note',
+                    menuItemAction: () => console.log('Label action'),
+                  },
                 ]}
               />
             </div>
 
-            <div className='note-date' onClick={handleActionClick}>
+            <div className='note-labels'>
+              {labels?.map((label) => (
+                <NoteLabel label={label} />
+              ))}
+            </div>
+            <div className='note-date' onClick={handleSelectNote}>
               Created at:{' '}
               <span className='note-date-value'>
                 {createdAt?.toDate().toLocaleString()}
@@ -189,20 +212,26 @@ const Note = ({
         onMouseLeave={() => setNoteHover(false)}
         style={{ backgroundColor: color }}
       >
-        <div className='note-details' onClick={handleActionClick}>
+        <div className='note-details' onClick={handleSelectNote}>
           {title && <span className='note-title'>{title}</span>}
         </div>
-        <span className='note-content' onClick={handleActionClick}>
+        <span className='note-content' onClick={handleSelectNote}>
           {content}
         </span>
         {deleted ? (
           <>
-            <div className='note-date' onClick={handleActionClick}>
+            <div className='note-labels'>
+              {labels?.map((label) => (
+                <NoteLabel label={label} />
+              ))}
+            </div>
+            <div className='note-date' onClick={handleSelectNote}>
               Deleted at:{' '}
               <span className='note-date-value'>
                 {deletedAt?.toDate().toLocaleString()}
               </span>
             </div>
+
             <div className='note-actions'>
               <NoteAction
                 hover={noteHover}
@@ -232,12 +261,18 @@ const Note = ({
               </NoteAction>
             </div>
 
-            <div className='note-date' onClick={handleActionClick}>
+            <div className='note-labels'>
+              {labels?.map((label) => (
+                <NoteLabel label={label} />
+              ))}
+            </div>
+            <div className='note-date' onClick={handleSelectNote}>
               Created at:{' '}
               <span className='note-date-value'>
                 {createdAt?.toDate().toLocaleString()}
               </span>
             </div>
+
             <div className='note-actions'>
               <NoteAction
                 hover={noteHover}
@@ -248,11 +283,19 @@ const Note = ({
               </NoteAction>
               <NoteAction
                 hover={noteHover}
+                title='Label note'
+                onClick={() => console.log('label clicked')}
+              >
+                <Label />
+              </NoteAction>
+              <NoteAction
+                hover={noteHover}
                 title={archived ? 'Unarchive note' : 'Archive note'}
                 onClick={toggleArchived}
               >
                 {archived ? <Unarchive /> : <Archive />}
               </NoteAction>
+
               <NoteAction
                 hover={noteHover}
                 title='Delete note'
