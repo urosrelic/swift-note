@@ -12,27 +12,38 @@ import {
 } from 'firebase/firestore';
 import { useEffect, useMemo, useState } from 'react';
 import { db } from '../config/firebase';
+import { LabelType } from '../types/LabelType';
 import { NoteType } from '../types/NoteType';
 
 const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
   const notesRef = useMemo(() => collection(db, 'notes'), []);
+  const labelsRef = useMemo(() => collection(db, 'labels'), []);
 
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
 
   const [notes, setNotes] = useState<NoteType[] | null>(null);
+  const [labels, setLabels] = useState<LabelType[] | null>(null); // State to hold fetched labels
 
   useEffect(() => {
     if (currentUser) {
       setLoading(true);
-      const q = query(notesRef, where('userId', '==', currentUser.uid));
-      const unsub = onSnapshot(
-        q,
+      const notesQuery = query(
+        notesRef,
+        where('userId', '==', currentUser.uid)
+      );
+      const labelsQuery = query(
+        labelsRef,
+        where('userId', '==', currentUser.uid)
+      ); // Query to fetch all labels
+
+      const notesUnsub = onSnapshot(
+        notesQuery,
         (querySnapshot) => {
           const items: NoteType[] = [];
           querySnapshot.forEach((doc) => {
             const data = doc.data() as NoteType;
-            //  @ts-ignore
+            // @ts-ignore
             items.push({ noteId: doc.id, ...data });
           });
           setNotes(items);
@@ -43,8 +54,28 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
           setLoading(false);
         }
       );
+
+      const labelsUnsub = onSnapshot(
+        labelsQuery,
+        (querySnapshot) => {
+          const labels: LabelType[] = [];
+          querySnapshot.forEach((doc) => {
+            const data = doc.data() as LabelType;
+            // @ts-ignore
+            labels.push({ labelId: doc.id, ...data });
+          });
+          setLabels(labels);
+          setLoading(false);
+        },
+        (error) => {
+          setError((error as Error).message || 'An error occurred');
+          setLoading(false);
+        }
+      );
+
       return () => {
-        unsub();
+        notesUnsub();
+        labelsUnsub();
       };
     } else {
       setNotes([]);
@@ -149,6 +180,7 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
 
   return {
     notes,
+    labels,
     loading,
     error,
     addNote,
