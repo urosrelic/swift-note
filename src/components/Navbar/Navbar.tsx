@@ -4,6 +4,7 @@ import { GridProps } from '../../types/GridProps';
 import Drawer from '../Drawer/Drawer/Drawer';
 import './Navbar.css';
 
+import { AccountBox, Logout } from '@mui/icons-material';
 import { useEffect } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { Dialog, DialogButton, DialogContainer } from '../Styled/Dialog.styled';
@@ -67,7 +68,15 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
           </div>
         )}
         <Drawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
-        <Dialog openDialog={openDialog} setOpenDialog={setOpenDialog}>
+        <Dialog
+          openDialog={openDialog}
+          setOpenDialog={setOpenDialog}
+          style={{
+            closeButtonIcon: {
+              color: '#d3e3fd',
+            },
+          }}
+        >
           <DialogContainer>
             <span className='account-name'>{currentUser?.email}</span>
             <div className='account-image'>
@@ -80,12 +89,12 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
             <div className='account-name'>
               <span>Hi, {currentUser?.displayName}</span>
             </div>
-            <DialogButton>
-              <img src='/person.svg' alt='Profile' />
+            <DialogButton style={{ width: '100%' }}>
+              <AccountBox sx={{ marginRight: '0.5rem' }} />
               <span>Profile</span>
             </DialogButton>
-            <DialogButton onClick={logout}>
-              <img src='/logout.svg' alt='Logout' />
+            <DialogButton onClick={logout} style={{ width: '100%' }}>
+              <Logout sx={{ marginRight: '0.5rem' }} />
               <span>Logout</span>
             </DialogButton>
           </DialogContainer>

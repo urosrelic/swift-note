@@ -53,12 +53,14 @@ const Notes = ({ gridView }: GridProps) => {
   return (
     <>
       <div className='pinned-notes'>
-        <span className='notes-section'>
+        <div
+          className={`notes-section ${gridView ? 'grid-view' : 'list-view'}`}
+        >
           <div className='notes-section-title'>
             <PushPin sx={{ fontSize: '1.8rem', marginRight: '0.5rem' }} />
             Pinned Notes
           </div>
-        </span>
+        </div>
         {pinnedNotes.length > 0 ? (
           <NotesList
             notes={pinnedNotes}
@@ -67,11 +69,17 @@ const Notes = ({ gridView }: GridProps) => {
             handleNoteClick={handleNoteClick}
           />
         ) : (
-          <span className='empty-notes'>No notes</span>
+          <span
+            className={`empty-notes ${gridView ? 'grid-view' : 'list-view'}`}
+          >
+            No notes
+          </span>
         )}
       </div>
       <div className='other-notes'>
-        <span className='notes-section'>
+        <span
+          className={`notes-section ${gridView ? 'grid-view' : 'list-view'}`}
+        >
           <div className='notes-section-title'>
             <DescriptionIcon
               sx={{ fontSize: '1.8rem', marginRight: '0.5rem' }}
@@ -87,7 +95,11 @@ const Notes = ({ gridView }: GridProps) => {
             handleNoteClick={handleNoteClick}
           />
         ) : (
-          <span className='empty-notes'>No notes</span>
+          <span
+            className={`empty-notes ${gridView ? 'grid-view' : 'list-view'}`}
+          >
+            No notes
+          </span>
         )}
       </div>
       <SelectedNote

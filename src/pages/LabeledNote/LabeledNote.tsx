@@ -1,15 +1,16 @@
-import ArchiveIcon from '@mui/icons-material/Archive';
+import LabelIcon from '@mui/icons-material/Label';
 import { useState } from 'react';
 import NotesList from '../../components/Notes/NoteList/NoteList';
 import SelectedNote from '../../components/Notes/SelectedNote/SelectedNote';
 import { useAuth } from '../../hooks/useAuth';
 import useFirebase from '../../hooks/useFirebase';
+import { useSelectedLabel } from '../../hooks/useSelectedLabel';
 import useSelectedNote from '../../hooks/useSelectedNote';
 import { GridProps } from '../../types/GridProps';
 import { NoteType } from '../../types/NoteType';
-import './Archived.css';
+import './LabeledNote.css';
 
-const Archived = ({ gridView }: GridProps) => {
+const LabeledNote = ({ gridView }: GridProps) => {
   // States
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -17,6 +18,7 @@ const Archived = ({ gridView }: GridProps) => {
   const { currentUser } = useAuth();
   const { notes, loading } = useFirebase(currentUser);
   const { selectedNote, setSelectedNote } = useSelectedNote();
+  const { selectedLabel } = useSelectedLabel();
 
   // Filter notes array
   const sortedNotes = notes
@@ -25,9 +27,19 @@ const Archived = ({ gridView }: GridProps) => {
           b.createdAt.toDate().getTime() - a.createdAt.toDate().getTime()
       )
     : [];
-  const archivedNotes = sortedNotes?.filter(
-    (note) => note.archived && !note.deleted
-  );
+
+  // Filter notes based on the selected label
+  const filteredNotes = selectedLabel
+    ? sortedNotes.filter(
+        (note) =>
+          // @ts-ignore
+          // Checks if the labels (LabelType[]) array has label id inside
+          // Don't understand the typescript issue
+          note.labels.includes(selectedLabel.labelId) &&
+          !note.deleted &&
+          !note.archived
+      )
+    : sortedNotes;
 
   // Handlers
   const handleNoteClick = (note: NoteType) => {
@@ -42,20 +54,20 @@ const Archived = ({ gridView }: GridProps) => {
 
   return (
     <>
-      <div className='archived-notes'>
+      <div className='labeled-notes'>
         <div
-          className={`archived-notes-section ${
+          className={`labeled-notes-section ${
             gridView ? 'grid-view' : 'list-view'
           }`}
         >
-          <div className='archived-notes-title'>
-            <ArchiveIcon sx={{ fontSize: '1.8rem', marginRight: '0.5rem' }} />
-            Archived Notes
+          <div className='labeled-notes-title'>
+            <LabelIcon sx={{ fontSize: '1.8rem', marginRight: '0.5rem' }} />
+            {selectedLabel?.labelName}
           </div>
         </div>
-        {archivedNotes.length > 0 ? (
+        {filteredNotes.length > 0 ? (
           <NotesList
-            notes={archivedNotes}
+            notes={filteredNotes}
             gridView={gridView}
             loading={loading}
             handleNoteClick={handleNoteClick}
@@ -77,4 +89,4 @@ const Archived = ({ gridView }: GridProps) => {
   );
 };
 
-export default Archived;
+export default LabeledNote;

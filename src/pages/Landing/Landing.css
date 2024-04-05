@@ -99,7 +99,7 @@
   justify-content: space-between;
   align-items: center;
   color: var(--secondary-color);
-  animation: app-example-slide 1s ease forwards;
+  animation: slideFromLeft 1s ease forwards;
 }
 
 .app-example img {

@@ -1,3 +1,5 @@
+import { Close } from '@mui/icons-material';
+import { IconButton } from '@mui/material';
 import React from 'react';
 import styled from 'styled-components';
 import { useClickOutside } from '../../hooks/useClickOutside';
@@ -5,7 +7,13 @@ import { useClickOutside } from '../../hooks/useClickOutside';
 interface DialogProps {
   openDialog: boolean;
   setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
-  style?: React.CSSProperties;
+  style?: {
+    dialog?: React.CSSProperties;
+    dialogContainer?: React.CSSProperties;
+    dialogButton?: React.CSSProperties;
+    closeButton?: React.CSSProperties;
+    closeButtonIcon?: React.CSSProperties;
+  };
   children: React.ReactNode;
 }
 
@@ -62,15 +70,6 @@ const StyledDialog = styled.div<{
   transition: all 0.3s ease;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
-  .close-dialog-btn {
-    position: absolute;
-    padding: 1rem;
-    top: 0;
-    right: 0;
-    cursor: pointer;
-    border-radius: 50%;
-  }
-
   &.show {
     opacity: 1;
     visibility: visible;
@@ -81,6 +80,13 @@ const StyledDialog = styled.div<{
   @media only screen and (min-width: 500px) {
     width: 400px;
   }
+`;
+
+const CloseButton = styled.div`
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  cursor: pointer;
 `;
 
 const Dialog: React.FC<DialogProps> = ({
@@ -97,13 +103,20 @@ const Dialog: React.FC<DialogProps> = ({
     <StyledDialog
       className={`dialog ${dialogClassName} `}
       ref={domNode}
-      style={style}
+      style={style?.dialog}
       openDialog={openDialog}
     >
-      <DialogContainer style={style}>{children}</DialogContainer>
-      <div className='close-dialog-btn' onClick={() => setOpenDialog(false)}>
-        <img src='/close.svg' alt='Close' />
-      </div>
+      <DialogContainer style={style?.dialogContainer}>
+        {children}
+      </DialogContainer>
+      <CloseButton
+        style={style?.closeButton}
+        onClick={() => setOpenDialog(false)}
+      >
+        <IconButton>
+          <Close sx={{ ...style?.closeButtonIcon }} />
+        </IconButton>
+      </CloseButton>
     </StyledDialog>
   );
 };

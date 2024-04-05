@@ -43,6 +43,12 @@
   font-weight: bold;
 }
 
+.note-labels {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .note-date {
   margin-top: 1rem;
   font-size: 1rem;

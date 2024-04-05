@@ -1,3 +1,5 @@
+import { Close } from '@mui/icons-material';
+import { IconButton } from '@mui/material';
 import React from 'react';
 import styled from 'styled-components';
 import { useClickOutside } from '../../hooks/useClickOutside';
@@ -8,6 +10,7 @@ interface ModalProps {
   style?: {
     modalContainer?: React.CSSProperties;
     closeButton?: React.CSSProperties;
+    closeButtonIcon?: React.CSSProperties;
   };
 }
 
@@ -38,6 +41,7 @@ const ModalContainer = styled.div`
 const CloseButton = styled.div`
   position: absolute;
   right: 1rem;
+  top: 1rem;
   cursor: pointer;
   color: #000;
 `;
@@ -49,7 +53,9 @@ const Modal = ({ closeModalHandler, children, style }: ModalProps) => {
       <ModalContainer ref={domNode} style={style?.modalContainer}>
         {children}
         <CloseButton style={style?.closeButton} onClick={closeModalHandler}>
-          <img src='/close.svg' alt='Close' />
+          <IconButton>
+            <Close sx={{ ...style?.closeButtonIcon }} />
+          </IconButton>
         </CloseButton>
       </ModalContainer>
     </ModalOverlay>

@@ -2,7 +2,13 @@ import { useContext } from 'react';
 import { SelectedNoteContext } from '../context/SelectedNoteContext';
 
 const useSelectedNote = () => {
-  return useContext(SelectedNoteContext);
+  const context = useContext(SelectedNoteContext);
+  if (!context) {
+    throw new Error(
+      'useSelectedNote must be used within a SelectedNoteProvider'
+    );
+  }
+  return context;
 };
 
 export default useSelectedNote;

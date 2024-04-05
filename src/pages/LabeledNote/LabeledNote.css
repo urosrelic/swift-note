@@ -1,10 +1,10 @@
-.archived-notes {
+.labeled-notes {
   width: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.archived-notes-section.grid-view {
+.labeled-notes-section.grid-view {
   padding: 0 1rem;
   color: var(--secondary-color);
   font-size: 1.8rem;
@@ -12,7 +12,7 @@
   display: flex;
 }
 
-.archived-notes-section.list-view {
+.labeled-notes-section.list-view {
   padding: 0 1rem;
   color: var(--secondary-color);
   font-size: 1.8rem;
@@ -21,7 +21,7 @@
   justify-content: center;
 }
 
-.archived-notes-title {
+.labeled-notes-title {
   display: flex;
   align-items: center;
   justify-content: center;

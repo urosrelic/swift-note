@@ -1,4 +1,5 @@
 import firebase from 'firebase/compat/app';
+import { LabelType } from './LabelType';
 
 export interface NoteType {
   noteId: string;
@@ -11,5 +12,5 @@ export interface NoteType {
   createdAt: firebase.firestore.Timestamp;
   deletedAt: firebase.firestore.Timestamp | null;
   color: string;
-  labels: string[];
+  labels: LabelType[];
 }
