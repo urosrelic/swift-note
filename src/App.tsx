@@ -8,6 +8,7 @@ import {
 import Archived from './pages/Archived/Archived';
 import Deleted from './pages/Deleted/Deleted';
 import Home from './pages/Home/Home';
+import LabeledNote from './pages/LabeledNote/LabeledNote';
 import Landing from './pages/Landing/Landing';
 import Login from './pages/Login/Login';
 import Notes from './pages/Notes/Notes';
@@ -43,6 +44,10 @@ function App() {
               <Route
                 path='/home/deleted'
                 element={<Deleted gridView={gridView} />}
+              />
+              <Route
+                path='/home/labeled/:labelId'
+                element={<LabeledNote gridView={gridView} />}
               />
             </Route>
           </Route>

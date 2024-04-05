@@ -1,6 +1,9 @@
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth';
 import { useClickOutside } from '../../../hooks/useClickOutside';
 import useFirebase from '../../../hooks/useFirebase';
+import { useSelectedLabel } from '../../../hooks/useSelectedLabel';
+import { LabelType } from '../../../types/LabelType';
 import DrawerOption from '../DrawerOption/DrawerOption';
 import './Drawer.css';
 
@@ -17,6 +20,16 @@ const Drawer = ({ openDrawer, setOpenDrawer }: DrawerProps) => {
 
   const handleClose = () => {
     setOpenDrawer(!openDrawer);
+  };
+
+  const { setSelectedLabel } = useSelectedLabel();
+
+  const navigate = useNavigate();
+
+  const handleLabelSelect = (label: LabelType) => {
+    handleClose();
+    setSelectedLabel(label);
+    navigate(`/home/labeled/${label.labelId}`);
   };
 
   const domNode = useClickOutside<HTMLDivElement>(setOpenDrawer);
@@ -48,6 +61,7 @@ const Drawer = ({ openDrawer, setOpenDrawer }: DrawerProps) => {
             onClick={handleClose}
           />
         </div>
+
         <hr className='separator'></hr>
 
         <div className='drawer-options'>
@@ -58,7 +72,7 @@ const Drawer = ({ openDrawer, setOpenDrawer }: DrawerProps) => {
                 key={label.labelId}
                 iconPath='/label.svg'
                 label={label.labelName}
-                onClick={handleClose}
+                onClick={() => handleLabelSelect(label)}
               />
             ))}
 

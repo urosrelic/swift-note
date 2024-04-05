@@ -1,0 +1,29 @@
+.labeled-notes {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.labeled-notes-section.grid-view {
+  padding: 0 1rem;
+  color: var(--secondary-color);
+  font-size: 1.8rem;
+  text-align: left;
+  display: flex;
+}
+
+.labeled-notes-section.list-view {
+  padding: 0 1rem;
+  color: var(--secondary-color);
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.labeled-notes-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+}
