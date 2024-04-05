@@ -1,4 +1,6 @@
+import { useAuth } from '../../../hooks/useAuth';
 import { useClickOutside } from '../../../hooks/useClickOutside';
+import useFirebase from '../../../hooks/useFirebase';
 import DrawerOption from '../DrawerOption/DrawerOption';
 import './Drawer.css';
 
@@ -9,6 +11,9 @@ interface DrawerProps {
 
 const Drawer = ({ openDrawer, setOpenDrawer }: DrawerProps) => {
   const drawerClass = openDrawer ? 'open' : '';
+
+  const { currentUser } = useAuth();
+  const { labels } = useFirebase(currentUser);
 
   const handleClose = () => {
     setOpenDrawer(!openDrawer);
@@ -47,12 +52,16 @@ const Drawer = ({ openDrawer, setOpenDrawer }: DrawerProps) => {
 
         <div className='drawer-options'>
           <span className='drawer-options-heading'>Labels</span>
-          {/* HERE ADD EXISTING LABELS, ex: load from database */}
-          <DrawerOption
-            iconPath='/label.svg'
-            label='Label #1'
-            onClick={handleClose}
-          />
+          {labels &&
+            labels.map((label) => (
+              <DrawerOption
+                key={label.labelId}
+                iconPath='/label.svg'
+                label={label.labelName}
+                onClick={handleClose}
+              />
+            ))}
+
           <DrawerOption
             iconPath='/edit.svg'
             label='Create a label'
