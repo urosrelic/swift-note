@@ -32,6 +32,9 @@ const LabeledNote = ({ gridView }: GridProps) => {
   const filteredNotes = selectedLabel
     ? sortedNotes.filter(
         (note) =>
+          // @ts-ignore
+          // Checks if the labels (LabelType[]) array has label id inside
+          // Don't understand the typescript issue
           note.labels.includes(selectedLabel.labelId) &&
           !note.deleted &&
           !note.archived
