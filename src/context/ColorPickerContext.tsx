@@ -17,9 +17,11 @@ export const ColorPickerContext = createContext<
 >(undefined);
 
 export const ColorPickerProvider = ({ children }: ColorPickerContextProps) => {
+  // * States
   const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
   const [selectedColor, setSelectedColor] = useState('');
 
+  // * Handlers
   const openColorPicker = () => setIsColorPickerOpen(true);
   const closeColorPicker = () => setIsColorPickerOpen(false);
 

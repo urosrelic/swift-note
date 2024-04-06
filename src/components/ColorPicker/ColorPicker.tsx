@@ -9,17 +9,18 @@ interface ColorPickerProps {
   closeModalHandler: () => void;
 }
 
-const ColorPicker = ({ isModalOpen, closeModalHandler }: ColorPickerProps) => {
-  const colors = [
-    '#ff7f0e',
-    '#2ca02c',
-    '#1f77b4',
-    '#d62728',
-    '#9467bd',
-    '#8c564b',
-    '#e377c2',
-  ];
+const colors = [
+  '#ff7f0e',
+  '#2ca02c',
+  '#1f77b4',
+  '#d62728',
+  '#9467bd',
+  '#8c564b',
+  '#e377c2',
+];
 
+const ColorPicker = ({ isModalOpen, closeModalHandler }: ColorPickerProps) => {
+  // * Hooks
   const { currentUser } = useAuth();
   const { selectedNote } = useSelectedNote();
   const { colorNote } = useFirebase(currentUser);

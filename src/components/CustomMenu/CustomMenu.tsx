@@ -14,8 +14,10 @@ interface CustomMenu {
 }
 
 export const CustomMenu = ({ options }: CustomMenu) => {
+  // * States
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
+  // * Handlers
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };

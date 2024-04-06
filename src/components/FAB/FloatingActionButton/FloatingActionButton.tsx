@@ -8,16 +8,19 @@ interface FabProps {
 }
 
 const FloatingActionButton = ({ openModal }: FabProps) => {
+  // * States
   const [isOpen, setIsOpen] = useState(false);
 
+  // * Hooks
+  const domNode = useClickOutside<HTMLDivElement>(() => setIsOpen(false));
+
+  // * Handlers
   const toggleOptions = () => {
     setIsOpen(!isOpen);
   };
 
   const fabIconClassName = isOpen ? 'open' : '';
   const fabOptionsClassName = isOpen ? 'open' : '';
-
-  const domNode = useClickOutside<HTMLDivElement>(() => setIsOpen(false)); // Close fab options when clicking outside
 
   return (
     <div className='fab-container' ref={domNode}>

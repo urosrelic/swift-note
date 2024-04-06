@@ -15,24 +15,23 @@ interface DrawerProps {
 const Drawer = ({ openDrawer, setOpenDrawer }: DrawerProps) => {
   const drawerClass = openDrawer ? 'open' : '';
 
+  // * Hooks
   const { currentUser } = useAuth();
   const { labels } = useFirebase(currentUser);
+  const { setSelectedLabel } = useSelectedLabel();
+  const navigate = useNavigate();
+  const domNode = useClickOutside<HTMLDivElement>(setOpenDrawer);
 
+  // * Handlers
   const handleClose = () => {
     setOpenDrawer(!openDrawer);
   };
-
-  const { setSelectedLabel } = useSelectedLabel();
-
-  const navigate = useNavigate();
 
   const handleLabelSelect = (label: LabelType) => {
     handleClose();
     setSelectedLabel(label);
     navigate(`/home/labeled/${label.labelId}`);
   };
-
-  const domNode = useClickOutside<HTMLDivElement>(setOpenDrawer);
 
   return (
     <div className={`drawer ${drawerClass}`} ref={domNode}>

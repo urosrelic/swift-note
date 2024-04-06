@@ -19,6 +19,7 @@ export const SelectedNoteContext = createContext<SelectedNoteContextType>({
 export const SelectedNoteProvider = ({
   children,
 }: SelectedNoteProviderProps) => {
+  // * States
   const [selectedNote, setSelectedNote] = useState<NoteType | null>(null);
 
   return (

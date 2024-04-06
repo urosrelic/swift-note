@@ -12,7 +12,9 @@ const SelectedNote: React.FC<SelectedNoteProps> = ({
   isModalOpen,
   closeModalHandler,
 }) => {
+  // * Hooks
   const { selectedNote } = useSelectedNote();
+
   return (
     <>
       {isModalOpen && (

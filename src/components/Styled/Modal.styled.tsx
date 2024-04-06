@@ -47,7 +47,9 @@ const CloseButton = styled.div`
 `;
 
 const Modal = ({ closeModalHandler, children, style }: ModalProps) => {
+  // * Hooks
   const domNode = useClickOutside<HTMLDivElement>(closeModalHandler);
+
   return (
     <ModalOverlay>
       <ModalContainer ref={domNode} style={style?.modalContainer}>

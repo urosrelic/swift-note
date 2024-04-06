@@ -50,10 +50,11 @@ const Note = ({
   labels,
   handleNoteClick,
 }: NoteProps) => {
-  // States
+  // * States
   const [noteHover, setNoteHover] = useState<boolean>(false);
   const isDesktop = useMediaQuery('screen and (min-width: 1024px)');
-  // Hooks
+
+  // * Hooks
   const { currentUser } = useAuth();
   const { openColorPicker } = useColorPicker();
   const { setSelectedNote } = useSelectedNote();
@@ -64,7 +65,7 @@ const Note = ({
     console.log(labels);
   }, []);
 
-  // Handlers
+  // * Handlers
   const handleDeleteNote = () => {
     if (noteId) {
       deleteNote(noteId);
@@ -105,6 +106,7 @@ const Note = ({
     setSelectedNote({ noteId } as NoteType);
   };
 
+  // * Conditional renders
   const renderMobileLayout = () => {
     return (
       <div

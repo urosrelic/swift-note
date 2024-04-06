@@ -7,6 +7,7 @@ interface NoteLabelProps {
 }
 
 const NoteLabel = ({ label }: NoteLabelProps) => {
+  // * States
   const [hover, setHover] = useState<boolean>(false);
 
   return (

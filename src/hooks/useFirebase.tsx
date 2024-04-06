@@ -16,14 +16,16 @@ import { LabelType } from '../types/LabelType';
 import { NoteType } from '../types/NoteType';
 
 const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
-  const notesRef = useMemo(() => collection(db, 'notes'), []);
-  const labelsRef = useMemo(() => collection(db, 'labels'), []);
-
+  // * States
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
 
   const [notes, setNotes] = useState<NoteType[] | null>(null);
   const [labels, setLabels] = useState<LabelType[] | null>(null); // State to hold fetched labels
+
+  // * Hooks
+  const notesRef = useMemo(() => collection(db, 'notes'), []);
+  const labelsRef = useMemo(() => collection(db, 'labels'), []);
 
   useEffect(() => {
     if (currentUser) {
@@ -82,6 +84,7 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     }
   }, [currentUser]);
 
+  // * Handlers
   const addNote = async (newNote: Omit<NoteType, 'noteId'>) => {
     setLoading(true);
     try {

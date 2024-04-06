@@ -18,6 +18,7 @@ export const SelectedLabelContext = createContext<SelectedLabelContextType>({
 export const SelectedLabelProvider = ({
   children,
 }: selectedLabelProviderProps) => {
+  // * States
   const [selectedLabel, setSelectedLabel] = useState<LabelType | null>(null);
 
   return (
