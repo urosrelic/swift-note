@@ -16,7 +16,7 @@ const Archived = ({ gridView }: GridProps) => {
   // Hooks
   const { currentUser } = useAuth();
   const { notes, loading } = useFirebase(currentUser);
-  const { selectedNote, setSelectedNote } = useSelectedNote();
+  const { setSelectedNote } = useSelectedNote();
 
   // Filter notes array
   const sortedNotes = notes
@@ -69,7 +69,6 @@ const Archived = ({ gridView }: GridProps) => {
         )}
       </div>
       <SelectedNote
-        selectedNote={selectedNote}
         isModalOpen={isModalOpen}
         closeModalHandler={handleCloseModal}
       />

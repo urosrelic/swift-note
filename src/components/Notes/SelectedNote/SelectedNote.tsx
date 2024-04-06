@@ -1,19 +1,18 @@
 import React from 'react';
-import { NoteType } from '../../../types/NoteType';
+import useSelectedNote from '../../../hooks/useSelectedNote';
 import Modal from '../../Styled/Modal.styled';
 import './SelectedNote.css';
 
 interface SelectedNoteProps {
-  selectedNote: NoteType | null;
   isModalOpen: boolean;
   closeModalHandler: () => void;
 }
 
 const SelectedNote: React.FC<SelectedNoteProps> = ({
-  selectedNote,
   isModalOpen,
   closeModalHandler,
 }) => {
+  const { selectedNote } = useSelectedNote();
   return (
     <>
       {isModalOpen && (

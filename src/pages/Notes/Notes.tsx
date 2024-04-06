@@ -19,7 +19,7 @@ const Notes = ({ gridView }: GridProps) => {
   // Hooks
   const { currentUser } = useAuth();
   const { notes, loading } = useFirebase(currentUser);
-  const { selectedNote, setSelectedNote } = useSelectedNote();
+  const { setSelectedNote } = useSelectedNote();
   const { isColorPickerOpen, closeColorPicker } = useColorPicker();
 
   // Filter notes array
@@ -102,8 +102,8 @@ const Notes = ({ gridView }: GridProps) => {
           </span>
         )}
       </div>
+
       <SelectedNote
-        selectedNote={selectedNote}
         isModalOpen={isModalOpen}
         closeModalHandler={handleCloseModal}
       />
