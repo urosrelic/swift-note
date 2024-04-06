@@ -4,7 +4,11 @@ import './Landing.css';
 const Landing = () => {
   return (
     <div className='landing-page'>
-      <div id='landing-page-title'>SwiftNote</div>
+      <div id='landing-page-logo'>
+        <div className='landing-page-logo-container'>
+          <img src='/swift-note-logo.png' />
+        </div>
+      </div>
       <div className='landing-page-container'>
         <div className='landing-content'>
           <div id='landing-page-slogan'>
