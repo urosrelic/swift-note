@@ -11,12 +11,14 @@ import { auth } from '../config/firebase';
 import { UserAuthCredentials } from '../types/UserAuthCredentials';
 
 export const useAuth = () => {
+  // * States
   const [currentUser, setCurrentUser] = useState<FirebaseCurrentUser | null>(
     null
   );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  // * Hooks
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((firebaseCurrentUser) => {
       if (firebaseCurrentUser) {
@@ -29,8 +31,10 @@ export const useAuth = () => {
     return () => unsubscribe();
   }, []);
 
+  // * Objects
   const googleAuthProvider = new GoogleAuthProvider();
 
+  // * Handlers
   const handleGoogleSignIn = async () => {
     setLoading(true);
     try {

@@ -17,7 +17,7 @@ const LabeledNote = ({ gridView }: GridProps) => {
   // Hooks
   const { currentUser } = useAuth();
   const { notes, loading } = useFirebase(currentUser);
-  const { selectedNote, setSelectedNote } = useSelectedNote();
+  const { setSelectedNote } = useSelectedNote();
   const { selectedLabel } = useSelectedLabel();
 
   // Filter notes array
@@ -81,7 +81,6 @@ const LabeledNote = ({ gridView }: GridProps) => {
         )}
       </div>
       <SelectedNote
-        selectedNote={selectedNote}
         isModalOpen={isModalOpen}
         closeModalHandler={handleCloseModal}
       />

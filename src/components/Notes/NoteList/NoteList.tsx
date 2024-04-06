@@ -19,9 +19,11 @@ const NoteList = ({
   loading,
   handleNoteClick,
 }: NoteListProps) => {
+  // * Hooks
   const { currentUser } = useAuth();
   const { labels } = useFirebase(currentUser);
 
+  // * Handlers
   const handleClick = (note: NoteType) => {
     if (handleNoteClick) {
       handleNoteClick(note);

@@ -10,11 +10,12 @@ import { useAuth } from '../../hooks/useAuth';
 import { Dialog, DialogButton, DialogContainer } from '../Styled/Dialog.styled';
 
 const Navbar = ({ gridView, setGridView }: GridProps) => {
-  const { currentUser, logout } = useAuth();
-
+  // * States
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
 
+  // * Hooks
+  const { currentUser, logout } = useAuth();
   const layoutButtonVisible = useMediaQuery(
     'only screen and (min-width: 452px)'
   );
@@ -25,8 +26,7 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
       : (document.body.style.overflow = 'unset');
   }, [openDrawer]);
 
-  const layoutViewIconPath = gridView ? '/list_view.svg' : '/grid_view.svg';
-
+  // * Handlers
   const handleLayoutChange = () => {
     setGridView?.(!gridView);
   };
@@ -34,6 +34,9 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
   const handleOpenDrawer = () => {
     setOpenDrawer(!openDrawer);
   };
+
+  // * Conditional naming
+  const layoutViewIconPath = gridView ? '/list_view.svg' : '/grid_view.svg';
 
   return (
     <div className='navbar'>

@@ -95,8 +95,10 @@ const Dialog: React.FC<DialogProps> = ({
   style,
   children,
 }) => {
+  // * Hooks
   const domNode = useClickOutside<HTMLDivElement>(() => setOpenDialog(false));
 
+  // * Conditional naming
   const dialogClassName = openDialog ? 'show' : '';
 
   return (

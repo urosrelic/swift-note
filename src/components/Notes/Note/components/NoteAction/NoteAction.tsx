@@ -10,6 +10,16 @@ interface NoteActionProps {
   children?: React.ReactNode;
 }
 
+const tooltipStyles = {
+  tooltip: {
+    sx: {
+      color: '#d3e3fd',
+      backgroundColor: '#031525',
+      fontSize: '1rem',
+    },
+  },
+};
+
 const NoteAction = ({
   hover,
   title,
@@ -17,16 +27,6 @@ const NoteAction = ({
   onClickCapture,
   children,
 }: NoteActionProps) => {
-  const tooltipStyles = {
-    tooltip: {
-      sx: {
-        color: '#d3e3fd',
-        backgroundColor: '#031525',
-        fontSize: '1rem',
-      },
-    },
-  };
-
   return (
     <Tooltip
       className={`note-action ${hover ? 'hover' : ''}`}

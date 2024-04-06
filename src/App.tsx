@@ -17,7 +17,7 @@ import PrivateRoutes from './utils/PrivateRoutes';
 function App() {
   const [gridView, setGridView] = useState<boolean>(true);
 
-  // On reload go to the top of page
+  // * On reload go to the top of page
   useEffect(() => {
     window.history.scrollRestoration = 'manual';
   }, []);
