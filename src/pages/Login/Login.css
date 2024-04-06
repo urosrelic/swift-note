@@ -117,11 +117,18 @@
   transform: rotate(-360deg);
 }
 
-.login-title {
+.login-mascot {
   font-size: 2rem;
   font-weight: 500;
   color: var(--secondary-color);
   animation: slide 1s ease forwards;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-mascot img {
+  width: 100px;
 }
 
 .login-go-back-btn {

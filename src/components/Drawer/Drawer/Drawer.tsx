@@ -37,8 +37,9 @@ const Drawer = ({ openDrawer, setOpenDrawer }: DrawerProps) => {
     <div className={`drawer ${drawerClass}`} ref={domNode}>
       <div className='drawer-contents'>
         <div className='logo'>
-          <span>SwiftNote</span>
-          <img src='/close.svg' onClick={handleClose} />
+          <div className='logo-container'>
+            <img src='/swift-note-logo.png' />
+          </div>
         </div>
         <div className='drawer-options'>
           <DrawerOption

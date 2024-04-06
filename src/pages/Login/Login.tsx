@@ -58,7 +58,9 @@ const Login = () => {
 
   return (
     <div className='login-page'>
-      <div className='login-title'>SwiftNote</div>
+      <div className='login-mascot'>
+        <img src='/mascot.svg' className='mascot' />
+      </div>
       <Link to='/' className='login-go-back-btn'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -71,6 +73,7 @@ const Login = () => {
         </svg>
         <span>Back</span>
       </Link>
+
       <div className='form-container'>
         {showLogin ? (
           <form

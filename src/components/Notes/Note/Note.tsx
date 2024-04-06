@@ -156,36 +156,53 @@ const Note = ({
           <>
             <div className='pin-note'>
               <CustomMenu
-                options={[
-                  {
-                    optionIcon: <PushPin />,
-                    option: pinned ? 'Unpin note' : 'Pin note',
-                    menuItemAction: () => togglePinned(),
-                  },
-                  {
-                    optionIcon: <Palette />,
+                options={
+                  archived
+                    ? [
+                        {
+                          optionIcon: <Archive />,
 
-                    option: 'Paint note',
-                    menuItemAction: () => handleColorAction(),
-                  },
-                  {
-                    optionIcon: <Label />,
-                    option: 'Label note',
-                    menuItemAction: () => console.log('Label action'),
-                  },
-                  {
-                    optionIcon: <Archive />,
+                          option: archived ? 'Unarchive note' : 'Archive note',
+                          menuItemAction: () => toggleArchived(),
+                        },
+                        {
+                          optionIcon: <Delete />,
 
-                    option: archived ? 'Unarchive note' : 'Archive note',
-                    menuItemAction: () => toggleArchived(),
-                  },
-                  {
-                    optionIcon: <Delete />,
+                          option: 'Delete note',
+                          menuItemAction: () => toggleDeleted(),
+                        },
+                      ]
+                    : [
+                        {
+                          optionIcon: <PushPin />,
+                          option: pinned ? 'Unpin note' : 'Pin note',
+                          menuItemAction: () => togglePinned(),
+                        },
+                        {
+                          optionIcon: <Palette />,
 
-                    option: 'Delete note',
-                    menuItemAction: () => toggleDeleted(),
-                  },
-                ]}
+                          option: 'Paint note',
+                          menuItemAction: () => handleColorAction(),
+                        },
+                        {
+                          optionIcon: <Label />,
+                          option: 'Label note',
+                          menuItemAction: () => console.log('Label action'),
+                        },
+                        {
+                          optionIcon: <Archive />,
+
+                          option: archived ? 'Unarchive note' : 'Archive note',
+                          menuItemAction: () => toggleArchived(),
+                        },
+                        {
+                          optionIcon: <Delete />,
+
+                          option: 'Delete note',
+                          menuItemAction: () => toggleDeleted(),
+                        },
+                      ]
+                }
               />
             </div>
 
@@ -253,16 +270,6 @@ const Note = ({
           </>
         ) : (
           <>
-            <div className='pin-note'>
-              <NoteAction
-                hover={noteHover}
-                title={pinned ? 'Unpin note' : 'Pin note'}
-                onClick={togglePinned}
-              >
-                <PushPin />
-              </NoteAction>
-            </div>
-
             <div className='note-labels'>
               {labels?.map((label) => (
                 <NoteLabel label={label} />
@@ -275,37 +282,68 @@ const Note = ({
               </span>
             </div>
 
-            <div className='note-actions'>
-              <NoteAction
-                hover={noteHover}
-                title='Paint note'
-                onClick={handleColorAction}
-              >
-                <Palette />
-              </NoteAction>
-              <NoteAction
-                hover={noteHover}
-                title='Label note'
-                onClick={() => console.log('label clicked')}
-              >
-                <Label />
-              </NoteAction>
-              <NoteAction
-                hover={noteHover}
-                title={archived ? 'Unarchive note' : 'Archive note'}
-                onClick={toggleArchived}
-              >
-                {archived ? <Unarchive /> : <Archive />}
-              </NoteAction>
+            {archived ? (
+              <div className='note-actions'>
+                <NoteAction
+                  hover={noteHover}
+                  title={archived ? 'Unarchive note' : 'Archive note'}
+                  onClick={toggleArchived}
+                >
+                  {archived ? <Unarchive /> : <Archive />}
+                </NoteAction>
 
-              <NoteAction
-                hover={noteHover}
-                title='Delete note'
-                onClick={toggleDeleted}
-              >
-                <Delete />
-              </NoteAction>
-            </div>
+                <NoteAction
+                  hover={noteHover}
+                  title='Delete note'
+                  onClick={toggleDeleted}
+                >
+                  <Delete />
+                </NoteAction>
+              </div>
+            ) : (
+              <>
+                <div className='pin-note'>
+                  <NoteAction
+                    hover={noteHover}
+                    title={pinned ? 'Unpin note' : 'Pin note'}
+                    onClick={togglePinned}
+                  >
+                    <PushPin />
+                  </NoteAction>
+                </div>
+                <div className='note-actions'>
+                  <NoteAction
+                    hover={noteHover}
+                    title='Paint note'
+                    onClick={handleColorAction}
+                  >
+                    <Palette />
+                  </NoteAction>
+                  <NoteAction
+                    hover={noteHover}
+                    title='Label note'
+                    onClick={() => console.log('label clicked')}
+                  >
+                    <Label />
+                  </NoteAction>
+                  <NoteAction
+                    hover={noteHover}
+                    title={archived ? 'Unarchive note' : 'Archive note'}
+                    onClick={toggleArchived}
+                  >
+                    {archived ? <Unarchive /> : <Archive />}
+                  </NoteAction>
+
+                  <NoteAction
+                    hover={noteHover}
+                    title='Delete note'
+                    onClick={toggleDeleted}
+                  >
+                    <Delete />
+                  </NoteAction>
+                </div>
+              </>
+            )}
           </>
         )}
       </div>
