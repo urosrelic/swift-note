@@ -10,10 +10,6 @@
   justify-content: center;
 }
 
-.note-label:hover {
-  animation: custom-grow 0.3s forwards;
-}
-
 .note-label-name {
   font-size: 1.1rem;
   text-transform: uppercase;
@@ -23,4 +19,5 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  animation: custom-grow 0.3s forwards;
 }
