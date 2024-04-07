@@ -144,13 +144,6 @@
   color: var(--secondary-color);
   transition: background-color 0.3s ease;
   animation: slide 1s ease forwards;
-}
-
-.login-go-back-btn svg {
-  margin-right: 5px;
-}
-
-.login-go-back-btn:hover {
   background-color: var(--quaternary-color);
 }
 

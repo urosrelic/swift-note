@@ -4,18 +4,16 @@ import './Landing.css';
 const Landing = () => {
   return (
     <div className='landing-page'>
-      <div id='landing-page-logo'>
-        <div className='landing-page-logo-container'>
-          <img src='/swift-note-logo.png' />
-        </div>
-      </div>
       <div className='landing-page-container'>
         <div className='landing-content'>
-          <div id='landing-page-slogan'>
-            <span id='slogan'>Where thoughts take flight effortlessly</span>
-            <span id='sub-slogan'>
-              Capture, organize, and soar with your ideas.
-            </span>
+          <div id='landing-page-logo'>
+            <div className='landing-page-logo-container'>
+              <img src='/swift-note-logo.png' />
+            </div>
+          </div>
+          <div id='slogan'>Where thoughts take flight effortlessly</div>
+          <div id='sub-slogan'>
+            Capture, organize, and soar with your ideas.
           </div>
         </div>
       </div>

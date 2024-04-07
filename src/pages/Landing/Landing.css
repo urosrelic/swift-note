@@ -31,7 +31,7 @@
 #landing-page-logo {
   width: 100%;
   text-align: center;
-  margin-top: 0.3rem;
+  margin-top: 0.5rem;
   padding: 0 0.5rem;
   font-size: 2.2rem;
   color: var(--secondary-color);
@@ -58,6 +58,7 @@
 }
 
 #slogan {
+  margin-top: 1rem;
   font-size: 1.5rem;
   color: var(--secondary-color);
   font-weight: 300;
