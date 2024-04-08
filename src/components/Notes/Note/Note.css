@@ -45,9 +45,13 @@
 }
 
 .note-labels {
-  width: 100%;
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
+}
+
+.note-labels > *:not(:last-child) {
+  margin-right: 5px; /* Adjust margin as needed */
 }
 
 .note-date {

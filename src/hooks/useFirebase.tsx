@@ -16,7 +16,7 @@ import { db } from '../config/firebase';
 import { LabelType } from '../types/LabelType';
 import { NoteType } from '../types/NoteType';
 
-const useFirebase = (currentUser: FirebaseCurrentUser) => {
+const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
   // * States
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
@@ -29,8 +29,10 @@ const useFirebase = (currentUser: FirebaseCurrentUser) => {
   const labelsRef = useMemo(() => collection(db, 'labels'), [currentUser]);
 
   useEffect(() => {
-    if (!notes || !labels) {
-      fetchNotesAndLabels(currentUser);
+    if (currentUser) {
+      if (!notes || !labels) {
+        fetchNotesAndLabels(currentUser);
+      }
     }
   }, [currentUser]);
 
@@ -90,6 +92,16 @@ const useFirebase = (currentUser: FirebaseCurrentUser) => {
     } else {
       setNotes([]);
     }
+  };
+
+  const getLabelById = (labelId: string): LabelType | null => {
+    if (!labels) {
+      return null;
+    }
+
+    const label = labels.find((label) => label.labelId === labelId);
+
+    return label || null;
   };
 
   const addNote = async (newNote: Omit<NoteType, 'noteId'>) => {
@@ -226,6 +238,7 @@ const useFirebase = (currentUser: FirebaseCurrentUser) => {
     colorNote,
     createLabel,
     updateNoteLabel,
+    getLabelById,
   };
 };
 

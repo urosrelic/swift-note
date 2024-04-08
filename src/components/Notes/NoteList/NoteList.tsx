@@ -51,7 +51,7 @@ const NoteList = ({
                 archived={note.archived}
                 deleted={note.deleted}
                 color={note.color}
-                labels={labels?.filter((label) => label.noteId === note.noteId)}
+                labels={note.labels}
                 handleNoteClick={() => handleClick(note)}
               />
             ))}

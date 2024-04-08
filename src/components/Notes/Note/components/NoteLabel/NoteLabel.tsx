@@ -2,6 +2,7 @@ import BackspaceIcon from '@mui/icons-material/Backspace';
 import { useState } from 'react';
 import { LabelType } from '../../../../../types/LabelType';
 import './NoteLabel.css';
+
 interface NoteLabelProps {
   label: LabelType;
 }
@@ -17,12 +18,15 @@ const NoteLabel = ({ label }: NoteLabelProps) => {
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      <div className='note-label-name'>{label.labelName}</div>
-      {hover ? (
-        <div className='note-label-close-btn'>
-          <BackspaceIcon sx={{ marginLeft: '0.3rem', fontSize: '1.1rem' }} />
-        </div>
-      ) : null}
+      <div className='note-label-container'>
+        <div className='note-label-name'>{label.labelName}</div>
+        {hover && (
+          <BackspaceIcon
+            className='note-label-close-btn'
+            sx={{ marginLeft: '0.1rem', fontSize: '1rem' }}
+          />
+        )}
+      </div>
     </div>
   );
 };
