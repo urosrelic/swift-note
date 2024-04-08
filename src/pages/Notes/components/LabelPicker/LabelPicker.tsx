@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Modal from '../../../../components/Styled/Modal.styled';
 import { useAuth } from '../../../../hooks/useAuth';
 import useFirebase from '../../../../hooks/useFirebase';
+import useSelectedNote from '../../../../hooks/useSelectedNote';
 import { LabelType } from '../../../../types/LabelType';
 import './LabelPicker.css';
 
@@ -13,14 +14,20 @@ interface LabelPickerProps {
 const LabelPicker = ({ isModalOpen, closeModalHandler }: LabelPickerProps) => {
   // * States
   const [newLabelName, setNewLabelName] = useState<string | null>(null);
+  const [selectedLabel, setSelectedLabel] = useState<string>('');
 
   // * Hooks
   const { currentUser } = useAuth();
-  const { labels, createLabel } = useFirebase(currentUser);
+  const { labels, createLabel, updateNoteLabel } = useFirebase(currentUser);
+  const { selectedNote } = useSelectedNote();
 
   // * Handlers
   const handleInputChange = (e) => {
     setNewLabelName(e.target.value);
+  };
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedLabel(e.target.value);
   };
 
   const createNewLabel = () => {
@@ -33,6 +40,13 @@ const LabelPicker = ({ isModalOpen, closeModalHandler }: LabelPickerProps) => {
       setNewLabelName(null);
     } else {
       return;
+    }
+  };
+
+  const addLabelToNote = (labelId: string) => {
+    if (selectedNote?.noteId) {
+      updateNoteLabel(selectedNote.noteId, labelId);
+      closeModalHandler();
     }
   };
 
@@ -56,14 +70,19 @@ const LabelPicker = ({ isModalOpen, closeModalHandler }: LabelPickerProps) => {
               <>
                 <h4>Available labels</h4>
 
-                <select>
-                  <option value='' selected disabled hidden>
+                <select value={selectedLabel} onChange={handleSelectChange}>
+                  <option value='' disabled hidden>
                     Choose a label
                   </option>
                   {labels?.map((label) => (
-                    <option key={label.labelId}>{label.labelName}</option>
+                    <option key={label.labelId} value={label.labelId}>
+                      {label.labelName}
+                    </option>
                   ))}
                 </select>
+                <button onClick={() => addLabelToNote(selectedLabel)}>
+                  Add Label
+                </button>
               </>
             )}
           </div>

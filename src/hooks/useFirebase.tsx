@@ -2,6 +2,7 @@ import { User as FirebaseCurrentUser } from 'firebase/auth';
 import {
   Timestamp,
   addDoc,
+  arrayUnion,
   collection,
   deleteDoc,
   doc,
@@ -191,6 +192,18 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
       setLoading(false);
     }
   };
+  const updateNoteLabel = async (noteId: string, labelId: string) => {
+    setLoading(true);
+    try {
+      await updateDoc(doc(notesRef, noteId), {
+        labels: arrayUnion(labelId),
+      });
+      setLoading(false);
+    } catch (error) {
+      setError((error as Error).message || 'An error occurred');
+      setLoading(false);
+    }
+  };
 
   return {
     notes,
@@ -205,6 +218,7 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     removeFromTrash,
     colorNote,
     createLabel,
+    updateNoteLabel,
   };
 };
 
