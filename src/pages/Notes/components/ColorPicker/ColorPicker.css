@@ -15,6 +15,17 @@
   cursor: pointer;
 }
 
+.color-option.reset {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
 .color-option:hover {
   border: 2px solid #333;
 }
