@@ -132,7 +132,7 @@ const Note = ({
           {labels?.map((labelId) => {
             const label = getLabelById(labelId);
             return label ? (
-              <NoteLabel key={label.labelId} label={label} />
+              <NoteLabel key={label.labelId} label={label} noteId={noteId} />
             ) : null;
           })}
         </div>
@@ -245,7 +245,7 @@ const Note = ({
           {labels?.map((labelId) => {
             const label = getLabelById(labelId);
             return label ? (
-              <NoteLabel key={label.labelId} label={label} />
+              <NoteLabel key={label.labelId} label={label} noteId={noteId} />
             ) : null;
           })}
         </div>

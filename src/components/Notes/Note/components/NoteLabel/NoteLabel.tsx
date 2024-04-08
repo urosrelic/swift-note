@@ -1,15 +1,29 @@
 import BackspaceIcon from '@mui/icons-material/Backspace';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useAuth } from '../../../../../hooks/useAuth';
+import useFirebase from '../../../../../hooks/useFirebase';
 import { LabelType } from '../../../../../types/LabelType';
 import './NoteLabel.css';
 
 interface NoteLabelProps {
   label: LabelType;
+  noteId: string;
 }
 
-const NoteLabel = ({ label }: NoteLabelProps) => {
+const NoteLabel = ({ label, noteId }: NoteLabelProps) => {
   // * States
   const [hover, setHover] = useState<boolean>(false);
+
+  const { currentUser } = useAuth();
+  const { removeLabelFromNote } = useFirebase(currentUser);
+
+  const handleRemoveLabel = () => {
+    removeLabelFromNote(noteId, label.labelId);
+  };
+
+  useEffect(() => {
+    console.log(noteId);
+  });
 
   return (
     <div
@@ -21,10 +35,12 @@ const NoteLabel = ({ label }: NoteLabelProps) => {
       <div className='note-label-container'>
         <div className='note-label-name'>{label.labelName}</div>
         {hover && (
-          <BackspaceIcon
-            className='note-label-close-btn'
-            sx={{ marginLeft: '0.1rem', fontSize: '1rem' }}
-          />
+          <div className='label-remove-btn' onClick={handleRemoveLabel}>
+            <BackspaceIcon
+              className='note-label-close-btn'
+              sx={{ marginLeft: '0.1rem', fontSize: '1rem' }}
+            />
+          </div>
         )}
       </div>
     </div>
