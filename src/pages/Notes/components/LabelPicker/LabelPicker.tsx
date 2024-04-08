@@ -12,7 +12,7 @@ interface LabelPickerProps {
 
 const LabelPicker = ({ isModalOpen, closeModalHandler }: LabelPickerProps) => {
   // * States
-  const [newLabelName, setNewLabelName] = useState<string>('');
+  const [newLabelName, setNewLabelName] = useState<string | null>(null);
 
   // * Hooks
   const { currentUser } = useAuth();
@@ -24,12 +24,16 @@ const LabelPicker = ({ isModalOpen, closeModalHandler }: LabelPickerProps) => {
   };
 
   const createNewLabel = () => {
-    const newLabel: Omit<LabelType, 'labelId'> = {
-      labelName: newLabelName,
-      userId: currentUser?.uid || '',
-    };
-    createLabel(newLabel);
-    setNewLabelName('');
+    if (newLabelName !== null && newLabelName.trim() !== '') {
+      const newLabel: Omit<LabelType, 'labelId'> = {
+        labelName: newLabelName,
+        userId: currentUser?.uid || '',
+      };
+      createLabel(newLabel);
+      setNewLabelName(null);
+    } else {
+      return;
+    }
   };
 
   return (
@@ -68,6 +72,7 @@ const LabelPicker = ({ isModalOpen, closeModalHandler }: LabelPickerProps) => {
             <input
               type='text'
               placeholder='Label name...'
+              value={newLabelName || ''}
               onChange={handleInputChange}
             ></input>
             <button onClick={createNewLabel}>Create</button>
