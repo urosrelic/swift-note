@@ -1,7 +1,8 @@
-import { useAuth } from '../../hooks/useAuth';
-import useFirebase from '../../hooks/useFirebase';
-import useSelectedNote from '../../hooks/useSelectedNote';
-import Modal from '../Styled/Modal.styled';
+import FormatColorResetIcon from '@mui/icons-material/FormatColorReset';
+import Modal from '../../../../components/Styled/Modal.styled';
+import { useAuth } from '../../../../hooks/useAuth';
+import useFirebase from '../../../../hooks/useFirebase';
+import useSelectedNote from '../../../../hooks/useSelectedNote';
 import './ColorPicker.css';
 
 interface ColorPickerProps {
@@ -9,14 +10,16 @@ interface ColorPickerProps {
   closeModalHandler: () => void;
 }
 
+const defaultColor: string = '#d3e3fd';
+
 const colors = [
-  '#ff7f0e',
-  '#2ca02c',
-  '#1f77b4',
-  '#d62728',
-  '#9467bd',
-  '#8c564b',
-  '#e377c2',
+  '#77172e',
+  '#692b17',
+  '#7c4a03',
+  '#0c625d',
+  '#256377',
+  '#472e5b',
+  '#6c394f',
 ];
 
 const ColorPicker = ({ isModalOpen, closeModalHandler }: ColorPickerProps) => {
@@ -39,6 +42,15 @@ const ColorPicker = ({ isModalOpen, closeModalHandler }: ColorPickerProps) => {
         <div className='color-picker-container'>
           <h2>Select a color</h2>
           <div className='color-picker-options'>
+            <div
+              className='color-option reset'
+              onClick={() =>
+                selectedNote?.noteId &&
+                colorNote(selectedNote.noteId, defaultColor)
+              }
+            >
+              <FormatColorResetIcon />
+            </div>
             {colors.map((color, index) => (
               <div
                 key={index}

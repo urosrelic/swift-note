@@ -2,9 +2,11 @@ import { User as FirebaseCurrentUser } from 'firebase/auth';
 import {
   Timestamp,
   addDoc,
+  arrayUnion,
   collection,
   deleteDoc,
   doc,
+  getDoc,
   onSnapshot,
   query,
   updateDoc,
@@ -21,13 +23,22 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
   const [error, setError] = useState<string>('');
 
   const [notes, setNotes] = useState<NoteType[] | null>(null);
-  const [labels, setLabels] = useState<LabelType[] | null>(null); // State to hold fetched labels
+  const [labels, setLabels] = useState<LabelType[] | null>(null);
 
   // * Hooks
-  const notesRef = useMemo(() => collection(db, 'notes'), []);
-  const labelsRef = useMemo(() => collection(db, 'labels'), []);
+  const notesRef = useMemo(() => collection(db, 'notes'), [currentUser]);
+  const labelsRef = useMemo(() => collection(db, 'labels'), [currentUser]);
 
   useEffect(() => {
+    if (currentUser) {
+      if (!notes || !labels) {
+        fetchNotesAndLabels(currentUser);
+      }
+    }
+  }, [currentUser]);
+
+  // * Handlers
+  const fetchNotesAndLabels = (currentUser: FirebaseCurrentUser) => {
     if (currentUser) {
       setLoading(true);
       const notesQuery = query(
@@ -82,9 +93,18 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     } else {
       setNotes([]);
     }
-  }, [currentUser]);
+  };
 
-  // * Handlers
+  const getLabelById = (labelId: string): LabelType | null => {
+    if (!labels) {
+      return null;
+    }
+
+    const label = labels.find((label) => label.labelId === labelId);
+
+    return label || null;
+  };
+
   const addNote = async (newNote: Omit<NoteType, 'noteId'>) => {
     setLoading(true);
     try {
@@ -181,6 +201,53 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     }
   };
 
+  const createLabel = async (newLabel: Omit<LabelType, 'labelId'>) => {
+    setLoading(true);
+    try {
+      await addDoc(labelsRef, newLabel);
+      setLoading(false);
+    } catch (error) {
+      setError((error as Error).message || 'An error occurred');
+      setLoading(false);
+    }
+  };
+
+  const updateNoteLabel = async (noteId: string, labelId: string) => {
+    setLoading(true);
+    try {
+      await updateDoc(doc(notesRef, noteId), {
+        labels: arrayUnion(labelId),
+      });
+      setLoading(false);
+    } catch (error) {
+      setError((error as Error).message || 'An error occurred');
+      setLoading(false);
+    }
+  };
+
+  const removeLabelFromNote = async (noteId: string, labelId: string) => {
+    setLoading(true);
+    try {
+      const noteDoc = await getDoc(doc(notesRef, noteId));
+      const noteData = noteDoc.data();
+
+      if (noteData) {
+        const { labels } = noteData;
+
+        const updatedLabels = labels.filter((id: string) => id !== labelId);
+
+        await updateDoc(doc(notesRef, noteId), { labels: updatedLabels });
+      } else {
+        console.error('Note not found or data is undefined');
+      }
+
+      setLoading(false);
+    } catch (error) {
+      setError((error as Error).message || 'An error occurred');
+      setLoading(false);
+    }
+  };
+
   return {
     notes,
     labels,
@@ -193,6 +260,10 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     toggleDeletedNote,
     removeFromTrash,
     colorNote,
+    createLabel,
+    updateNoteLabel,
+    removeLabelFromNote,
+    getLabelById,
   };
 };
 

@@ -6,7 +6,6 @@
   flex-direction: column;
   border-radius: 5px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
   transition: all 0.3s ease;
   min-height: 150px;
 }
@@ -28,6 +27,7 @@
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   white-space: normal;
+  cursor: pointer;
 }
 
 .note-details {
@@ -37,6 +37,7 @@
   flex-direction: column;
   align-items: start;
   justify-content: center;
+  cursor: pointer;
 }
 
 .note-title {
@@ -44,15 +45,20 @@
 }
 
 .note-labels {
-  width: 100%;
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
+}
+
+.note-labels > *:not(:last-child) {
+  margin-right: 5px; /* Adjust margin as needed */
 }
 
 .note-date {
   margin-top: 1rem;
   font-size: 1rem;
   text-align: right;
+  cursor: pointer;
 }
 
 .note-date-value {
