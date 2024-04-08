@@ -16,19 +16,26 @@ import { db } from '../config/firebase';
 import { LabelType } from '../types/LabelType';
 import { NoteType } from '../types/NoteType';
 
-const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
+const useFirebase = (currentUser: FirebaseCurrentUser) => {
   // * States
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
 
   const [notes, setNotes] = useState<NoteType[] | null>(null);
-  const [labels, setLabels] = useState<LabelType[] | null>(null); // State to hold fetched labels
+  const [labels, setLabels] = useState<LabelType[] | null>(null);
 
   // * Hooks
-  const notesRef = useMemo(() => collection(db, 'notes'), []);
-  const labelsRef = useMemo(() => collection(db, 'labels'), []);
+  const notesRef = useMemo(() => collection(db, 'notes'), [currentUser]);
+  const labelsRef = useMemo(() => collection(db, 'labels'), [currentUser]);
 
   useEffect(() => {
+    if (!notes || !labels) {
+      fetchNotesAndLabels(currentUser);
+    }
+  }, [currentUser]);
+
+  // * Handlers
+  const fetchNotesAndLabels = (currentUser: FirebaseCurrentUser) => {
     if (currentUser) {
       setLoading(true);
       const notesQuery = query(
@@ -83,9 +90,8 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     } else {
       setNotes([]);
     }
-  }, [currentUser]);
+  };
 
-  // * Handlers
   const addNote = async (newNote: Omit<NoteType, 'noteId'>) => {
     setLoading(true);
     try {
@@ -192,6 +198,7 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
       setLoading(false);
     }
   };
+
   const updateNoteLabel = async (noteId: string, labelId: string) => {
     setLoading(true);
     try {
