@@ -1,5 +1,5 @@
 import firebase from 'firebase/compat/app';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import {
   Archive,
@@ -15,6 +15,7 @@ import { useMediaQuery } from '@uidotdev/usehooks';
 import { useAuth } from '../../../hooks/useAuth';
 import { useColorPicker } from '../../../hooks/useColorPicker';
 import useFirebase from '../../../hooks/useFirebase';
+import { useLabelPicker } from '../../../hooks/useLabelPicker';
 import useSelectedNote from '../../../hooks/useSelectedNote';
 import { LabelType } from '../../../types/LabelType';
 import { NoteType } from '../../../types/NoteType';
@@ -57,13 +58,10 @@ const Note = ({
   // * Hooks
   const { currentUser } = useAuth();
   const { openColorPicker } = useColorPicker();
+  const { openLabelPicker } = useLabelPicker();
   const { setSelectedNote } = useSelectedNote();
   const { deleteNote, togglePinNote, toggleArchiveNote, toggleDeletedNote } =
     useFirebase(currentUser);
-
-  useEffect(() => {
-    console.log(labels);
-  }, []);
 
   // * Handlers
   const handleDeleteNote = () => {
@@ -103,6 +101,11 @@ const Note = ({
 
   const handleColorAction = () => {
     openColorPicker();
+    setSelectedNote({ noteId } as NoteType);
+  };
+
+  const handleLabelAction = () => {
+    openLabelPicker();
     setSelectedNote({ noteId } as NoteType);
   };
 
@@ -322,7 +325,7 @@ const Note = ({
                   <NoteAction
                     hover={noteHover}
                     title='Label note'
-                    onClick={() => console.log('label clicked')}
+                    onClick={handleLabelAction}
                   >
                     <Label />
                   </NoteAction>

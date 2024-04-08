@@ -20,7 +20,6 @@ const colors = [
   '#256377',
   '#472e5b',
   '#6c394f',
-  '#232427',
 ];
 
 const ColorPicker = ({ isModalOpen, closeModalHandler }: ColorPickerProps) => {

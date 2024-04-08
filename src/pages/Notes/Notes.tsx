@@ -1,16 +1,18 @@
 import { PushPin } from '@mui/icons-material';
 import DescriptionIcon from '@mui/icons-material/Description';
-import { useState } from 'react';
-import ColorPicker from '../../components/ColorPicker/ColorPicker';
+import { useEffect, useState } from 'react';
 import NotesList from '../../components/Notes/NoteList/NoteList';
 import SelectedNote from '../../components/Notes/SelectedNote/SelectedNote';
 import { useAuth } from '../../hooks/useAuth';
 import { useColorPicker } from '../../hooks/useColorPicker';
 import useFirebase from '../../hooks/useFirebase';
+import { useLabelPicker } from '../../hooks/useLabelPicker';
 import useSelectedNote from '../../hooks/useSelectedNote';
 import { GridProps } from '../../types/GridProps';
 import { NoteType } from '../../types/NoteType';
 import './Notes.css';
+import ColorPicker from './components/ColorPicker/ColorPicker';
+import LabelPicker from './components/LabelPicker/LabelPicker';
 
 const Notes = ({ gridView }: GridProps) => {
   // States
@@ -21,6 +23,11 @@ const Notes = ({ gridView }: GridProps) => {
   const { notes, loading } = useFirebase(currentUser);
   const { setSelectedNote } = useSelectedNote();
   const { isColorPickerOpen, closeColorPicker } = useColorPicker();
+  const { isLabelPickerOpen, closeLabelPicker } = useLabelPicker();
+
+  useEffect(() => {
+    console.log(isColorPickerOpen);
+  }, [isLabelPickerOpen]);
 
   // Filter notes array
 
@@ -110,6 +117,10 @@ const Notes = ({ gridView }: GridProps) => {
       <ColorPicker
         isModalOpen={isColorPickerOpen}
         closeModalHandler={closeColorPicker}
+      />
+      <LabelPicker
+        isModalOpen={isLabelPickerOpen}
+        closeModalHandler={closeLabelPicker}
       />
     </>
   );

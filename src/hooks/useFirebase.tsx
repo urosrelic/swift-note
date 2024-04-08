@@ -181,6 +181,17 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     }
   };
 
+  const createLabel = async (newLabel: Omit<LabelType, 'labelId'>) => {
+    setLoading(true);
+    try {
+      await addDoc(labelsRef, newLabel);
+      setLoading(false);
+    } catch (error) {
+      setError((error as Error).message || 'An error occurred');
+      setLoading(false);
+    }
+  };
+
   return {
     notes,
     labels,
@@ -193,6 +204,7 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     toggleDeletedNote,
     removeFromTrash,
     colorNote,
+    createLabel,
   };
 };
 
