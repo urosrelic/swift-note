@@ -190,7 +190,7 @@ const Note = ({
                         {
                           optionIcon: <Label />,
                           option: 'Label note',
-                          menuItemAction: () => console.log('Label action'),
+                          menuItemAction: () => handleLabelAction(),
                         },
                         {
                           optionIcon: <Archive />,
