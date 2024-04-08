@@ -2,8 +2,6 @@ import CircularProgress from '@mui/material/CircularProgress/CircularProgress';
 import { NoteType } from '../../../types/NoteType';
 import Note from '../Note/Note';
 
-import { useAuth } from '../../../hooks/useAuth';
-import useFirebase from '../../../hooks/useFirebase';
 import './NoteList.css';
 
 interface NoteListProps {
@@ -19,10 +17,6 @@ const NoteList = ({
   loading,
   handleNoteClick,
 }: NoteListProps) => {
-  // * Hooks
-  const { currentUser } = useAuth();
-  const { labels } = useFirebase(currentUser);
-
   // * Handlers
   const handleClick = (note: NoteType) => {
     if (handleNoteClick) {
