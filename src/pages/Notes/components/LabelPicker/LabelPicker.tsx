@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import Modal from '../../../../components/Styled/Modal.styled';
 import { useAuth } from '../../../../hooks/useAuth';
 import useFirebase from '../../../../hooks/useFirebase';
@@ -22,11 +22,11 @@ const LabelPicker = ({ isModalOpen, closeModalHandler }: LabelPickerProps) => {
   const { selectedNote } = useSelectedNote();
 
   // * Handlers
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewLabelName(e.target.value);
   };
 
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedLabel(e.target.value);
   };
 
