@@ -38,6 +38,17 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     }
   }, [currentUser]);
 
+  // * Filtration
+  const filterLabelsById = (labelId: string): LabelType | null => {
+    if (!labels) {
+      return null;
+    }
+
+    const label = labels.find((label) => label.labelId === labelId);
+
+    return label || null;
+  };
+
   // * Handlers
   const fetchNotesAndLabels = (currentUser: FirebaseCurrentUser) => {
     if (currentUser) {
@@ -123,16 +134,6 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
       setLoading(false);
       return null;
     }
-  };
-
-  const getLabelById = (labelId: string): LabelType | null => {
-    if (!labels) {
-      return null;
-    }
-
-    const label = labels.find((label) => label.labelId === labelId);
-
-    return label || null;
   };
 
   const addNote = async (newNote: Omit<NoteType, 'noteId'>) => {
@@ -285,7 +286,7 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     updateNoteLabel,
     removeLabelFromNote,
     fetchLabelDataById,
-    getLabelById,
+    filterLabelsById,
   };
 };
 
