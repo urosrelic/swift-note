@@ -35,11 +35,8 @@ const NoteLabel = ({ label, noteId }: NoteLabelProps) => {
       <div className='note-label-container'>
         <div className='note-label-name'>{label.labelName}</div>
         {hover && (
-          <div className='label-remove-btn' onClick={handleRemoveLabel}>
-            <BackspaceIcon
-              className='note-label-close-btn'
-              sx={{ marginLeft: '0.1rem', fontSize: '1rem' }}
-            />
+          <div className='note-label-remove-btn' onClick={handleRemoveLabel}>
+            <BackspaceIcon sx={{ marginLeft: '0.1rem', fontSize: '1rem' }} />
           </div>
         )}
       </div>
