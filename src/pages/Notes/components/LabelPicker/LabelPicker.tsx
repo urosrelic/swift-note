@@ -69,7 +69,6 @@ const LabelPicker = ({ isModalOpen, closeModalHandler }: LabelPickerProps) => {
             ) : (
               <>
                 <h4>Available labels</h4>
-
                 <select value={selectedLabel} onChange={handleSelectChange}>
                   <option value='' disabled hidden>
                     Choose a label
