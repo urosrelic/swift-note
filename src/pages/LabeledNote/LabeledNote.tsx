@@ -5,11 +5,15 @@ import { useParams } from 'react-router-dom';
 import NotesList from '../../components/Notes/NoteList/NoteList';
 import SelectedNote from '../../components/Notes/SelectedNote/SelectedNote';
 import { useAuth } from '../../hooks/useAuth';
+import { useColorPicker } from '../../hooks/useColorPicker';
 import useFirebase from '../../hooks/useFirebase';
+import { useLabelPicker } from '../../hooks/useLabelPicker';
 import useSelectedNote from '../../hooks/useSelectedNote';
 import { GridProps } from '../../types/GridProps';
 import { LabelType } from '../../types/LabelType';
 import { NoteType } from '../../types/NoteType';
+import ColorPicker from '../Notes/components/ColorPicker/ColorPicker';
+import LabelPicker from '../Notes/components/LabelPicker/LabelPicker';
 import './LabeledNote.css';
 
 const LabeledNote = ({ gridView }: GridProps) => {
@@ -22,6 +26,8 @@ const LabeledNote = ({ gridView }: GridProps) => {
   const { currentUser } = useAuth();
   const { notes, loading, fetchLabelDataById } = useFirebase(currentUser);
   const { setSelectedNote } = useSelectedNote();
+  const { isColorPickerOpen, closeColorPicker } = useColorPicker();
+  const { isLabelPickerOpen, closeLabelPicker } = useLabelPicker();
   const { labelId } = useParams();
 
   useEffect(() => {
@@ -111,6 +117,14 @@ const LabeledNote = ({ gridView }: GridProps) => {
       <SelectedNote
         isModalOpen={isModalOpen}
         closeModalHandler={handleCloseModal}
+      />
+      <ColorPicker
+        isModalOpen={isColorPickerOpen}
+        closeModalHandler={closeColorPicker}
+      />
+      <LabelPicker
+        isModalOpen={isLabelPickerOpen}
+        closeModalHandler={closeLabelPicker}
       />
     </>
   );
