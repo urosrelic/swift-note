@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth';
 import { useClickOutside } from '../../../hooks/useClickOutside';
 import useFirebase from '../../../hooks/useFirebase';
-import { useSelectedLabel } from '../../../hooks/useSelectedLabel';
 import { LabelType } from '../../../types/LabelType';
 import DrawerOption from '../DrawerOption/DrawerOption';
 import './Drawer.css';
@@ -18,7 +17,6 @@ const Drawer = ({ openDrawer, setOpenDrawer }: DrawerProps) => {
   // * Hooks
   const { currentUser } = useAuth();
   const { labels } = useFirebase(currentUser);
-  const { setSelectedLabel } = useSelectedLabel();
   const navigate = useNavigate();
   const domNode = useClickOutside<HTMLDivElement>(setOpenDrawer);
 
@@ -29,7 +27,6 @@ const Drawer = ({ openDrawer, setOpenDrawer }: DrawerProps) => {
 
   const handleLabelSelect = (label: LabelType) => {
     handleClose();
-    setSelectedLabel(label);
     navigate(`/home/labeled/${label.labelId}`);
   };
 

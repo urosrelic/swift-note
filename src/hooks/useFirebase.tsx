@@ -7,6 +7,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDoc,
   onSnapshot,
   query,
   updateDoc,
@@ -92,6 +93,35 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
       };
     } else {
       setNotes([]);
+    }
+  };
+
+  const fetchLabelDataById = async (
+    labelId: string
+  ): Promise<LabelType | null> => {
+    setLoading(true);
+    try {
+      const docRef = doc(labelsRef, labelId);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        const labelData: LabelType = {
+          labelId: docSnap.id,
+          labelName: data.labelName,
+          userId: data.userId,
+        };
+
+        setLoading(false);
+        return labelData;
+      } else {
+        setLoading(false);
+        return null;
+      }
+    } catch (error) {
+      setError((error as Error).message || 'An error occurred');
+      setLoading(false);
+      return null;
     }
   };
 
@@ -254,6 +284,7 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     createLabel,
     updateNoteLabel,
     removeLabelFromNote,
+    fetchLabelDataById,
     getLabelById,
   };
 };

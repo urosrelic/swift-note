@@ -1,45 +1,73 @@
 import LabelIcon from '@mui/icons-material/Label';
-import { useState } from 'react';
+import { CircularProgress } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import NotesList from '../../components/Notes/NoteList/NoteList';
 import SelectedNote from '../../components/Notes/SelectedNote/SelectedNote';
 import { useAuth } from '../../hooks/useAuth';
 import useFirebase from '../../hooks/useFirebase';
-import { useSelectedLabel } from '../../hooks/useSelectedLabel';
 import useSelectedNote from '../../hooks/useSelectedNote';
 import { GridProps } from '../../types/GridProps';
+import { LabelType } from '../../types/LabelType';
 import { NoteType } from '../../types/NoteType';
 import './LabeledNote.css';
 
 const LabeledNote = ({ gridView }: GridProps) => {
   // States
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [label, setLabel] = useState<LabelType | null>(null);
+  const [labeledNotes, setLabeledNotes] = useState<NoteType[] | null>(null);
 
   // Hooks
   const { currentUser } = useAuth();
-  const { notes, loading } = useFirebase(currentUser);
+  const { notes, loading, fetchLabelDataById } = useFirebase(currentUser);
   const { setSelectedNote } = useSelectedNote();
-  const { selectedLabel } = useSelectedLabel();
+  const { labelId } = useParams();
 
-  // Filter notes array
-  const sortedNotes = notes
-    ? [...notes].sort(
+  useEffect(() => {
+    // console.log('Fetching label data...');
+    const fetchLabel = async () => {
+      if (labelId && currentUser) {
+        try {
+          const fetchedLabel = await fetchLabelDataById(labelId);
+          // console.log('Fetched label:', fetchedLabel);
+          setLabel(fetchedLabel);
+        } catch (error) {
+          // console.error('Error fetching label data:', error);
+        }
+      }
+    };
+
+    fetchLabel();
+  }, [labelId, currentUser]);
+
+  useEffect(() => {
+    if (label && notes) {
+      // console.log('Filtering notes based on selected label...');
+      const sortedNotes = [...notes].sort(
         (a, b) =>
           b.createdAt.toDate().getTime() - a.createdAt.toDate().getTime()
-      )
-    : [];
-
-  // Filter notes based on the selected label
-  const filteredNotes = selectedLabel
-    ? sortedNotes.filter(
+      );
+      const labeledNotes = sortedNotes.filter(
         (note) =>
-          // @ts-ignore
-          // Checks if the labels (LabelType[]) array has label id inside
-          // Don't understand the typescript issue
-          note.labels.includes(selectedLabel.labelId) &&
-          !note.deleted &&
-          !note.archived
-      )
-    : sortedNotes;
+          note.labels.includes(label.labelId) && !note.deleted && !note.archived
+      );
+      setLabeledNotes(labeledNotes);
+    }
+  }, [label, notes]);
+
+  useEffect(() => {
+    console.log(label);
+  }, [label, labeledNotes]);
+
+  if (!label || !labeledNotes) {
+    return (
+      <div className='labeled-note-loading'>
+        <span>Loading note information</span>
+        <CircularProgress />
+      </div>
+    );
+  }
 
   // Handlers
   const handleNoteClick = (note: NoteType) => {
@@ -62,12 +90,12 @@ const LabeledNote = ({ gridView }: GridProps) => {
         >
           <div className='labeled-notes-title'>
             <LabelIcon sx={{ fontSize: '1.8rem', marginRight: '0.5rem' }} />
-            {selectedLabel?.labelName}
+            {label ? label.labelName : 'No label data'}
           </div>
         </div>
-        {filteredNotes.length > 0 ? (
+        {labeledNotes.length > 0 ? (
           <NotesList
-            notes={filteredNotes}
+            notes={labeledNotes}
             gridView={gridView}
             loading={loading}
             handleNoteClick={handleNoteClick}
