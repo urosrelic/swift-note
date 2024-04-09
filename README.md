@@ -1,30 +1,50 @@
-# React + TypeScript + Vite
+![swift-note-logo](https://github.com/urosrelic/swift-note/assets/72343856/1f33b0fb-5668-4a81-9106-0a89cdb47d62)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Note taking application
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Frontend:**
 
-## Expanding the ESLint configuration
+- Typescript
+- React
+- CSS
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+**Backend:**
 
-- Configure the top-level `parserOptions` property like this:
+- Firebase
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+## Demo
+
+https://swift-note.vercel.app/
+
+#### Username: demo
+
+
+#### Password: demo1234
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/urosrelic/swift-note
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Go to the project directory
+
+```bash
+  cd my-project
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run dev
+```
