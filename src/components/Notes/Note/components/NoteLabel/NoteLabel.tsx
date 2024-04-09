@@ -17,7 +17,7 @@ const NoteLabel = ({ label, noteId }: NoteLabelProps) => {
   const [hover, setHover] = useState<boolean>(false);
 
   const { currentUser } = useAuth();
-  const { selectedLabel, setSelectedLabel } = useSelectedLabel();
+  const { setSelectedLabel } = useSelectedLabel();
   const navigate = useNavigate();
   const { removeLabelFromNote } = useFirebase(currentUser);
 
