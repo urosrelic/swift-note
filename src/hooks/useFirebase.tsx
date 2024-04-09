@@ -256,6 +256,20 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     }
   };
 
+  const updateNote = async (noteId: string, title: string, content: string) => {
+    setLoading(true);
+    try {
+      await updateDoc(doc(notesRef, noteId), {
+        title: title,
+        content: content,
+      });
+      setLoading(false);
+    } catch (error) {
+      setError((error as Error).message || 'An error occurred');
+      setLoading(false);
+    }
+  };
+
   const removeLabelFromNote = async (noteId: string, labelId: string) => {
     setLoading(true);
     try {
@@ -284,6 +298,7 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     colorNote,
     createLabel,
     updateNoteLabel,
+    updateNote,
     removeLabelFromNote,
     fetchLabelDataById,
     filterLabelsById,
