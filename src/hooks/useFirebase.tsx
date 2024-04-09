@@ -2,11 +2,11 @@ import { User as FirebaseCurrentUser } from 'firebase/auth';
 import {
   Timestamp,
   addDoc,
+  arrayRemove,
   arrayUnion,
   collection,
   deleteDoc,
   doc,
-  getDoc,
   onSnapshot,
   query,
   updateDoc,
@@ -228,19 +228,10 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
   const removeLabelFromNote = async (noteId: string, labelId: string) => {
     setLoading(true);
     try {
-      const noteDoc = await getDoc(doc(notesRef, noteId));
-      const noteData = noteDoc.data();
-
-      if (noteData) {
-        const { labels } = noteData;
-
-        const updatedLabels = labels.filter((id: string) => id !== labelId);
-
-        await updateDoc(doc(notesRef, noteId), { labels: updatedLabels });
-      } else {
-        console.error('Note not found or data is undefined');
-      }
-
+      const noteRef = doc(notesRef, noteId);
+      await updateDoc(noteRef, {
+        labels: arrayRemove(labelId),
+      });
       setLoading(false);
     } catch (error) {
       setError((error as Error).message || 'An error occurred');
