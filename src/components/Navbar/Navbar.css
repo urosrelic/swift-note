@@ -27,6 +27,16 @@
   width: 25px;
 }
 
+.account-image {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.account-image img {
+  width: 30%;
+}
 .account-icon {
   border-radius: 50%;
 }
