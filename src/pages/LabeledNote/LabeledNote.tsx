@@ -63,7 +63,7 @@ const LabeledNote = ({ gridView }: GridProps) => {
   if (!label || !labeledNotes) {
     return (
       <div className='labeled-note-loading'>
-        <span>Loading note information</span>
+        <span>Loading label information ...</span>
         <CircularProgress />
       </div>
     );
