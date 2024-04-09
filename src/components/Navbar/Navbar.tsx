@@ -74,7 +74,6 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
           }}
         >
           <DialogContainer>
-            <span className='account-name'>{currentUser?.email}</span>
             <div className='account-image'>
               <img
                 style={{ margin: '1rem', borderRadius: '50%' }}
@@ -83,7 +82,12 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
               />
             </div>
             <div className='account-name'>
-              <span>Hi, {currentUser?.displayName}</span>
+              <span>
+                Hi,{' '}
+                {currentUser?.displayName
+                  ? currentUser?.displayName
+                  : currentUser?.email}
+              </span>
             </div>
             <DialogButton style={{ width: '100%' }}>
               <AccountBox sx={{ marginRight: '0.5rem' }} />
