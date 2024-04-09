@@ -41,7 +41,11 @@
 }
 
 .note-title {
+  max-width: 100%;
   font-size: 1.4rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .note-labels {
