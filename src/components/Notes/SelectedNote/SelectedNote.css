@@ -10,3 +10,27 @@
   background-color: transparent;
   resize: none;
 }
+
+.input-title {
+  width: 90%;
+  font-size: 1.4rem;
+  border: none;
+  background: transparent;
+  outline: none;
+}
+
+.selected-note-save-btn button {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: var(--tertiary-color);
+  color: #fff;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.selected-note-save-btn button:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
