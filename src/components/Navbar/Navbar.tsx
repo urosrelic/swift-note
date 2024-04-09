@@ -58,18 +58,11 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
             onClick={() => setOpenDialog(!openDialog)}
           >
             <img
-              src={currentUser.photoURL || 'account.svg'}
+              src={currentUser.photoURL || '/account.svg'}
               className='account-icon'
             />
           </div>
-        ) : (
-          <div
-            className='navbar-icon'
-            onClick={() => setOpenDialog(!openDialog)}
-          >
-            <img src='/account.svg' />
-          </div>
-        )}
+        ) : null}
         <Drawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
         <Dialog
           openDialog={openDialog}
