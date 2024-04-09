@@ -2,6 +2,7 @@ import { User as FirebaseCurrentUser } from 'firebase/auth';
 import {
   Timestamp,
   addDoc,
+  arrayRemove,
   arrayUnion,
   collection,
   deleteDoc,
@@ -36,6 +37,17 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
       }
     }
   }, [currentUser]);
+
+  // * Filtration
+  const filterLabelsById = (labelId: string): LabelType | null => {
+    if (!labels) {
+      return null;
+    }
+
+    const label = labels.find((label) => label.labelId === labelId);
+
+    return label || null;
+  };
 
   // * Handlers
   const fetchNotesAndLabels = (currentUser: FirebaseCurrentUser) => {
@@ -95,14 +107,33 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     }
   };
 
-  const getLabelById = (labelId: string): LabelType | null => {
-    if (!labels) {
+  const fetchLabelDataById = async (
+    labelId: string
+  ): Promise<LabelType | null> => {
+    setLoading(true);
+    try {
+      const docRef = doc(labelsRef, labelId);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        const labelData: LabelType = {
+          labelId: docSnap.id,
+          labelName: data.labelName,
+          userId: data.userId,
+        };
+
+        setLoading(false);
+        return labelData;
+      } else {
+        setLoading(false);
+        return null;
+      }
+    } catch (error) {
+      setError((error as Error).message || 'An error occurred');
+      setLoading(false);
       return null;
     }
-
-    const label = labels.find((label) => label.labelId === labelId);
-
-    return label || null;
   };
 
   const addNote = async (newNote: Omit<NoteType, 'noteId'>) => {
@@ -225,22 +256,27 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     }
   };
 
+  const updateNote = async (noteId: string, title: string, content: string) => {
+    setLoading(true);
+    try {
+      await updateDoc(doc(notesRef, noteId), {
+        title: title,
+        content: content,
+      });
+      setLoading(false);
+    } catch (error) {
+      setError((error as Error).message || 'An error occurred');
+      setLoading(false);
+    }
+  };
+
   const removeLabelFromNote = async (noteId: string, labelId: string) => {
     setLoading(true);
     try {
-      const noteDoc = await getDoc(doc(notesRef, noteId));
-      const noteData = noteDoc.data();
-
-      if (noteData) {
-        const { labels } = noteData;
-
-        const updatedLabels = labels.filter((id: string) => id !== labelId);
-
-        await updateDoc(doc(notesRef, noteId), { labels: updatedLabels });
-      } else {
-        console.error('Note not found or data is undefined');
-      }
-
+      const noteRef = doc(notesRef, noteId);
+      await updateDoc(noteRef, {
+        labels: arrayRemove(labelId),
+      });
       setLoading(false);
     } catch (error) {
       setError((error as Error).message || 'An error occurred');
@@ -262,8 +298,10 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     colorNote,
     createLabel,
     updateNoteLabel,
+    updateNote,
     removeLabelFromNote,
-    getLabelById,
+    fetchLabelDataById,
+    filterLabelsById,
   };
 };
 

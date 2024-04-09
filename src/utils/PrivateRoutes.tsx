@@ -25,11 +25,14 @@ const PrivateRoutes = () => {
       <div
         style={{
           display: 'flex',
+          flexDirection: 'column',
           justifyContent: 'center',
+          fontSize: '2rem',
           alignItems: 'center',
           height: '100vh',
         }}
       >
+        <span style={{ color: '#d3e3fd' }}>Loading page</span>
         <CircularProgress />
       </div>
     );

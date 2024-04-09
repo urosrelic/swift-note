@@ -1,5 +1,6 @@
 import BackspaceIcon from '@mui/icons-material/Backspace';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../../hooks/useAuth';
 import useFirebase from '../../../../../hooks/useFirebase';
 import { LabelType } from '../../../../../types/LabelType';
@@ -15,10 +16,15 @@ const NoteLabel = ({ label, noteId }: NoteLabelProps) => {
   const [hover, setHover] = useState<boolean>(false);
 
   const { currentUser } = useAuth();
+  const navigate = useNavigate();
   const { removeLabelFromNote } = useFirebase(currentUser);
 
   const handleRemoveLabel = () => {
     removeLabelFromNote(noteId, label.labelId);
+  };
+
+  const handleRedirect = () => {
+    navigate(`/home/labeled/${label.labelId}`);
   };
 
   useEffect(() => {
@@ -33,13 +39,12 @@ const NoteLabel = ({ label, noteId }: NoteLabelProps) => {
       onMouseLeave={() => setHover(false)}
     >
       <div className='note-label-container'>
-        <div className='note-label-name'>{label.labelName}</div>
+        <div className='note-label-name' onClick={handleRedirect}>
+          {label.labelName}
+        </div>
         {hover && (
-          <div className='label-remove-btn' onClick={handleRemoveLabel}>
-            <BackspaceIcon
-              className='note-label-close-btn'
-              sx={{ marginLeft: '0.1rem', fontSize: '1rem' }}
-            />
+          <div className='note-label-remove-btn' onClick={handleRemoveLabel}>
+            <BackspaceIcon sx={{ marginLeft: '0.1rem', fontSize: '1rem' }} />
           </div>
         )}
       </div>

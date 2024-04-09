@@ -13,13 +13,21 @@ interface ColorPickerProps {
 const defaultColor: string = '#d3e3fd';
 
 const colors = [
-  '#77172e',
-  '#692b17',
-  '#7c4a03',
-  '#0c625d',
-  '#256377',
-  '#472e5b',
-  '#6c394f',
+  '#DBA979',
+  '#73A9AD',
+  '#7895B2',
+  '#B0C5A4',
+  '#A5DD9B',
+  '#748E63',
+  '#4F6F52',
+  '#FFC0D9',
+  '#E493B3',
+  '#BEADFA',
+  '#8E7AB5',
+  '#867070',
+  '#A86464',
+  '#FD8A8A',
+  '#85586F',
 ];
 
 const ColorPicker = ({ isModalOpen, closeModalHandler }: ColorPickerProps) => {

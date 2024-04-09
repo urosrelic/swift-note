@@ -25,6 +25,10 @@ body {
   height: 100vh;
 }
 
+::placeholder {
+  color: #162c46af;
+}
+
 /* Animations */
 
 @keyframes fadeInDown {

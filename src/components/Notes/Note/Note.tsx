@@ -64,7 +64,7 @@ const Note = ({
     togglePinNote,
     toggleArchiveNote,
     toggleDeletedNote,
-    getLabelById,
+    filterLabelsById,
   } = useFirebase(currentUser);
 
   // * Handlers
@@ -130,7 +130,7 @@ const Note = ({
         </span>
         <div className='note-labels'>
           {labels?.map((labelId) => {
-            const label = getLabelById(labelId);
+            const label = filterLabelsById(labelId);
             return label ? (
               <NoteLabel key={label.labelId} label={label} noteId={noteId} />
             ) : null;
@@ -243,7 +243,7 @@ const Note = ({
         </span>
         <div className='note-labels'>
           {labels?.map((labelId) => {
-            const label = getLabelById(labelId);
+            const label = filterLabelsById(labelId);
             return label ? (
               <NoteLabel key={label.labelId} label={label} noteId={noteId} />
             ) : null;
