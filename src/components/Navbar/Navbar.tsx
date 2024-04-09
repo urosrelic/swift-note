@@ -58,18 +58,11 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
             onClick={() => setOpenDialog(!openDialog)}
           >
             <img
-              src={currentUser.photoURL || 'account.svg'}
+              src={currentUser.photoURL || '/account.svg'}
               className='account-icon'
             />
           </div>
-        ) : (
-          <div
-            className='navbar-icon'
-            onClick={() => setOpenDialog(!openDialog)}
-          >
-            <img src='/account.svg' />
-          </div>
-        )}
+        ) : null}
         <Drawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
         <Dialog
           openDialog={openDialog}
@@ -81,7 +74,6 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
           }}
         >
           <DialogContainer>
-            <span className='account-name'>{currentUser?.email}</span>
             <div className='account-image'>
               <img
                 style={{ margin: '1rem', borderRadius: '50%' }}
@@ -90,7 +82,12 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
               />
             </div>
             <div className='account-name'>
-              <span>Hi, {currentUser?.displayName}</span>
+              <span>
+                Hi,{' '}
+                {currentUser?.displayName
+                  ? currentUser?.displayName
+                  : currentUser?.email}
+              </span>
             </div>
             <DialogButton style={{ width: '100%' }}>
               <AccountBox sx={{ marginRight: '0.5rem' }} />

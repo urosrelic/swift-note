@@ -1,4 +1,3 @@
-import { DeleteForever } from '@mui/icons-material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from 'react';
 import NotesList from '../../components/Notes/NoteList/NoteList';
@@ -63,7 +62,6 @@ const Deleted = ({ gridView }: GridProps) => {
               className='deleted-notes-empty-btn'
               onClick={handleEmptyTrash}
             >
-              <DeleteForever />
               Empty trash
             </button>
           )}
