@@ -1,5 +1,3 @@
-import AddIcon from '@mui/icons-material/Add';
-import Fab from '@mui/material/Fab/Fab';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import React, { useState } from 'react';
@@ -79,13 +77,6 @@ const Home = ({ gridView, setGridView }: GridProps) => {
 
   // Style props
 
-  const muiFabStyles = {
-    backgroundColor: '#233549',
-    '&:hover': {
-      backgroundColor: '#031525',
-    },
-  };
-
   const modalContainerStyles = {
     width: '90%',
     padding: '1rem',
@@ -93,7 +84,7 @@ const Home = ({ gridView, setGridView }: GridProps) => {
     flexDirection: 'column',
     maxWidth: '500px',
     alignItems: 'flex-start',
-    backgroundColor: '#162c46',
+    backgroundColor: '#d3e3fd',
   };
 
   // Render modal content
@@ -123,15 +114,8 @@ const Home = ({ gridView, setGridView }: GridProps) => {
         <div className='note-modal-container-date'>
           Today's date: {new Date().toLocaleDateString()}
         </div>
-        <div className='modal-btn'>
-          <Fab
-            color='primary'
-            aria-label='add'
-            onClick={handleAddNote}
-            sx={{ ...muiFabStyles }}
-          >
-            <AddIcon />
-          </Fab>
+        <div className='modal-btn' onClick={handleAddNote}>
+          <button>Add</button>
         </div>
       </div>
     );
@@ -150,7 +134,7 @@ const Home = ({ gridView, setGridView }: GridProps) => {
               ...(modalContainerStyles as React.CSSProperties),
             },
             closeButtonIcon: {
-              color: '#d3e3fd',
+              color: '#5d6470',
             },
           }}
         >
