@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../../hooks/useAuth';
 import useFirebase from '../../../../../hooks/useFirebase';
-import { useSelectedLabel } from '../../../../../hooks/useSelectedLabel';
 import { LabelType } from '../../../../../types/LabelType';
 import './NoteLabel.css';
 
@@ -17,7 +16,6 @@ const NoteLabel = ({ label, noteId }: NoteLabelProps) => {
   const [hover, setHover] = useState<boolean>(false);
 
   const { currentUser } = useAuth();
-  const { setSelectedLabel } = useSelectedLabel();
   const navigate = useNavigate();
   const { removeLabelFromNote } = useFirebase(currentUser);
 
@@ -26,7 +24,6 @@ const NoteLabel = ({ label, noteId }: NoteLabelProps) => {
   };
 
   const handleRedirect = () => {
-    setSelectedLabel(label);
     navigate(`/home/labeled/${label.labelId}`);
   };
 
