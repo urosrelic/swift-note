@@ -75,12 +75,13 @@
 }
 
 .drawer-add-new-label input {
-  width: 90%;
-  background: none;
-  border: none;
+  width: calc(100% - 48px);
+  padding: 0.5rem;
   outline: none;
+  background: none;
+  border-radius: 5px;
   color: var(--secondary-color);
-  border-bottom: 1px solid var(--secondary-color);
+  border: 2px solid var(--secondary-color);
 }
 
 .drawer-add-new-label input ::placeholder {
