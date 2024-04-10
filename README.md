@@ -18,11 +18,6 @@ Note taking application
 
 https://swift-note.vercel.app/
 
-#### Username: demo
-
-
-#### Password: demo1234
-
 ## Run Locally
 
 Clone the project
