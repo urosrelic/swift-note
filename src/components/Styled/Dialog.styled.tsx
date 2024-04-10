@@ -115,7 +115,16 @@ const Dialog: React.FC<DialogProps> = ({
         style={style?.closeButton}
         onClick={() => setOpenDialog(false)}
       >
-        <IconButton>
+        <IconButton
+          sx={{
+            padding: '0.3rem',
+
+            backgroundColor: 'transparent',
+            '&:hover': {
+              backgroundColor: '#ffffff1a',
+            },
+          }}
+        >
           <Close sx={{ ...style?.closeButtonIcon }} />
         </IconButton>
       </CloseButton>

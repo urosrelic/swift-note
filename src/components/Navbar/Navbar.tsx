@@ -4,7 +4,7 @@ import { GridProps } from '../../types/GridProps';
 import Drawer from '../Drawer/Drawer/Drawer';
 import './Navbar.css';
 
-import { AccountBox, Logout } from '@mui/icons-material';
+import { Logout } from '@mui/icons-material';
 import { useEffect } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { Dialog, DialogButton, DialogContainer } from '../Styled/Dialog.styled';
@@ -89,10 +89,7 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
                   : currentUser?.email}
               </span>
             </div>
-            <DialogButton style={{ width: '100%' }}>
-              <AccountBox sx={{ marginRight: '0.5rem' }} />
-              <span>Profile</span>
-            </DialogButton>
+
             <DialogButton onClick={logout} style={{ width: '100%' }}>
               <Logout sx={{ marginRight: '0.5rem' }} />
               <span>Logout</span>
