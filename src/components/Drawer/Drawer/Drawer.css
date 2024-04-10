@@ -63,3 +63,26 @@
 .drawer-options-heading {
   font-size: 1.2rem;
 }
+
+.drawer-add-new-label {
+  width: 100%;
+  padding: 0.6rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--secondary-color);
+}
+
+.drawer-add-new-label input {
+  width: 90%;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--secondary-color);
+  border-bottom: 1px solid var(--secondary-color);
+}
+
+.drawer-add-new-label input ::placeholder {
+  color: var(--secondary-color);
+}

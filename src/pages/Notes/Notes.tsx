@@ -7,6 +7,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { useColorPicker } from '../../hooks/useColorPicker';
 import useFirebase from '../../hooks/useFirebase';
 import { useLabelPicker } from '../../hooks/useLabelPicker';
+import { useSearch } from '../../hooks/useSearch';
 import useSelectedNote from '../../hooks/useSelectedNote';
 import { GridProps } from '../../types/GridProps';
 import { NoteType } from '../../types/NoteType';
@@ -19,6 +20,7 @@ const Notes = ({ gridView }: GridProps) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   // Hooks
+  const { searchTerm } = useSearch();
   const { currentUser } = useAuth();
   const { notes, loading } = useFirebase(currentUser);
   const { setSelectedNote } = useSelectedNote();
@@ -32,10 +34,17 @@ const Notes = ({ gridView }: GridProps) => {
   // Filter notes array
 
   const sortedNotes = notes
-    ? [...notes].sort(
-        (a, b) =>
-          b.createdAt.toDate().getTime() - a.createdAt.toDate().getTime()
-      )
+    ? [...notes]
+        .sort(
+          (a, b) =>
+            b.createdAt.toDate().getTime() - a.createdAt.toDate().getTime()
+        )
+        .filter(
+          (note) =>
+            note.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (note.title &&
+              note.title.toLowerCase().includes(searchTerm.toLowerCase()))
+        )
     : [];
 
   const pinnedNotes = sortedNotes.filter(

@@ -4,6 +4,7 @@ import NotesList from '../../components/Notes/NoteList/NoteList';
 import SelectedNote from '../../components/Notes/SelectedNote/SelectedNote';
 import { useAuth } from '../../hooks/useAuth';
 import useFirebase from '../../hooks/useFirebase';
+import { useSearch } from '../../hooks/useSearch';
 import useSelectedNote from '../../hooks/useSelectedNote';
 import { GridProps } from '../../types/GridProps';
 import { NoteType } from '../../types/NoteType';
@@ -14,7 +15,7 @@ const Deleted = ({ gridView }: GridProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Hooks
-
+  const { searchTerm } = useSearch();
   const { currentUser } = useAuth();
   const { notes, loading, removeFromTrash } = useFirebase(currentUser);
   const { setSelectedNote } = useSelectedNote();
@@ -22,10 +23,17 @@ const Deleted = ({ gridView }: GridProps) => {
   // Filter notes
 
   const sortedNotes = notes
-    ? [...notes].sort(
-        (a, b) =>
-          b.createdAt.toDate().getTime() - a.createdAt.toDate().getTime()
-      )
+    ? [...notes]
+        .sort(
+          (a, b) =>
+            b.createdAt.toDate().getTime() - a.createdAt.toDate().getTime()
+        )
+        .filter(
+          (note) =>
+            note.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (note.title &&
+              note.title.toLowerCase().includes(searchTerm.toLowerCase()))
+        )
     : [];
   const deletedNotes = sortedNotes?.filter((note) => note.deleted);
 
