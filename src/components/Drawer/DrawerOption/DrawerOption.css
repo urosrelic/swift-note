@@ -19,3 +19,35 @@
 .drawer-option span {
   margin-left: 1rem;
 }
+
+/* Edit mode */
+.drawer-option-edit-mode {
+  display: flex;
+  flex-direction: column;
+}
+
+.drawer-option-edit-labels {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.drawer-option-edit-labels input {
+  width: 100%;
+  margin: 0 5px;
+  background: transparent;
+  outline: none;
+  border: none;
+  color: var(--secondary-color);
+}
+
+/* DrawerOption.css */
+.drawer-option-update-btn {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border: none;
+  padding: 0.3rem;
+  cursor: pointer;
+  border-radius: 5px;
+}

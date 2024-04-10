@@ -38,18 +38,7 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     }
   }, [currentUser]);
 
-  // * Filtration
-  const filterLabelsById = (labelId: string): LabelType | null => {
-    if (!labels) {
-      return null;
-    }
-
-    const label = labels.find((label) => label.labelId === labelId);
-
-    return label || null;
-  };
-
-  // * Handlers
+  // * Fetching
   const fetchNotesAndLabels = (currentUser: FirebaseCurrentUser) => {
     if (currentUser) {
       setLoading(true);
@@ -135,6 +124,21 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
       return null;
     }
   };
+
+  // * Filtration
+  const filterLabelsById = (labelId: string): LabelType | null => {
+    if (!labels) {
+      return null;
+    }
+
+    const label = labels.find((label) => label.labelId === labelId);
+
+    return label || null;
+  };
+
+  // * Handlers
+
+  // Note crud
 
   const addNote = async (newNote: Omit<NoteType, 'noteId'>) => {
     setLoading(true);
@@ -232,6 +236,22 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     }
   };
 
+  const updateNote = async (noteId: string, title: string, content: string) => {
+    setLoading(true);
+    try {
+      await updateDoc(doc(notesRef, noteId), {
+        title: title,
+        content: content,
+      });
+      setLoading(false);
+    } catch (error) {
+      setError((error as Error).message || 'An error occurred');
+      setLoading(false);
+    }
+  };
+
+  // Label crud
+
   const createLabel = async (newLabel: Omit<LabelType, 'labelId'>) => {
     setLoading(true);
     try {
@@ -256,12 +276,12 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     }
   };
 
-  const updateNote = async (noteId: string, title: string, content: string) => {
+  const removeLabelFromNote = async (noteId: string, labelId: string) => {
     setLoading(true);
     try {
-      await updateDoc(doc(notesRef, noteId), {
-        title: title,
-        content: content,
+      const noteRef = doc(notesRef, noteId);
+      await updateDoc(noteRef, {
+        labels: arrayRemove(labelId),
       });
       setLoading(false);
     } catch (error) {
@@ -270,13 +290,25 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     }
   };
 
-  const removeLabelFromNote = async (noteId: string, labelId: string) => {
+  const deleteLabel = async (labelId: string) => {
     setLoading(true);
     try {
-      const noteRef = doc(notesRef, noteId);
-      await updateDoc(noteRef, {
-        labels: arrayRemove(labelId),
+      await deleteDoc(doc(labelsRef, labelId));
+      console.log('Label deleted successfully');
+      setLoading(false);
+    } catch (error) {
+      setError((error as Error).message || 'An error occurred');
+      setLoading(false);
+    }
+  };
+
+  const updateLabelName = async (labelId: string, labelName: string) => {
+    setLoading(true);
+    try {
+      await updateDoc(doc(labelsRef, labelId), {
+        labelName: labelName,
       });
+      console.log('Label deleted successfully');
       setLoading(false);
     } catch (error) {
       setError((error as Error).message || 'An error occurred');
@@ -298,8 +330,10 @@ const useFirebase = (currentUser: FirebaseCurrentUser | null) => {
     colorNote,
     createLabel,
     updateNoteLabel,
+    updateLabelName,
     updateNote,
     removeLabelFromNote,
+    deleteLabel,
     fetchLabelDataById,
     filterLabelsById,
   };
