@@ -49,14 +49,11 @@
 }
 
 .note-labels {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 10px;
 }
 
-.note-labels > *:not(:last-child) {
-  margin-right: 5px; /* Adjust margin as needed */
-}
 
 .note-date {
   margin-top: 1rem;
