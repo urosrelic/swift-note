@@ -108,15 +108,6 @@ const Drawer = ({ openDrawer, setOpenDrawer }: DrawerProps) => {
                 />
               ))}
           </div>
-          <hr className='separator'></hr>
-          <div className='drawer-options'>
-            <DrawerOption
-              iconPath='/settings.svg'
-              labelName='Settings'
-              url='/home/settings'
-              onClick={handleClose}
-            />
-          </div>
         </div>
       </div>
     );
@@ -191,15 +182,6 @@ const Drawer = ({ openDrawer, setOpenDrawer }: DrawerProps) => {
                   onClick={() => handleLabelSelect(label)}
                 />
               ))}
-          </div>
-          <hr className='separator'></hr>
-          <div className='drawer-options'>
-            <DrawerOption
-              iconPath='/settings.svg'
-              labelName='Settings'
-              url='/home/settings'
-              onClick={handleClose}
-            />
           </div>
         </div>
       </div>
