@@ -8,6 +8,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { useColorPicker } from '../../hooks/useColorPicker';
 import useFirebase from '../../hooks/useFirebase';
 import { useLabelPicker } from '../../hooks/useLabelPicker';
+import { useSearch } from '../../hooks/useSearch';
 import useSelectedNote from '../../hooks/useSelectedNote';
 import { GridProps } from '../../types/GridProps';
 import { LabelType } from '../../types/LabelType';
@@ -23,6 +24,7 @@ const LabeledNote = ({ gridView }: GridProps) => {
   const [labeledNotes, setLabeledNotes] = useState<NoteType[] | null>(null);
 
   // Hooks
+  const { searchTerm } = useSearch();
   const { currentUser } = useAuth();
   const { notes, loading, fetchLabelDataById } = useFirebase(currentUser);
   const { setSelectedNote } = useSelectedNote();
@@ -50,17 +52,26 @@ const LabeledNote = ({ gridView }: GridProps) => {
   useEffect(() => {
     if (label && notes) {
       // console.log('Filtering notes based on selected label...');
-      const sortedNotes = [...notes].sort(
-        (a, b) =>
-          b.createdAt.toDate().getTime() - a.createdAt.toDate().getTime()
-      );
+      const sortedNotes = notes
+        ? [...notes]
+            .sort(
+              (a, b) =>
+                b.createdAt.toDate().getTime() - a.createdAt.toDate().getTime()
+            )
+            .filter(
+              (note) =>
+                note.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                (note.title &&
+                  note.title.toLowerCase().includes(searchTerm.toLowerCase()))
+            )
+        : [];
       const labeledNotes = sortedNotes.filter(
         (note) =>
           note.labels.includes(label.labelId) && !note.deleted && !note.archived
       );
       setLabeledNotes(labeledNotes);
     }
-  }, [label, notes]);
+  }, [label, notes, searchTerm]);
 
   useEffect(() => {
     console.log(label);

@@ -7,6 +7,7 @@ import './Navbar.css';
 import { Logout } from '@mui/icons-material';
 import { useEffect } from 'react';
 import { useAuth } from '../../hooks/useAuth';
+import { useSearch } from '../../hooks/useSearch';
 import { Dialog, DialogButton, DialogContainer } from '../Styled/Dialog.styled';
 
 const Navbar = ({ gridView, setGridView }: GridProps) => {
@@ -15,6 +16,7 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
   const [openDialog, setOpenDialog] = useState<boolean>(false);
 
   // * Hooks
+  const { setSearchTerm } = useSearch();
   const { currentUser, logout } = useAuth();
   const layoutButtonVisible = useMediaQuery(
     'only screen and (min-width: 452px)'
@@ -27,6 +29,11 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
   }, [openDrawer]);
 
   // * Handlers
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
   const handleLayoutChange = () => {
     setGridView?.(!gridView);
   };
@@ -45,7 +52,11 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
           <img src='/menu.svg' className='menu-icon' />
         </div>
         <div className='navbar-search'>
-          <input type='text' placeholder='Search your notes' />
+          <input
+            type='text'
+            onChange={handleSearchChange}
+            placeholder='Search your notes'
+          />
         </div>
         {layoutButtonVisible && (
           <div className='layout-view-button' onClick={handleLayoutChange}>
