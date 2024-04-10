@@ -162,8 +162,6 @@ const Drawer = ({ openDrawer, setOpenDrawer }: DrawerProps) => {
               <IconButton
                 onClick={createNewLabel}
                 sx={{
-                  padding: '0.3rem',
-
                   backgroundColor: 'transparent',
                   '&:hover': {
                     backgroundColor: '#ffffff1a',
