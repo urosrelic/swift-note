@@ -1,6 +1,6 @@
-import CircularProgress from '@mui/material/CircularProgress';
 import { useEffect, useState } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
+import CircularProgress from '../components/CircularProgress/CircularProgress';
 import { auth } from '../config/firebase';
 
 const PrivateRoutes = () => {

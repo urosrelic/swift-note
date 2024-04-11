@@ -1,5 +1,5 @@
-import CircularProgress from '@mui/material/CircularProgress/CircularProgress';
 import { NoteType } from '../../../types/NoteType';
+import CircularProgress from '../../CircularProgress/CircularProgress';
 import Note from '../Note/Note';
 
 import './NoteList.css';
