@@ -19,6 +19,11 @@
   outline: none;
 }
 
+.selected-note-content textarea::placeholder,
+.input-title::placeholder {
+  color: #21161ca8;
+}
+
 .selected-note-save-btn button {
   margin-top: 0.5rem;
   padding: 0.5rem 1rem;
