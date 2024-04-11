@@ -13,5 +13,5 @@
 }
 
 .note-action:not(:first-child) {
-  margin-left: 1rem;
+  margin-left: 2rem;
 }

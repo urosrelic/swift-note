@@ -1,5 +1,5 @@
-import { IconButton, Tooltip } from '@mui/material';
 import React from 'react';
+import Tooltip from '../../../../Tooltip/Tooltip';
 import './NoteAction.css';
 
 interface NoteActionProps {
@@ -10,16 +10,6 @@ interface NoteActionProps {
   children?: React.ReactNode;
 }
 
-const tooltipStyles = {
-  tooltip: {
-    sx: {
-      color: '#d3e3fd',
-      backgroundColor: '#031525',
-      fontSize: '1rem',
-    },
-  },
-};
-
 const NoteAction = ({
   hover,
   title,
@@ -28,17 +18,21 @@ const NoteAction = ({
   children,
 }: NoteActionProps) => {
   return (
-    <Tooltip
+    <div
       className={`note-action ${hover ? 'hover' : ''}`}
-      title={title}
       onClick={onClick}
       onClickCapture={onClickCapture}
-      slotProps={{ ...tooltipStyles }}
     >
-      <div className={`note-action ${hover ? 'hover' : ''}`}>
-        <IconButton>{children}</IconButton>
-      </div>
-    </Tooltip>
+      <Tooltip tooltipText={title}>
+        <div
+          className={`note-action ${hover ? 'hover' : ''}`}
+          onClick={onClick}
+          onClickCapture={onClickCapture}
+        >
+          {children}
+        </div>
+      </Tooltip>
+    </div>
   );
 };
 
