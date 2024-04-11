@@ -1,7 +1,7 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import React, { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import FloatingActionButton from '../../components/FAB/FloatingActionButton/FloatingActionButton';
 import Navbar from '../../components/Navbar/Navbar';
 import Modal from '../../components/Styled/Modal.styled';
@@ -22,7 +22,7 @@ const Home = ({ gridView, setGridView }: GridProps) => {
 
   const { currentUser } = useAuth();
   const { addNote } = useFirebase(currentUser);
-
+  const navigate = useNavigate();
   // Handlers
 
   const openModalHandler = (modalType: string) => {
@@ -68,7 +68,7 @@ const Home = ({ gridView, setGridView }: GridProps) => {
       };
 
       addNote(noteData);
-
+      navigate('/home/notes');
       setNoteTitle('');
       setNoteContent('');
       closeModalHandler();
