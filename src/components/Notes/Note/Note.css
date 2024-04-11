@@ -49,11 +49,11 @@
 }
 
 .note-labels {
+  margin-top: 1.5rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
   gap: 10px;
 }
-
 
 .note-date {
   margin-top: 1rem;
