@@ -1,14 +1,15 @@
 interface FabOptionProps {
-  iconPath: string;
+  icon: React.ReactElement;
   onClick: () => void;
 }
 
+import React from 'react';
 import './FabOption.css';
 
-const FabOption = ({ iconPath, onClick }: FabOptionProps) => {
+const FabOption = ({ icon, onClick }: FabOptionProps) => {
   return (
     <div className='fab-option' onClick={onClick}>
-      <img src={iconPath} />
+      {icon}
     </div>
   );
 };
