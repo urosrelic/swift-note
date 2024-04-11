@@ -4,16 +4,11 @@ import { GridProps } from '../../types/GridProps';
 import Drawer from '../Drawer/Drawer/Drawer';
 import './Navbar.css';
 
-import {
-  IconLayoutGrid,
-  IconLayoutList,
-  IconLogout,
-  IconMenu2,
-} from '@tabler/icons-react';
+import { IconLayoutGrid, IconLayoutList, IconMenu2 } from '@tabler/icons-react';
 import { useEffect } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { useSearch } from '../../hooks/useSearch';
-import { Dialog, DialogButton, DialogContainer } from '../Styled/Dialog.styled';
+import NavbarDialog from './components/NavbarDialog';
 
 const Navbar = ({ gridView, setGridView }: GridProps) => {
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
@@ -82,38 +77,12 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
           </div>
         ) : null}
         <Drawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
-        <Dialog
+        <NavbarDialog
+          currentUser={currentUser}
           openDialog={openDialog}
           setOpenDialog={setOpenDialog}
-          style={{
-            closeButtonIcon: {
-              color: '#d3e3fd',
-            },
-          }}
-        >
-          <DialogContainer>
-            <div className='account-image'>
-              <img
-                style={{ margin: '1rem', borderRadius: '50%' }}
-                src={currentUser?.photoURL || '/account.svg'}
-                alt='Account'
-              />
-            </div>
-            <div className='account-name'>
-              <span>
-                Hi,{' '}
-                {currentUser?.displayName
-                  ? currentUser?.displayName
-                  : currentUser?.email}
-              </span>
-            </div>
-
-            <DialogButton onClick={logout} style={{ width: '100%' }}>
-              <IconLogout style={{ marginRight: '0.5rem' }} />
-              <span>Logout</span>
-            </DialogButton>
-          </DialogContainer>
-        </Dialog>
+          logout={logout}
+        />
       </div>
     </div>
   );
