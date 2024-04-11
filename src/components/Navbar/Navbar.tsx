@@ -4,18 +4,21 @@ import { GridProps } from '../../types/GridProps';
 import Drawer from '../Drawer/Drawer/Drawer';
 import './Navbar.css';
 
-import { Logout } from '@mui/icons-material';
+import {
+  IconLayoutGrid,
+  IconLayoutList,
+  IconLogout,
+  IconMenu2,
+} from '@tabler/icons-react';
 import { useEffect } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { useSearch } from '../../hooks/useSearch';
 import { Dialog, DialogButton, DialogContainer } from '../Styled/Dialog.styled';
 
 const Navbar = ({ gridView, setGridView }: GridProps) => {
-  // * States
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
 
-  // * Hooks
   const { setSearchTerm } = useSearch();
   const { currentUser, logout } = useAuth();
   const layoutButtonVisible = useMediaQuery(
@@ -27,8 +30,6 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
       ? (document.body.style.overflow = 'hidden')
       : (document.body.style.overflow = 'unset');
   }, [openDrawer]);
-
-  // * Handlers
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -42,14 +43,11 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
     setOpenDrawer(!openDrawer);
   };
 
-  // * Conditional naming
-  const layoutViewIconPath = gridView ? '/list_view.svg' : '/grid_view.svg';
-
   return (
     <div className='navbar'>
       <div className='navbar-items'>
         <div className='navbar-icon' onClick={handleOpenDrawer}>
-          <img src='/menu.svg' className='menu-icon' />
+          <IconMenu2 color='#d3e3fd' className='menu-icon' />
         </div>
         <div className='navbar-search'>
           <input
@@ -58,11 +56,20 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
             placeholder='Search your notes'
           />
         </div>
-        {layoutButtonVisible && (
-          <div className='layout-view-button' onClick={handleLayoutChange}>
-            <img src={layoutViewIconPath} />
-          </div>
-        )}
+        {layoutButtonVisible &&
+          (gridView ? (
+            <IconLayoutList
+              color='#d3e3fd'
+              className='layout-view-button'
+              onClick={handleLayoutChange}
+            />
+          ) : (
+            <IconLayoutGrid
+              color='#d3e3fd'
+              className='layout-view-button'
+              onClick={handleLayoutChange}
+            />
+          ))}
         {currentUser ? (
           <div
             className='navbar-icon'
@@ -102,7 +109,7 @@ const Navbar = ({ gridView, setGridView }: GridProps) => {
             </div>
 
             <DialogButton onClick={logout} style={{ width: '100%' }}>
-              <Logout sx={{ marginRight: '0.5rem' }} />
+              <IconLogout style={{ marginRight: '0.5rem' }} />
               <span>Logout</span>
             </DialogButton>
           </DialogContainer>

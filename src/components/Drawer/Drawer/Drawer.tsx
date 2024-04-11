@@ -1,5 +1,12 @@
-import { Add } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
+import {
+  IconArchive,
+  IconCirclePlus,
+  IconEdit,
+  IconNote,
+  IconSquareX,
+  IconTag,
+  IconTrash,
+} from '@tabler/icons-react';
 import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth';
@@ -67,19 +74,19 @@ const Drawer = ({ openDrawer, setOpenDrawer }: DrawerProps) => {
           </div>
           <div className='drawer-options'>
             <DrawerOption
-              iconPath='/note.svg'
+              icon={<IconNote />}
               labelName='Notes'
               url='/home/notes'
               onClick={handleClose}
             />
             <DrawerOption
-              iconPath='/archive.svg'
+              icon={<IconArchive />}
               labelName='Archived'
               url='/home/archived'
               onClick={handleClose}
             />
             <DrawerOption
-              iconPath='/trash.svg'
+              icon={<IconTrash />}
               labelName='Deleted'
               url='/home/deleted'
               onClick={handleClose}
@@ -91,7 +98,7 @@ const Drawer = ({ openDrawer, setOpenDrawer }: DrawerProps) => {
           <div className='drawer-options'>
             <span className='drawer-options-heading'>Labels</span>
             <DrawerOption
-              iconPath={editMode ? '/close.svg' : '/edit.svg'}
+              icon={editMode ? <IconSquareX /> : <IconEdit />}
               labelName={editMode ? 'Cancel' : 'Edit labels'}
               onClick={handleSetEditMode}
             />
@@ -102,7 +109,7 @@ const Drawer = ({ openDrawer, setOpenDrawer }: DrawerProps) => {
                   editMode={editMode}
                   setEditMode={setEditMode}
                   labelId={label.labelId}
-                  iconPath='/label.svg'
+                  icon={<IconTag />}
                   labelName={label.labelName}
                   onClick={() => handleLabelSelect(label)}
                 />
@@ -124,19 +131,19 @@ const Drawer = ({ openDrawer, setOpenDrawer }: DrawerProps) => {
           </div>
           <div className='drawer-options'>
             <DrawerOption
-              iconPath='/note.svg'
+              icon={<IconNote />}
               labelName='Notes'
               url='/home/notes'
               onClick={handleClose}
             />
             <DrawerOption
-              iconPath='/archive.svg'
+              icon={<IconArchive />}
               labelName='Archived'
               url='/home/archived'
               onClick={handleClose}
             />
             <DrawerOption
-              iconPath='/trash.svg'
+              icon={<IconTrash />}
               labelName='Deleted'
               url='/home/deleted'
               onClick={handleClose}
@@ -148,7 +155,7 @@ const Drawer = ({ openDrawer, setOpenDrawer }: DrawerProps) => {
           <div className='drawer-options'>
             <span className='drawer-options-heading'>Labels</span>
             <DrawerOption
-              iconPath={editMode ? '/close.svg' : '/edit.svg'}
+              icon={editMode ? <IconSquareX /> : <IconEdit />}
               labelName={editMode ? 'Cancel' : 'Edit labels'}
               onClick={handleSetEditMode}
             />
@@ -159,23 +166,17 @@ const Drawer = ({ openDrawer, setOpenDrawer }: DrawerProps) => {
                 value={newLabelName || ''}
                 onChange={handleInputChange}
               />
-              <IconButton
+              <IconCirclePlus
+                color='#dde6ed'
                 onClick={createNewLabel}
-                sx={{
-                  backgroundColor: 'transparent',
-                  '&:hover': {
-                    backgroundColor: '#ffffff1a',
-                  },
-                }}
-              >
-                <Add sx={{ color: '#dde6ed' }} />
-              </IconButton>
+                style={{ cursor: 'pointer' }}
+              />
             </div>
             {labels &&
               labels.map((label) => (
                 <DrawerOption
                   key={label.labelId}
-                  iconPath='/label.svg'
+                  icon={<IconTag />}
                   labelName={label.labelName}
                   onClick={() => handleLabelSelect(label)}
                 />

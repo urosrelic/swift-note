@@ -1,5 +1,4 @@
-import { Close } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
+import { IconSquareX } from '@tabler/icons-react';
 import React from 'react';
 import styled from 'styled-components';
 import { useClickOutside } from '../../hooks/useClickOutside';
@@ -115,18 +114,7 @@ const Dialog: React.FC<DialogProps> = ({
         style={style?.closeButton}
         onClick={() => setOpenDialog(false)}
       >
-        <IconButton
-          sx={{
-            padding: '0.3rem',
-
-            backgroundColor: 'transparent',
-            '&:hover': {
-              backgroundColor: '#ffffff1a',
-            },
-          }}
-        >
-          <Close sx={{ ...style?.closeButtonIcon }} />
-        </IconButton>
+        <IconSquareX color='#d3e3fd' style={{ ...style?.closeButtonIcon }} />
       </CloseButton>
     </StyledDialog>
   );
