@@ -1,4 +1,4 @@
-import BackspaceIcon from '@mui/icons-material/Backspace';
+import { IconCircleMinus } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../../hooks/useAuth';
@@ -44,7 +44,7 @@ const NoteLabel = ({ label, noteId }: NoteLabelProps) => {
         </div>
         {hover && (
           <div className='note-label-remove-btn' onClick={handleRemoveLabel}>
-            <BackspaceIcon sx={{ marginLeft: '0.1rem', fontSize: '1rem' }} />
+            <IconCircleMinus size={16} style={{ marginLeft: '0.1rem' }} />
           </div>
         )}
       </div>

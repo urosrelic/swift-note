@@ -2,15 +2,15 @@ import firebase from 'firebase/compat/app';
 import { useState } from 'react';
 
 import {
-  Archive,
-  Delete,
-  DeleteForever,
-  Label,
-  Palette,
-  PushPin,
-  Restore,
-  Unarchive,
-} from '@mui/icons-material';
+  IconArchive,
+  IconArchiveOff,
+  IconPalette,
+  IconPin,
+  IconRestore,
+  IconTags,
+  IconTrash,
+  IconTrashX,
+} from '@tabler/icons-react';
 import { useMediaQuery } from '@uidotdev/usehooks';
 import { useAuth } from '../../../hooks/useAuth';
 import { useColorPicker } from '../../../hooks/useColorPicker';
@@ -18,8 +18,8 @@ import useFirebase from '../../../hooks/useFirebase';
 import { useLabelPicker } from '../../../hooks/useLabelPicker';
 import useSelectedNote from '../../../hooks/useSelectedNote';
 import { NoteType } from '../../../types/NoteType';
-import { CustomMenu } from '../../CustomMenu/CustomMenu';
 import './Note.css';
+import { CustomMenu } from './components/CustomMenu/CustomMenu';
 import NoteAction from './components/NoteAction/NoteAction';
 import NoteLabel from './components/NoteLabel/NoteLabel';
 
@@ -148,13 +148,13 @@ const Note = ({
               <CustomMenu
                 options={[
                   {
-                    optionIcon: <Restore />,
+                    optionIcon: <IconRestore />,
                     option: 'Restore',
                     menuItemAction: () => toggleDeleted(),
                   },
                   {
-                    optionIcon: <DeleteForever />,
-                    option: 'Delete forever',
+                    optionIcon: <IconTrashX />,
+                    option: 'Destroy',
                     menuItemAction: () => handleDeleteNote(),
                   },
                 ]}
@@ -169,45 +169,44 @@ const Note = ({
                   archived
                     ? [
                         {
-                          optionIcon: <Archive />,
+                          optionIcon: <IconArchive />,
 
-                          option: archived ? 'Unarchive note' : 'Archive note',
+                          option: archived ? 'Unarchive' : 'Archive',
                           menuItemAction: () => toggleArchived(),
                         },
                         {
-                          optionIcon: <Delete />,
+                          optionIcon: <IconTrash />,
 
-                          option: 'Delete note',
+                          option: 'Delete',
                           menuItemAction: () => toggleDeleted(),
                         },
                       ]
                     : [
                         {
-                          optionIcon: <PushPin />,
-                          option: pinned ? 'Unpin note' : 'Pin note',
+                          optionIcon: <IconPin />,
+                          option: pinned ? 'Unpin' : 'Pin',
                           menuItemAction: () => togglePinned(),
                         },
                         {
-                          optionIcon: <Palette />,
+                          optionIcon: <IconPalette />,
 
-                          option: 'Paint note',
+                          option: 'Paint',
                           menuItemAction: () => handleColorAction(),
                         },
                         {
-                          optionIcon: <Label />,
-                          option: 'Label note',
+                          optionIcon: <IconTags />,
+                          option: 'Label',
                           menuItemAction: () => handleLabelAction(),
                         },
                         {
-                          optionIcon: <Archive />,
+                          optionIcon: <IconArchive />,
 
-                          option: archived ? 'Unarchive note' : 'Archive note',
+                          option: archived ? 'Unarchive' : 'Archive',
                           menuItemAction: () => toggleArchived(),
                         },
                         {
-                          optionIcon: <Delete />,
-
-                          option: 'Delete note',
+                          optionIcon: <IconTrash />,
+                          option: 'Delete',
                           menuItemAction: () => toggleDeleted(),
                         },
                       ]
@@ -265,14 +264,14 @@ const Note = ({
                 title='Restore'
                 onClick={toggleDeleted}
               >
-                <Restore />
+                <IconRestore />
               </NoteAction>
               <NoteAction
                 hover={noteHover}
-                title='Delete forever'
+                title='Destroy'
                 onClick={handleDeleteNote}
               >
-                <DeleteForever />
+                <IconTrashX />
               </NoteAction>
             </div>
           </>
@@ -289,18 +288,18 @@ const Note = ({
               <div className='note-actions'>
                 <NoteAction
                   hover={noteHover}
-                  title={archived ? 'Unarchive note' : 'Archive note'}
+                  title={archived ? 'Unarchive' : 'Archive'}
                   onClick={toggleArchived}
                 >
-                  {archived ? <Unarchive /> : <Archive />}
+                  {archived ? <IconArchiveOff /> : <IconArchive />}
                 </NoteAction>
 
                 <NoteAction
                   hover={noteHover}
-                  title='Delete note'
+                  title='Delete'
                   onClick={toggleDeleted}
                 >
-                  <Delete />
+                  <IconTrash />
                 </NoteAction>
               </div>
             ) : (
@@ -308,41 +307,41 @@ const Note = ({
                 <div className='pin-note'>
                   <NoteAction
                     hover={noteHover}
-                    title={pinned ? 'Unpin note' : 'Pin note'}
+                    title={pinned ? 'Unpin' : 'Pin'}
                     onClick={togglePinned}
                   >
-                    <PushPin />
+                    <IconPin />
                   </NoteAction>
                 </div>
                 <div className='note-actions'>
                   <NoteAction
                     hover={noteHover}
-                    title='Paint note'
+                    title='Paint'
                     onClick={handleColorAction}
                   >
-                    <Palette />
+                    <IconPalette />
                   </NoteAction>
                   <NoteAction
                     hover={noteHover}
-                    title='Label note'
+                    title='Label'
                     onClick={handleLabelAction}
                   >
-                    <Label />
+                    <IconTags />
                   </NoteAction>
                   <NoteAction
                     hover={noteHover}
-                    title={archived ? 'Unarchive note' : 'Archive note'}
+                    title={archived ? 'Unarchive' : 'Archive'}
                     onClick={toggleArchived}
                   >
-                    {archived ? <Unarchive /> : <Archive />}
+                    {archived ? <IconArchiveOff /> : <IconArchive />}
                   </NoteAction>
 
                   <NoteAction
                     hover={noteHover}
-                    title='Delete note'
+                    title='Delete'
                     onClick={toggleDeleted}
                   >
-                    <Delete />
+                    <IconTrash />
                   </NoteAction>
                 </div>
               </>

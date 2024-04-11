@@ -1,6 +1,4 @@
-import { Check } from '@mui/icons-material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { IconButton } from '@mui/material';
+import { IconCheck, IconTrashX } from '@tabler/icons-react';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth';
@@ -8,7 +6,7 @@ import useFirebase from '../../../hooks/useFirebase';
 import './DrawerOption.css';
 
 interface DrawerOptionProps {
-  iconPath: string;
+  icon: React.ReactElement;
   editMode?: boolean;
   setEditMode?: React.Dispatch<React.SetStateAction<boolean>>;
   labelId?: string;
@@ -18,7 +16,7 @@ interface DrawerOptionProps {
 }
 
 const DrawerOption = ({
-  iconPath,
+  icon,
   editMode,
   setEditMode,
   labelId,
@@ -26,14 +24,11 @@ const DrawerOption = ({
   url,
   onClick,
 }: DrawerOptionProps) => {
-  // * States
   const [inputValue, setInputValue] = useState(labelName);
 
-  // * Hooks
   const { currentUser } = useAuth();
   const { deleteLabel, updateLabelName } = useFirebase(currentUser);
 
-  // * Handlers
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
@@ -57,17 +52,7 @@ const DrawerOption = ({
       <div className='drawer-option-edit-mode'>
         <div className='drawer-option-edit-labels'>
           <div onClick={handleRemove}>
-            <IconButton
-              sx={{
-                padding: '0.3rem',
-                backgroundColor: 'transparent',
-                '&:hover': {
-                  backgroundColor: '#ffffff1a',
-                },
-              }}
-            >
-              <DeleteIcon sx={{ color: '#dde6ed' }} />
-            </IconButton>
+            <IconTrashX color='#dde6ed' style={{ cursor: 'pointer' }} />
           </div>
           <input
             type='text'
@@ -75,19 +60,11 @@ const DrawerOption = ({
             onChange={handleChange}
             className='drawer-option-input'
           />
-
-          <IconButton
+          <IconCheck
+            color='#dde6ed'
+            style={{ cursor: 'pointer' }}
             onClick={handleUpdateLabel}
-            sx={{
-              padding: '0.3rem',
-              backgroundColor: 'transparent',
-              '&:hover': {
-                backgroundColor: '#ffffff1a',
-              },
-            }}
-          >
-            <Check sx={{ color: '#dde6ed' }} />
-          </IconButton>
+          />
         </div>
       </div>
     );
@@ -97,14 +74,14 @@ const DrawerOption = ({
     if (url) {
       return (
         <Link className='drawer-option' to={url} onClick={onClick}>
-          <img className='drawer-option-icon' src={iconPath} alt={labelName} />
+          {icon}
           <span>{labelName}</span>
         </Link>
       );
     } else {
       return (
         <div className='drawer-option' onClick={onClick}>
-          <img className='drawer-option-icon' src={iconPath} alt={labelName} />
+          {icon}
           <span>{labelName}</span>
         </div>
       );

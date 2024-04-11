@@ -1,4 +1,4 @@
-import FormatColorResetIcon from '@mui/icons-material/FormatColorReset';
+import { IconColorPickerOff } from '@tabler/icons-react';
 import Modal from '../../../../components/Styled/Modal.styled';
 import { useAuth } from '../../../../hooks/useAuth';
 import useFirebase from '../../../../hooks/useFirebase';
@@ -57,7 +57,7 @@ const ColorPicker = ({ isModalOpen, closeModalHandler }: ColorPickerProps) => {
                 colorNote(selectedNote.noteId, defaultColor)
               }
             >
-              <FormatColorResetIcon />
+              <IconColorPickerOff />
             </div>
             {colors.map((color, index) => (
               <div

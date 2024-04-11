@@ -1,7 +1,7 @@
-import LabelIcon from '@mui/icons-material/Label';
-import { CircularProgress } from '@mui/material';
+import { IconTag } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import CircularProgress from '../../components/CircularProgress/CircularProgress';
 import NotesList from '../../components/Notes/NoteList/NoteList';
 import SelectedNote from '../../components/Notes/SelectedNote/SelectedNote';
 import { useAuth } from '../../hooks/useAuth';
@@ -106,7 +106,7 @@ const LabeledNote = ({ gridView }: GridProps) => {
           }`}
         >
           <div className='labeled-notes-title'>
-            <LabelIcon sx={{ fontSize: '1.8rem', marginRight: '0.5rem' }} />
+            <IconTag size={28.8} style={{ marginRight: '0.5rem' }} />
             {label ? label.labelName : 'No label data'}
           </div>
         </div>

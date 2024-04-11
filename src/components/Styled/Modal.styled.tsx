@@ -1,5 +1,4 @@
-import { Close } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
+import { IconSquareX } from '@tabler/icons-react';
 import React from 'react';
 import styled from 'styled-components';
 import { useClickOutside } from '../../hooks/useClickOutside';
@@ -58,9 +57,7 @@ const Modal = ({ closeModalHandler, children, style }: ModalProps) => {
       <ModalContainer ref={domNode} style={style?.modalContainer}>
         {children}
         <CloseButton style={style?.closeButton} onClick={closeModalHandler}>
-          <IconButton>
-            <Close sx={{ ...style?.closeButtonIcon }} />
-          </IconButton>
+          <IconSquareX style={{ ...style?.closeButtonIcon }} />
         </CloseButton>
       </ModalContainer>
     </ModalOverlay>

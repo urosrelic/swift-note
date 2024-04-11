@@ -1,4 +1,4 @@
-import ArchiveIcon from '@mui/icons-material/Archive';
+import { IconArchive } from '@tabler/icons-react';
 import { useState } from 'react';
 import NotesList from '../../components/Notes/NoteList/NoteList';
 import SelectedNote from '../../components/Notes/SelectedNote/SelectedNote';
@@ -58,7 +58,7 @@ const Archived = ({ gridView }: GridProps) => {
           }`}
         >
           <div className='archived-notes-title'>
-            <ArchiveIcon sx={{ fontSize: '1.8rem', marginRight: '0.5rem' }} />
+            <IconArchive size={28.8} style={{ marginRight: '0.5rem' }} />
             Archived Notes
           </div>
         </div>
