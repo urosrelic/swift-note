@@ -1,5 +1,4 @@
-import { PushPin } from '@mui/icons-material';
-import DescriptionIcon from '@mui/icons-material/Description';
+import { IconNote, IconPin } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 import NotesList from '../../components/Notes/NoteList/NoteList';
 import SelectedNote from '../../components/Notes/SelectedNote/SelectedNote';
@@ -73,7 +72,7 @@ const Notes = ({ gridView }: GridProps) => {
           className={`notes-section ${gridView ? 'grid-view' : 'list-view'}`}
         >
           <div className='notes-section-title'>
-            <PushPin sx={{ fontSize: '1.8rem', marginRight: '0.5rem' }} />
+            <IconPin size={28.8} style={{ marginRight: '0.5rem' }} />
             Pinned Notes
           </div>
         </div>
@@ -97,9 +96,7 @@ const Notes = ({ gridView }: GridProps) => {
           className={`notes-section ${gridView ? 'grid-view' : 'list-view'}`}
         >
           <div className='notes-section-title'>
-            <DescriptionIcon
-              sx={{ fontSize: '1.8rem', marginRight: '0.5rem' }}
-            />
+            <IconNote size={28.8} style={{ marginRight: '0.5rem' }} />
             Other notes
           </div>
         </span>

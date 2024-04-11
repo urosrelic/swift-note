@@ -1,4 +1,4 @@
-import DeleteIcon from '@mui/icons-material/Delete';
+import { IconTrash } from '@tabler/icons-react';
 import { useState } from 'react';
 import NotesList from '../../components/Notes/NoteList/NoteList';
 import SelectedNote from '../../components/Notes/SelectedNote/SelectedNote';
@@ -62,7 +62,7 @@ const Deleted = ({ gridView }: GridProps) => {
           }`}
         >
           <div className='deleted-notes-title'>
-            <DeleteIcon sx={{ fontSize: '1.8rem', marginRight: '0.5rem' }} />
+            <IconTrash size={28.8} style={{ marginRight: '0.5rem' }} />
             Deleted notes
           </div>
           {deletedNotes.length > 0 && (
