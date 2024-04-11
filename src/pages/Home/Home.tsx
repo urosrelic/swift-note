@@ -133,9 +133,6 @@ const Home = ({ gridView, setGridView }: GridProps) => {
             modalContainer: {
               ...(modalContainerStyles as React.CSSProperties),
             },
-            closeButtonIcon: {
-              color: '#5d6470',
-            },
           }}
         >
           {openModal === 'add' && renderNoteModal()}
