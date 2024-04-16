@@ -51,9 +51,12 @@ const DrawerOption = ({
     return (
       <div className='drawer-option-edit-mode'>
         <div className='drawer-option-edit-labels'>
-          <div onClick={handleRemove}>
-            <IconTrashX color='#dde6ed' style={{ cursor: 'pointer' }} />
-          </div>
+          <IconTrashX
+            color='#dde6ed'
+            style={{ cursor: 'pointer' }}
+            onClick={handleRemove}
+          />
+
           <input
             type='text'
             value={inputValue}
