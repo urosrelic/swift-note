@@ -81,9 +81,11 @@
   background: none;
   border-radius: 5px;
   color: var(--secondary-color);
+  font-size: 1.01rem;
   border: 2px solid var(--secondary-color);
 }
 
 .drawer-add-new-label input ::placeholder {
+  font-size: 1.1rem;
   color: var(--secondary-color);
 }
