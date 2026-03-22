@@ -40,12 +40,18 @@
   flex-direction: column;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0s linear 0.3s, transform 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    visibility 0s linear 0.3s,
+    transform 0.3s ease;
 }
 
 .fab-options.open {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
-  transition: opacity 0.3s ease, visibility 0s linear, transform 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    visibility 0s linear,
+    transform 0.3s ease;
 }
